@@ -1,7 +1,9 @@
 package com.epam.lowcost.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Table(name = "PLANES")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -11,8 +11,8 @@ import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
-@RestController
-@RequestMapping(value = PLANE)
+@Controller
+//@RequestMapping(value = PLANE)
 public class PlaneController {
     private final PlaneService planeService;
 
@@ -21,16 +21,16 @@ public class PlaneController {
         this.planeService = planeService;
     }
 
-    //@GetMapping(value = ALL)
-    @RequestMapping(
-            value = ALL,
-            method = RequestMethod.GET)
+    @GetMapping(value = ALL)
+//    @RequestMapping(
+//            value = ALL,
+//            method = RequestMethod.GET)
     public String getAllPlanes(Model model) {
-        model.addAttribute("planes", planeService.());
+        model.addAttribute("planes", planeService.getAllPlanes());
         return "planes";
     }
 
-    @GetMapping
+    /*@GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("plane", planeService.getById(id));
         model.addAttribute("message", "Here is your Plane!");
@@ -73,5 +73,5 @@ public class PlaneController {
     public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
         return "planes";
-    }
+    }*/
 }
