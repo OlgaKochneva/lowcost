@@ -7,14 +7,22 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "PLANES")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Plane {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "MODEL")
     private String model;
+    @Column(name = "BUSINESS_PLACES_NUMBER")
     private int businessPlacesNumber;
+    @Column(name = "ECONOM_PLACES_NUMBER")
     private int economPlacesNumber;
-    private boolean isDeleted;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted;
 }
