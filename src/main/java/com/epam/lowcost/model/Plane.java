@@ -1,24 +1,24 @@
 package com.epam.lowcost.model;
 
+import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "PLANES")
 @Data
+@Builder
 public class Plane {
     @Id
-    private long id;
-    @Column(name = "model")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "MODEL")
     private String model;
-    @Column(name = "businessPlacesNumber")
+    @Column(name = "BUSINESS_PLACES_NUMBER")
     private int businessPlacesNumber;
-    @Column(name = "economPlacesNumber")
+    @Column(name = "ECONOM_PLACES_NUMBER")
     private int economPlacesNumber;
-    @Column(name = "isDeleted")
-    private boolean isDeleted;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted;
 }

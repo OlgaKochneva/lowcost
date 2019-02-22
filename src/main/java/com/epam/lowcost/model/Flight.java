@@ -1,5 +1,6 @@
 package com.epam.lowcost.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,38 +10,40 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "FLIGHTS")
 @Data
+@Builder
 public class Flight {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "planeId")
+    @JoinColumn(name = "PLANE_ID")
     private Plane plane;
 
-    @Column(name = "initialPrice")
+    @Column(name = "INITIAL_PRICE")
     private long initialPrice;
 
-    @Column(name = "departureDate")
+    @Column(name = "DEPARTURE_DATE")
     private LocalDateTime departureDate;
 
-    @Column(name = "arrivalDate")
+    @Column(name = "ARRIVAL_DATE")
     private LocalDateTime arrivalDate;
 
-    @Column(name = "departureAirport")
+    @Column(name = "DEPARTURE_AIRPORT")
     private String departureAirport;
 
-    @Column(name = "arrivalAirport")
+    @Column(name = "ARRIVAL_AIRPORT")
     private String arrivalAirport;
 
-    @Column(name = "isDeleted")
+    @Column(name = "IS_DELETED")
     private boolean isDeleted;
 
-    @Column(name = "placePriorityPrice")
+    @Column(name = "PLACE_PRIORITY_PRICE")
     private long placePriorityPrice;
 
-    @Column(name = "businessPrice")
+    @Column(name = "BUSINESS_PRICE")
     private long businessPrice;
 
-    @Column(name = "luggagePrice")
+    @Column(name = "LUGGAGE_PRICE")
     private long luggagePrice;
 }
