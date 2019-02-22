@@ -4,9 +4,11 @@ import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.repositories.TicketRepository;
 import com.epam.lowcost.services.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
 

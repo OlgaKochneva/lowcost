@@ -1,18 +1,14 @@
 package com.epam.lowcost.controller;
 
-import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.services.interfaces.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
-
-import static com.epam.lowcost.util.Endpoints.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping(value = PLANE)
+@RequestMapping("/planes")
 public class PlaneController {
     private final PlaneService planeService;
 
@@ -21,14 +17,17 @@ public class PlaneController {
         this.planeService = planeService;
     }
 
-    @GetMapping(value = ALL)
-//    @RequestMapping(
-//            value = ALL,
-//            method = RequestMethod.GET)
-    public String getAllPlanes(Model model) {
-        model.addAttribute("planes", planeService.getAllPlanes());
-        return "planes";
+    @GetMapping
+    public String getPlane(Model model) {
+        model.addAttribute("plane" ,planeService.getById(1));
+        return "index";
     }
+
+//    @GetMapping
+//    public String getAllPlanes(Model model) {
+//        model.addAttribute("plane", planeService.getAllPlanes());
+//        return "index";
+//    }
 
     /*@GetMapping
     public String getById(@RequestParam long id, Model model) {
