@@ -44,5 +44,6 @@ public final class Endpoints {
     public static final String CHANGE_PASSWORD = "/change-password";
 
 
+    public static final String LOGIN = "/login";
 }
 

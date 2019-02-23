@@ -19,7 +19,6 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public List<Plane> getAllPlanes() {
-        repository
         return (List<Plane>) repository.findAll();
     }
 
