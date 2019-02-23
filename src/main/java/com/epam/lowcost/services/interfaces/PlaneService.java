@@ -13,5 +13,5 @@ public interface PlaneService {
 
     Plane updatePlane(Plane plane);
 
-    String deletePlane(long planeId);
+    void deletePlane(long planeId);
 }
