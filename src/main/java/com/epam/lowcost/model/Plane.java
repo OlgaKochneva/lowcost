@@ -19,19 +19,11 @@ public class Plane {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "MODEL")
-    @NonNull
     private String model;
 
-    @Column(name = "BUSINESS_PLACES_NUMBER")
-    @NonNull
     private int businessPlacesNumber;
 
-    @Column(name = "ECONOM_PLACES_NUMBER")
-    @NonNull
     private int economPlacesNumber;
 
-    @Column(name = "IS_DELETED")
-    @NonNull
     private Boolean isDeleted;
 }

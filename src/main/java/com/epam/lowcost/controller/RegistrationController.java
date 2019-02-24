@@ -23,18 +23,18 @@ public class RegistrationController {
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.GET)
     public String showRegistrationPage() {
-        return "registration";
+        return "registrationPage";
     }
 
     @RequestMapping(value = REGISTRATION, method = RequestMethod.POST)
     public String processRegistration(@RequestParam Map<String, String> params, Model model) {
-        String response = "login";
+        String response = "loginPage";
         if (userService.addUser(params)) {
             model.addAttribute("message", "Successfully registered. Please Log in.");
         } else {
             model.addAttribute("message", "User with this email already existed.");
-            response = "registration";
+            response = "registrationPage";
         }
-        return "login";
+        return "loginPage";
     }
 }

@@ -11,16 +11,16 @@ import static com.epam.lowcost.util.Endpoints.*;
 public class LoginController {
 
     public String showRegistrationPage() {
-        return "login";
+        return "loginPage";
     }
 
     @RequestMapping(value = LOGIN, method = RequestMethod.POST)
     public String enter() {
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainPage() {
         return "index";
     }
