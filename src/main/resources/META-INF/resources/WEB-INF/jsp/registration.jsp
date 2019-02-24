@@ -16,14 +16,15 @@
 <form action="<%=Endpoints.REGISTRATION%>" method="post">
     <input type="email" name="email"/>
     <input type="password" name="password"/>
-    <input type="hidden" name="isAdmin" value="false"/>
     <input type="text" name="firstName"/>
     <input type="text" name="lastName"/>
     <input type="text" name="documentInfo"/>
     <input type="datetime-local" name="birthday"/>
-    <input type="hidden" name="isDeleted" value="false"/>
-    <input type="hidden" name="_csrf.parameterName" value="${_csrf.token}"/>
     <input type="submit" value="signIn"/>
+</form>
+
+<form action=/logout method="post">
+    <input type="submit" value="Sign Out"/>
 </form>
 
 

@@ -2,10 +2,14 @@ package com.epam.lowcost.model;
 
 import lombok.*;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -13,41 +17,45 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
     private Long id;
-
-    @Column(name = "EMAIL")
-    @NonNull
-    private String email;
-
-    @Column(name = "PASSWORD")
-    @NonNull
+    private String username;
     private String password;
+    private boolean active;
 
-    @Column(name = "IS_ADMIN")
-    @NonNull
-    private boolean isAdmin;
-
-    @Column(name = "FIRST_NAME")
-    @NonNull
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
     private String firstName;
-
-    @Column(name = "LAST_NAME")
-    @NonNull
     private String lastName;
-
-    @Column(name = "DOCUMENT_INFO")
-    @NonNull
     private String documentInfo;
-
-    @Column(name = "BIRTHDAY")
-    @NonNull
     private LocalDateTime birthday;
 
-    @Column(name = "IS_DELETED")
-    @NonNull
-    private boolean isDeleted;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
 }

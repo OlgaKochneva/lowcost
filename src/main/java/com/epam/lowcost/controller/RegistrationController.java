@@ -35,6 +35,6 @@ public class RegistrationController {
             model.addAttribute("message", "User with this email already existed.");
             response = "registration";
         }
-        return response;
+        return "login";
     }
 }

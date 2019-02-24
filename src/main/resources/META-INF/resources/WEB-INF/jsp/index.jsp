@@ -12,8 +12,10 @@
 <head>
 </head>
 
-
+<h3>Main page</h3>
+<form action=/logout method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <body>
-${plane}
 </body>
 </html>
