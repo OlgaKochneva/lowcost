@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -31,9 +29,13 @@ public class Flight {
 
     private LocalDateTime arrivalDate;
 
-    private String departureAirport;
+    @ManyToOne
+    @JoinColumn(name = "DEPARTURE_AIRPORT")
+    private Airport departureAirport;
 
-    private String arrivalAirport;
+    @ManyToOne
+    @JoinColumn(name = "ARRIVAL_AIRPORT")
+    private Airport arrivalAirport;
 
     private boolean isDeleted;
 

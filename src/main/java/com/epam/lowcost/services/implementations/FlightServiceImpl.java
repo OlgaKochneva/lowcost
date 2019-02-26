@@ -20,12 +20,12 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> getAllFlights() {
-        return null;
+        return flightRepository.getAllByIsDeletedFalse();
     }
 
     @Override
     public Flight getById(Long id) {
-        return null;
+        return flightRepository.getById(id);
     }
 
     @Override
