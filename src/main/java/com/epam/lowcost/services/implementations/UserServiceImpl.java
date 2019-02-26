@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         roles.add(Role.ROLE_USER);
         User user = User.builder()
                 .username(params.get("email"))
-//                .password(bCryptPasswordEncoder.encode(params.get("password")))
+                .password(params.get("password"))
                 .active(true)
                 .roles(roles)
                 .firstName(params.get("firstName"))
