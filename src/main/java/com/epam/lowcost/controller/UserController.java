@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/userawd")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class UserController {
     @GetMapping

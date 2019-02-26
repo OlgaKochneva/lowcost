@@ -23,7 +23,7 @@
     <div class="topnav">
         <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>
 
-        <sec:authorize access="hasRole('ROLE_ADMIN')"> |<a href="<%=Endpoints.USER + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> |<a href="/admin/users" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE + Endpoints.ALL %>" class="navbarLink"> <spring:message code="lang.planes" /></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
