@@ -1,5 +1,6 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<html xmlns:th="http://www.thymeleaf.org">
 <%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
@@ -10,6 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
     <base href="/">
     <title><spring:message code="lang.login" text="Login"/></title>
     <spring:url value="/resources/static/css/login.css" var="login_css" />
@@ -25,7 +27,7 @@
 
     <br/>
     <div class="main_block">
-        <p class="greeting"><spring:message code="lang.loginIntroduction" text="Enter login and password!"/></p>
+        <p class="greeting"><spring:message code="lang.loginIntroduction"/></p>
         <p class="message">${message}</p>
         <form action="/login" method="post">
             <input type="text" name="username" class="form-control input" placeholder="<spring:message code="lang.login" text="Login" />"/>
