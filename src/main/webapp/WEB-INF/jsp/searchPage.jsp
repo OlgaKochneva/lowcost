@@ -110,7 +110,7 @@
     <td>
         <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>" method="get">
             <input type="hidden" name="id" value="${flight.id}"/>
-            <input type="submit" value="<spring:message code="lang.buy"/>" class="btn btn-outline-primary"/>
+            <input type="submit" value="<spring:message code="lang.buy" text="Buy"/>" class="btn btn-outline-primary"/>
 
         </form>
     </td>
