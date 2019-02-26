@@ -7,20 +7,20 @@ import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
-        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
         this.userRepository = userRepository;
     }
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         roles.add(Role.ROLE_USER);
         User user = User.builder()
                 .username(params.get("email"))
-//                .password(bCryptPasswordEncoder.encode(params.get("password")))
+                .password(params.get("password"))
                 .active(true)
                 .roles(roles)
                 .firstName(params.get("firstName"))
