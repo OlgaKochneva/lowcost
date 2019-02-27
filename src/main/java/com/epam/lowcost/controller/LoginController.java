@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
-@RequestMapping(value = LOGIN)
 public class LoginController {
 
+    @RequestMapping(value = LOGIN, method = RequestMethod.GET)
     public String showRegistrationPage() {
         return "loginPage";
     }
