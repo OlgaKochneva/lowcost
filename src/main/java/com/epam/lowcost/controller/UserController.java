@@ -4,6 +4,7 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,8 +24,15 @@ import static com.epam.lowcost.util.Endpoints.*;
 @SessionAttributes(value = "sessionUser")
 public class UserController {
 
+
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    UserService userService;
+    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @RequestMapping(value = USER, method = RequestMethod.GET)
     public String mainPage(ModelMap model) {
@@ -72,7 +80,7 @@ public class UserController {
     public String changePassword(@RequestParam Map<String, String> params, Model model) {
         User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
 
-        if (!userToUpdate.getPassword().equals(params.get("oldPassword"))) {
+        if (!bCryptPasswordEncoder.matches(params.get("oldPassword"),userToUpdate.getPassword())) {
             model.addAttribute("message", "Wrong password!");
             return "redirect:" + USER_SETTINGS;
         }
@@ -80,7 +88,7 @@ public class UserController {
             model.addAttribute("message", "Passwords do not match!");
             return "redirect:" + USER_SETTINGS;
         }
-        userToUpdate.setPassword(params.get("newPassword"));
+        userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("newPassword")));
         userService.updateUser(userToUpdate);
         return "redirect:" + USER_SETTINGS;
     }
