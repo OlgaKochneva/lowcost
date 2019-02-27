@@ -3,25 +3,24 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes(value = "sessionUser")
+@SessionAttributes({"sessionUser", "number"})
 public class UserController {
 
 
@@ -34,10 +33,28 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @RequestMapping(value = USER, method = RequestMethod.GET)
-    public String mainPage(ModelMap model) {
-        model.addAttribute("users", userService.getAllUsers());
+    @RequestMapping(value = USER + "/{pageId}", method = RequestMethod.GET)
+    public String mainPage(@PathVariable int pageId, ModelMap model) {
+        if (pageId <= 0) {
+            pageId = 1;
+        }
+        int usersOnPage = (int) model.getOrDefault("number",DEFAULT_NUMBER_OF_USERS_ON_PAGE);
+
+
+        Page<User> allUsers = userService.getAllUsers(pageId, usersOnPage);
+        if (pageId >= allUsers.getTotalPages()) {
+            pageId = allUsers.getTotalPages()-1;
+        }
+        model.addAttribute("pageId",pageId);
+        model.addAttribute("pagesNum",String.valueOf(allUsers.getTotalPages()));
+        model.addAttribute("users", allUsers.getContent());
         return USERS_PAGE;
+    }
+
+    @RequestMapping(value = PAGE, method = RequestMethod.GET)
+    public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
+        model.addAttribute("number", Integer.parseInt(number));
+        return "redirect:" + fromPage + FIRST_PAGE;
     }
 
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
@@ -58,7 +75,7 @@ public class UserController {
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)
     public String settings(ModelMap model) {
 
-        model.addAttribute("sessionUser",userService.getSessionUser());
+        model.addAttribute("sessionUser", userService.getSessionUser());
 
         return SETTINGS_PAGE;
     }
@@ -80,7 +97,7 @@ public class UserController {
     public String changePassword(@RequestParam Map<String, String> params, Model model) {
         User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
 
-        if (!bCryptPasswordEncoder.matches(params.get("oldPassword"),userToUpdate.getPassword())) {
+        if (!bCryptPasswordEncoder.matches(params.get("oldPassword"), userToUpdate.getPassword())) {
             model.addAttribute("message", "Wrong password!");
             return "redirect:" + USER_SETTINGS;
         }

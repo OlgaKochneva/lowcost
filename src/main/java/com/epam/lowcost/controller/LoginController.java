@@ -53,7 +53,7 @@ public class LoginController {
     @GetMapping(LOGIN)
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Your username and password is invalid or you have been banned!.");
         }
 
         if (logout != null) {

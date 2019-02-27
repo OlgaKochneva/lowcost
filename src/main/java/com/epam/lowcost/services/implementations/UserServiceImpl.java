@@ -5,16 +5,22 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.repositories.UserRepository;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -30,14 +36,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getSessionUser(){
+    public User getSessionUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return this.findByUsername(auth.getName());
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Page<User> getAllUsers(Integer pageId, int usersOnPage) {
+        Pageable pageWithTwoElements = PageRequest.of(pageId - 1, usersOnPage, Sort.Direction.ASC, "id");
+        return userRepository.findAll(pageWithTwoElements);
     }
 
     @Override
@@ -48,7 +55,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<Role>(){{add(Role.ROLE_USER);}});
+        user.setRoles(new HashSet<Role>() {{
+            add(Role.ROLE_USER);
+        }});
         userRepository.save(user);
     }
 
@@ -64,6 +73,7 @@ public class UserServiceImpl implements UserService{
         userRepository.save(userToBlock);
         return "User blocked successfully";
     }
+
     @Override
     public String unblockUser(long userId) {
         User userToBlock = userRepository.findById(userId);

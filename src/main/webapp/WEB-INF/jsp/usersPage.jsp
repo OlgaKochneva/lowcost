@@ -3,8 +3,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--@elvariable id="users" type="com.epam.lowcost.model.User"--%>
+<%--@elvariable id="sessionUser" type="com.epam.lowcost.model.User"--%>
+
 <html>
 <head>
+
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.users"/></title>
     <spring:url value="/resources/static/css/main.css" var="main_css"/>
@@ -30,24 +35,24 @@
         </div>
         <div class="col-md-2 numOfUsers">
             <form></form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
+            <form action="<%=Endpoints.PAGE%>" method="get">
                 <input type="hidden" name="number" value="3"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
+                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
                 <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
             </form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
+            <form action="<%=Endpoints.PAGE%>" method="get">
                 <input type="hidden" name="number" value="5"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
+                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
                 <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
             </form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
+            <form action="<%=Endpoints.PAGE%>" method="get">
                 <input type="hidden" name="number" value="10"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
+                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
                 <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
             </form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
+            <form action="<%=Endpoints.PAGE%>" method="get">
                 <input type="hidden" name="number" value="20"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
+                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
                 <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
             </form>
         </div>
@@ -80,6 +85,8 @@
 
 
                         <td>
+
+                            <c:if test="${sessionUser.username != user.username}">
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <c:if test="${user.active}">
                                 <form action="/block-user" method="post">
@@ -97,6 +104,7 @@
                                     </form>
                                 </c:if>
                             </sec:authorize>
+                            </c:if>
 
                         </td>
                     </tr>
@@ -105,19 +113,20 @@
 
             </table>
 
-            <form action="<%=Endpoints.USER + Endpoints.ALL%>/${pageId-1}">
+            <form action="<%=Endpoints.USER%>/${pageId-1}">
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.USER + Endpoints.ALL%>/${page}">
+                <form action="<%=Endpoints.USER%>/${page}">
 
                     <input type="submit" class="btn btn-link paginationBtn" value="${page}">
 
                 </form>
             </c:forEach>
-            <form action="<%=Endpoints.USER + Endpoints.ALL%>/${pageId+1}">
+            <form action="<%=Endpoints.USER%>/${pageId+1}">
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
             </form>
+           <c:out value="${pageScope.get(pagesNum)}"/>
 
         </div>
     </div>

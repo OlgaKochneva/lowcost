@@ -1,13 +1,12 @@
 package com.epam.lowcost.services.interfaces;
 
 import com.epam.lowcost.model.User;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
     User findByUsername(String username);
 
-    List<User> getAllUsers();
+    Page<User> getAllUsers(Integer pageId, int usersOnPage);
 
     User getById(long userId);
 
