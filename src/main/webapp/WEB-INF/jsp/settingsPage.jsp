@@ -31,22 +31,22 @@
     <div class="row">
         <div class="col-md-3 changeData">
             <form action="/update-user" method="post">
-                <input type="hidden" name="id" value="${userToUpdate.id}"/>
+                <input type="hidden" name="id" value="${sessionUser.id}"/>
 
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
-                                                                   value="${userToUpdate.username}"
+                                                                   value="${sessionUser.username}"
                                                                    name="username"/>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
-                                                                       value="${userToUpdate.firstName}"/>
+                                                                       value="${sessionUser.firstName}"/>
                 <spring:message code="lang.newLastName"/><br/><input type="text" class="form-control input"
                                                                      name="lastName"
-                                                                     value="${userToUpdate.lastName}"/>
+                                                                     value="${sessionUser.lastName}"/>
                 <spring:message code="lang.newDocument"/> <br/><input type="text" class="form-control input"
                                                                       name="documentInfo"
-                                                                      value="${userToUpdate.documentInfo}"/>
+                                                                      value="${sessionUser.documentInfo}"/>
                 <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input"
-                                                                      name="birthday" value="${userToUpdate.birthday}"/>
+                                                                      name="birthday" value="${sessionUser.birthday}"/>
 
 
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="ОК"/>
@@ -63,8 +63,11 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
+            <h5>${message}</h5>
 
-            <form action="<%=Endpoints.USER + Endpoints.CHANGE_PASSWORD%>" method="post">
+            <form action="/change-password" method="post">
+                <input type="hidden" name="id" value="${sessionUser.id}"/>
+
                 <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input"
                                                                       type="password" name="oldPassword">
                 <spring:message code="lang.newPassword"/><br/><input required class="form-control input" type="password"

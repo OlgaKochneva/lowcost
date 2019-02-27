@@ -5,6 +5,8 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.repositories.UserRepository;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +27,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User getSessionUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return this.findByUsername(auth.getName());
     }
 
     @Override

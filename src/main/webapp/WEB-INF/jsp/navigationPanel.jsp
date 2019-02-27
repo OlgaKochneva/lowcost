@@ -17,7 +17,7 @@
 
 </div>
     <div align="right" class="language" >
-    <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser}  |</a>
+    <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName}  |</a>
     <a href="<%=Endpoints.LOG_OUT%>"><spring:message code="lang.logOut"/></a>
     </div>
     <div class="topnav">

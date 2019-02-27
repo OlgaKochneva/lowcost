@@ -4,14 +4,13 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -19,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-
+@SessionAttributes(value = "sessionUser")
 public class UserController {
 
     @Autowired
@@ -47,11 +46,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/settings", method = RequestMethod.GET)
-    public String settings(ModelMap modelMap) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public String settings(ModelMap model) {
 
-        User userToUpdate = userService.findByUsername(auth.getName());
-        modelMap.addAttribute("userToUpdate", userToUpdate);
+        model.addAttribute("sessionUser",userService.getSessionUser());
 
         return "settingsPage";
     }
@@ -66,9 +63,24 @@ public class UserController {
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
         userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
         userService.updateUser(userToUpdate);
-        return "settingsPage";
+        return "redirect:/user/settings";
+    }
 
+    @RequestMapping(value = "/change-password")
+    public String changePassword(@RequestParam Map<String, String> params, Model model) {
+        User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
 
+        if (!userToUpdate.getPassword().equals(params.get("oldPassword"))) {
+            model.addAttribute("message", "Wrong password!");
+            return "redirect:/user/settings";
+        }
+        if (!params.get("newPassword").equals(params.get("newPassword2"))) {
+            model.addAttribute("message", "Passwords do not match!");
+            return "redirect:/user/settings";
+        }
+        userToUpdate.setPassword(params.get("newPassword"));
+        userService.updateUser(userToUpdate);
+        return "redirect:/user/settings";
     }
 
 }

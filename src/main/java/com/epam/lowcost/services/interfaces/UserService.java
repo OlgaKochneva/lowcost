@@ -22,4 +22,5 @@ public interface UserService {
 
     User verifyUser(String log, String pass);
 
+    public User getSessionUser();
 }
