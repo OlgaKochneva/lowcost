@@ -17,13 +17,16 @@
 
 </div>
     <div align="right" class="language" >
-    <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName}  |</a>
-    <a href="<%=Endpoints.LOG_OUT%>"><spring:message code="lang.logOut"/></a>
+    <a href="<%=Endpoints.USER_SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName}  |</a>
+
+    <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>"><spring:message code="lang.logIn"/></c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>"><spring:message code="lang.logOut"/></c:if>
+
     </div>
     <div class="topnav">
         <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>
 
-        <sec:authorize access="hasRole('ROLE_ADMIN')"> |<a href="/users" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> |<a href="<%=Endpoints.USER%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE + Endpoints.ALL %>" class="navbarLink"> <spring:message code="lang.planes" /></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>

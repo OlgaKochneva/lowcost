@@ -1,5 +1,5 @@
 insert into users(id, username, password, active, first_name, last_name, document_info, birthday)
-values (1, 'EMAIL@MAIL.COM', 'PASSWORD', true, 'admin', 'admin', '1221', '2000-06-05T00:00:00'),
+values (1, 'EMAIL@MAIL.COM', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'admin', 'admin', '1221', '2000-06-05T00:00:00'),
        (2, 'ExampleEmail2@google.com', 'ExamplePassword2', true, 'user', 'user', '1221', '2000-06-05T00:00:00');
 
 insert into user_role (user_id, roles)

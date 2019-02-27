@@ -45,7 +45,7 @@
                 <spring:message code="lang.newDocument"/> <br/><input type="text" class="form-control input"
                                                                       name="documentInfo"
                                                                       value="${sessionUser.documentInfo}"/>
-                <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input"
+                <spring:message code="lang.newDateBirth"/><br/><input required type="date" class="form-control input"
                                                                       name="birthday" value="${sessionUser.birthday}"/>
 
 
