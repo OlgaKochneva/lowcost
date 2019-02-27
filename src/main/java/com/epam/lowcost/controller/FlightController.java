@@ -10,6 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Map;
+
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
@@ -89,21 +93,25 @@ public class FlightController {
     }
 
 
-//    @GetMapping(value = SEARCH)
-//    public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
-//        if (params.get("departureDateTo").equals(""))
-//            params.put(("departureDateTo"), params.get("departureDateFrom"));
-//        model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
-//                (params.get("departureAirport"), params.get("arrivalAirport"),
-//                        LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
-//                        LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
-//        model.addAttribute("airports", airportService.getAllAirports());
-//        if (params.get("adminPage").equals("true")) {
-//            return FLIGHTSPAGE;
-//        }
-//        return SEARCHPAGE;
-//
-//    }
+    @GetMapping(value = SEARCH)
+    public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
+        LocalDateTime departureDateTo;
+        if (params.get("departureDateTo").equals(""))
+            departureDateTo =LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1) ;
+        else departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay();
+
+        model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
+                (airportService.getAirportByCode(params.get("departureAirport")),
+                        airportService.getAirportByCode(params.get("arrivalAirport")),
+                        LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
+                        departureDateTo));
+        model.addAttribute("airports", airportService.getAllAirports());
+        if (params.get("adminPage").equals("true")) {
+            return FLIGHTSPAGE;
+        }
+        return SEARCHPAGE;
+
+    }
 
 
 }

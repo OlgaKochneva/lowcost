@@ -63,13 +63,20 @@ public class FlightServiceImpl implements FlightService {
 
     }
 
-//    @Override
-//    public List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime
-//            departureDateFrom, LocalDateTime departureDateTo) {
-//        return flightRepository.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
-//    }
+    @Override
+    public List<Flight> getByFromToDate(Airport departureAirport, Airport arrivalAirport, LocalDateTime
+            departureDateFrom, LocalDateTime departureDateTo) {
+        return flightRepository.getAllByDepartureAirportAndArrivalAirportAndDepartureDateBetween(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
+    }
 
-
+    @Override
+    public List<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
+        List<Flight> flights = getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
+        flights.forEach(f -> updateFlightPrice(f));
+        flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
+        flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
+        return flights;
+    }
     private long calculateInitialFlightPriceByDate(long daysBetween, long minPrice) {
         long daysNumber = 60;//min number of days for price rising
         long price;

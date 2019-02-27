@@ -1,5 +1,6 @@
 package com.epam.lowcost.services.interfaces;
 
+import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
 
 import java.time.LocalDateTime;
@@ -17,8 +18,10 @@ public interface FlightService {
 
     Flight deleteFlight(Long id);
 
-//    List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
-//}
+    List<Flight> getByFromToDate(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
+
+
+    List<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo);
 
     List<Flight> getAllFlightsWithUpdatedPrice();
 
