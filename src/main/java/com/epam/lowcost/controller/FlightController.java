@@ -93,7 +93,7 @@ public class FlightController {
     }
 
 
-    @GetMapping(value = SEARCH)
+    @RequestMapping(value = SEARCH, method = RequestMethod.GET)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         LocalDateTime departureDateTo;
         if (params.get("departureDateTo").equals(""))
