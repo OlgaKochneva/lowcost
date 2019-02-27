@@ -69,7 +69,7 @@ public class LoginController {
 
     @GetMapping("/")
     public String welcome(Model model) {
-
+        model.addAttribute("sessionUser", userService.getSessionUser());
         return SEARCH_PAGE;
     }
 

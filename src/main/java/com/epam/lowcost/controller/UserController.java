@@ -63,13 +63,13 @@ public class UserController {
             return "redirect:" + USER;
         }
         userService.blockUser(id);
-        return "redirect:" + USER;
+        return "redirect:" + USER + FIRST_PAGE;
     }
 
     @RequestMapping(value = UNBLOCK_USER, method = RequestMethod.POST)
     public String unblockUser(@RequestParam long id, ModelMap model) {
         userService.unblockUser(id);
-        return "redirect:" + USER;
+        return "redirect:" + USER + FIRST_PAGE;
     }
 
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)

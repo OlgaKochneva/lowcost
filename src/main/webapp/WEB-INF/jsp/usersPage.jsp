@@ -86,12 +86,12 @@
 
                         <td>
 
-                            <c:if test="${sessionUser.username != user.username}">
+                            <c:if test="${sessionUser.id != user.id}">
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                                     <c:if test="${user.active}">
                                         <form action="/block-user" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
-                                            <input type="submit" value="<spring:message code="lang.deleteUser"/>"
+                                            <input type="submit" value="<spring:message code="lang.blockUser"/>"
                                                    class="btn btn-danger deletePlaneBtn"/>
                                         </form>
 
