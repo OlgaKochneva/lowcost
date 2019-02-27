@@ -30,12 +30,12 @@
     </div>
     <div class="row">
         <div class="col-md-3 changeData">
-            <form action="<%=Endpoints.USER + Endpoints.UPDATE%>" method="post">
+            <form action="/update-user" method="post">
                 <input type="hidden" name="id" value="${userToUpdate.id}"/>
 
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
                                                                    value="${userToUpdate.username}"
-                                                                   name="email"/>
+                                                                   name="username"/>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
                                                                        value="${userToUpdate.firstName}"/>

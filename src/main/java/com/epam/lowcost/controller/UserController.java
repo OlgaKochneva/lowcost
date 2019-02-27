@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Map;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -49,10 +51,24 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         User userToUpdate = userService.findByUsername(auth.getName());
-        System.out.println(userToUpdate);
-        modelMap.addAttribute("userToUpdate",userToUpdate);
+        modelMap.addAttribute("userToUpdate", userToUpdate);
 
         return "settingsPage";
+    }
+
+    @RequestMapping(value = "/update-user")
+    public String updateUser(@RequestParam Map<String, String> params, ModelMap model) {
+
+        User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
+        userToUpdate.setUsername(params.get("username"));
+        userToUpdate.setFirstName(params.get("firstName"));
+        userToUpdate.setLastName(params.get("lastName"));
+        userToUpdate.setDocumentInfo(params.get("documentInfo"));
+        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
+        userService.updateUser(userToUpdate);
+        return "settingsPage";
+
+
     }
 
 }
