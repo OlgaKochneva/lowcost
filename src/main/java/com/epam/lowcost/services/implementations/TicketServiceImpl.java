@@ -48,8 +48,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public long numberBoughtPlacesForEachClass(long flightId) {
-        return 0;
+    public long numberBoughtPlacesForEachClass(long flightId, boolean isBusiness) {
+        return ticketRepository.countAllByFlight_IdAndIsBusinessAndIsDeleted(flightId, isBusiness, false);
     }
 
     @Override

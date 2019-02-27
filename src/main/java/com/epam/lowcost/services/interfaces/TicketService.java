@@ -13,7 +13,7 @@ public interface TicketService {
 
     String deleteTicketById(long id);
 
-    long numberBoughtPlacesForEachClass(long flightId);
+    long numberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
 
     String deleteTicketsByFlightId(long id);
 
