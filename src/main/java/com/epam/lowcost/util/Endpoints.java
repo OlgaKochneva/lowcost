@@ -23,10 +23,8 @@ public final class Endpoints {
 
 //  Login Controller endpoints
 
-    public static final String ENTRY = "/entry";
-    public static final String ADMIN_PANEL = "/admin-panel";
     public static final String REGISTRATION = "/registration";
-    public static final String LOG_OUT = "/log-out";
+    public static final String LOGOUT = "/logout";
 
 //  Plane Controller endpoints
 
@@ -42,31 +40,29 @@ public final class Endpoints {
 //  User Controller endpoints
 
     public static final String USER = "/user";
-    public static final String ENROLL = "/enroll";
-    public static final String SETTINGS = "/settings";
     public static final String CHANGE_PASSWORD = "/change-password";
-    public static final String FIRST_PAGE = "/1";
-    public static final String CHANGE_PERSONAL_DATA = "/change-personal-data";
 
     // View endpoints
-    public static final String ADDFLIGHT = "addFlight";
-    public static final String ADMIN = "admin";
     public static final String BUY = "buy";
-    public static final String FLIGHTSPAGE = "flightsPage";
-    public static final String FLIGHTSETTINGS = "flightSettings";
+    public static final String FLIGHT_SPAGE = "flightsPage";
+    public static final String FLIGHT_SETTINGS = "flightSettings";
     public static final String LOGIN = "/login";
-    public static final String PLANESPAGE = "planesPage";
-    public static final String REGISTRATIONPAGE = "registrationPage";
-    public static final String SEARCHPAGE = "searchPage";
-    public static final String SETTINGSPAGE = "settingsPage";
-    public static final String TICKETSPAGE = "ticketsPage";
-    public static final String USERPAGE = "userPage";
-    public static final String USERSPAGE = "usersPage";
-    public static final String AIRPORTSPAGE = "airportsPage";
-    public static final String PLANESSETTINGS="planesSettings";
-    public static final String ADDPLANE="addPlane";
+    public static final String PLANES_PAGE = "planesPage";
+    public static final String REGISTRATION_PAGE = "registrationPage";
+    public static final String SEARCH_PAGE = "searchPage";
+    public static final String SETTINGS_PAGE = "settingsPage";
+    public static final String TICKETS_PAGE = "ticketsPage";
+    public static final String USER_PAGE = "userPage";
+    public static final String USERS_PAGE = "usersPage";
+    public static final String AIRPORTS_PAGE = "airportsPage";
+    public static final String PLANE_SSETTINGS = "planesSettings";
 
     //  Airport Controller endpoints
     public static final String AIRPORT = "/airport";
+    public static final String USER_SETTINGS = "/user-settings";
+    public static final String BLOCK_USER = "/block-user";
+    public static final String UNBLOCK_USER = "/unblock-user";
+    public static final String UPDATE_USER = "/update-user";
+    public static final String LOGIN_PAGE = "loginPage";
 }
 
