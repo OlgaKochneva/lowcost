@@ -21,20 +21,18 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class FlightServiceImpl implements FlightService {
     private final FlightRepository flightRepository;
-    //        private final TicketService ticketService;
+    private final TicketService ticketService;
     private PlaneService planeService;
     public AirportService airportService;
 
     @Autowired
-    public FlightServiceImpl(FlightRepository flightRepository, PlaneService planeService, AirportService airportService) {
+    public FlightServiceImpl(FlightRepository flightRepository, PlaneService planeService, AirportService airportService, TicketService ticketService) {
         this.flightRepository = flightRepository;
         this.planeService = planeService;
         this.airportService = airportService;
-    }
+        this.ticketService = ticketService;
 
-//    public void setTicketService(TicketService ticketService) {
-//        this.ticketService = ticketService;
-//    }
+    }
 
     @Override
     public List<Flight> getAllFlights() {
@@ -84,43 +82,61 @@ public class FlightServiceImpl implements FlightService {
         return price;
     }
 
-//    private void updateFlightPrice(Flight flight) {
-//        LocalDateTime dateAfter = flight.getDepartureDate();
-//        LocalDateTime dateBefore = LocalDateTime.now();
-//        long daysBetween = DAYS.between(dateBefore, dateAfter);
-//        long minPrice = flight.getInitialPrice();
-//        long decreaseBusinessPlacesIncreasePrice = 0;
-//        long decreaseEconomyPlacesIncreasePrice = 0;
-//        long decreaseDaysBetweenIncreasePrice = calculateInitialFlightPriceByDate(daysBetween, minPrice);
-//        // if number of free business places less than quarter of plane business places capacity
-//        // price rises on quarter of min price
-//        double priceChangecoefficientForBusinessPlaces = 4.0;
-//        double priceChangecoefficientForEconomyPlaces = 10.0;
-//        if (getNumberOfFreeBusinessPlaces(flight) < flight.getPlane().getBusinessPlacesNumber() / priceChangecoefficientForBusinessPlaces) {
-//            decreaseBusinessPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForBusinessPlaces);
-//        }
-//        // the same with economy places, but coefficient = 10
-//        if (getNumberOfFreeEconomyPlaces(flight) < flight.getPlane().getEconomPlacesNumber() / priceChangecoefficientForEconomyPlaces) {
-//            decreaseEconomyPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForEconomyPlaces);
-//        }
-//
-//        flight.setInitialPrice(decreaseBusinessPlacesIncreasePrice +
-//                decreaseDaysBetweenIncreasePrice + decreaseEconomyPlacesIncreasePrice);
-//
-//    }
+    @Override
+    public List <Flight> getAllFlightsWithUpdatedPrice() {
 
-//    private int getNumberOfFreeBusinessPlaces(Flight flight) {
-//        int totalNumber = flight.getPlane().getBusinessPlacesNumber();
-//        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), true);
-//        return totalNumber - holdPlaces;
-//    }
-//
-//
-//    private int getNumberOfFreeEconomyPlaces(Flight flight) {
-//        int totalNumber = flight.getPlane().getEconomPlacesNumber();
-//        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), false);
-//        return totalNumber - holdPlaces;
-//    }
+        List<Flight> flights = getAllFlights();
+        flights.forEach(this::updateFlightPrice);
+        flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
+        flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
+        return flights;
+    }
+
+    private void updateFlightPrice(Flight flight) {
+        LocalDateTime dateAfter = flight.getDepartureDate();
+        LocalDateTime dateBefore = LocalDateTime.now();
+        long daysBetween = DAYS.between(dateBefore, dateAfter);
+        long minPrice = flight.getInitialPrice();
+        long decreaseBusinessPlacesIncreasePrice = 0;
+        long decreaseEconomyPlacesIncreasePrice = 0;
+        long decreaseDaysBetweenIncreasePrice = calculateInitialFlightPriceByDate(daysBetween, minPrice);
+        // if number of free business places less than quarter of plane business places capacity
+        // price rises on quarter of min price
+        double priceChangecoefficientForBusinessPlaces = 4.0;
+        double priceChangecoefficientForEconomyPlaces = 10.0;
+        if (getNumberOfFreeBusinessPlaces(flight) < flight.getPlane().getBusinessPlacesNumber() / priceChangecoefficientForBusinessPlaces) {
+            decreaseBusinessPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForBusinessPlaces);
+        }
+        // the same with economy places, but coefficient = 10
+        if (getNumberOfFreeEconomyPlaces(flight) < flight.getPlane().getEconomPlacesNumber() / priceChangecoefficientForEconomyPlaces) {
+            decreaseEconomyPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForEconomyPlaces);
+        }
+
+        flight.setInitialPrice(decreaseBusinessPlacesIncreasePrice +
+                decreaseDaysBetweenIncreasePrice + decreaseEconomyPlacesIncreasePrice);
+
+    }
+
+    private int getNumberOfFreeBusinessPlaces(Flight flight) {
+        int totalNumber = flight.getPlane().getBusinessPlacesNumber();
+        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), true);
+        return totalNumber - holdPlaces;
+    }
+
+    @Override
+    public Flight getFlightByIdWithUpdatedPrice(Long id) {
+        Flight flight = getById(id);
+        updateFlightPrice(flight);
+        flight.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(flight));
+        flight.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(flight));
+        return flight;
+    }
+
+    private int getNumberOfFreeEconomyPlaces(Flight flight) {
+        int totalNumber = flight.getPlane().getEconomPlacesNumber();
+        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), false);
+        return totalNumber - holdPlaces;
+    }
 
 
 }

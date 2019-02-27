@@ -19,4 +19,8 @@ public interface FlightService {
 
 //    List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
 //}
+
+    List<Flight> getAllFlightsWithUpdatedPrice();
+
+    Flight getFlightByIdWithUpdatedPrice(Long id);
 }

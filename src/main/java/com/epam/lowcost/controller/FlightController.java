@@ -47,6 +47,7 @@ public class FlightController {
         flightService.updateFlight(flight);
         return "redirect:" + FLIGHTS + ALL;
     }
+
     @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
@@ -54,11 +55,12 @@ public class FlightController {
     }
 
 
-//    @GetMapping(value = NEW_TICKET)
-//    public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
-//        model.addAttribute("flight", flightService.getFlightByIdWithUpdatedPrice(id));
-//        return BUY;
-//    }
+    @GetMapping(value = NEW_TICKET + "/{id}")
+    public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
+        model.addAttribute("flight", flightService.getFlightByIdWithUpdatedPrice(id));
+        return BUY;
+    }
+
 
     @GetMapping(value = RETURN)
     public String goToSearchPage() {
@@ -73,7 +75,7 @@ public class FlightController {
     }
 
     @RequestMapping(value = ADD, method = RequestMethod.POST)
-    public String addNewFlight(@ModelAttribute("flight") Flight flight,BindingResult bindingResult) {
+    public String addNewFlight(@ModelAttribute("flight") Flight flight, BindingResult bindingResult) {
         flightService.addNewFlight(flight);
         return "redirect:" + FLIGHTS + ALL;
     }
@@ -102,9 +104,6 @@ public class FlightController {
 //        return SEARCHPAGE;
 //
 //    }
-
-
-
 
 
 }

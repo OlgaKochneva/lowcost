@@ -107,8 +107,7 @@
     <td>  <c:out value="${flight.arrivalDate}"/></td>
     <td>  <c:out value="${flight.initialPrice}"/></td>
     <td>
-        <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>" method="get">
-            <input type="hidden" name="id" value="${flight.id}"/>
+        <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>/${flight.id}" method="get">
             <input type="submit" value="<spring:message code="lang.buy"/>" class="btn btn-outline-primary"/>
 
         </form>

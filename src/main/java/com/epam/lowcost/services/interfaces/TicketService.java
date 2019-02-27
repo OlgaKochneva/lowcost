@@ -14,4 +14,12 @@ public interface TicketService {
     Ticket updateTicket(Ticket ticket);
 
     String deleteTicket(long id);
+
+    int numberBoughtPlaces(long flightId, boolean isBusiness);
+
+    boolean deleteTicketsByFlightId(long id);
+
+    boolean deleteTicketsByUserId(long id);
+
+    int countTickets();
 }
