@@ -1,6 +1,8 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -47,11 +49,11 @@
             <input type="submit" value="<spring:message code="lang.search"/>" class="btn btn-outline-warning btnSeach"/>
 
             </form>
-            <c:if test="${sessionUser.isAdmin()}">
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" method="get">
                     <input type="submit" value="<spring:message code="lang.addNewFlight"/>" class="flightAddBtn btn btn-outline-success"/>
                 </form>
-            </c:if>
+            </sec:authorize>
         </div>
     </div>
 </div>
@@ -85,6 +87,7 @@
             <%--</form>--%>
         <%--</div>--%>
     </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
@@ -113,19 +116,18 @@
 
 
                         <td>
-                            <c:if test="${sessionUser.isAdmin()}">
-                                <form action="<%=Endpoints.FLIGHTS%>" method="get">
-                                    <input type="hidden" name="id" value="${flight.id}"/>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">
                                     <input type="submit" value="update" class="btn btn-outline-primary updateFlight"/>
                                 </form>
                                 <form action="<%=Endpoints.FLIGHTS + Endpoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="delete"" class="btn btn-outline-danger deleteFlight"/>
+                                    <input type="submit" value="delete" class="btn btn-outline-danger deleteFlight"/>
                                 </form>
+                            </sec:authorize>
 
 
 
-                            </c:if>
 
                         </td>
                     </tr>

@@ -31,7 +31,7 @@
             <form action="<%=Endpoints.FLIGHTS + Endpoints.UPDATE%>" method="post">
                 <input type="hidden" name="id" value="${flight.id}"/>
                 <spring:message code="lang.planeId"/><br/>
-                <input type="text" required name="planeId" class="form-control input" value="${flight.plane.id}"/>
+                <input type="text" required name="plane" class="form-control input" value="${flight.plane.id}"/>
                 <spring:message code="lang.departureAt"/><br/><input type="datetime-local" required name="departureDate" class="form-control input" value="${flight.departureDate}"/>
                 <spring:message code="lang.arriveAt"/>. <br/> <input type="datetime-local" required name="arrivalDate" class="form-control input" value="${flight.arrivalDate}"/>
                 <spring:message code="lang.departureAirport"/> <br/><input type="text" required list="airport" class="form-control input" name="departureAirport" value="${flight.departureAirport.code}"/>

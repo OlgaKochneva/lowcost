@@ -4,6 +4,7 @@ import com.epam.lowcost.model.Flight;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface FlightService {
     List<Flight> getAllFlights();
@@ -14,7 +15,8 @@ public interface FlightService {
 
     Flight updateFlight(Flight flight);
 
-    String deleteFlight(Long id);
+    Flight deleteFlight(Long id);
 
-    List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
+//    List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
+//}
 }

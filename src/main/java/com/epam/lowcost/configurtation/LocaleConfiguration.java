@@ -14,28 +14,23 @@ import java.util.Locale;
 @Configuration
 public class LocaleConfiguration implements WebMvcConfigurer {
 
-    /**
-     * * @return default Locale set by the user
-     */
-    @Bean(name = "localeResolver")
+    @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.US);
-        return slr;
+        SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
+        sessionLocaleResolver.setDefaultLocale(Locale.US);
+        return sessionLocaleResolver;
     }
 
-    /**
-     * an interceptor bean that will switch to a new locale based on the value of the language parameter appended to a request:
-     *
-     * @param registry
-     * @language should be the name of the request param i.e  localhost:8010/api/get-greeting?language=fr
-     * <p>
-     * Note: All requests to the backend needing Internationalization should have the "language" request param
-     */
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("language");
-        registry.addInterceptor(localeChangeInterceptor);
+        registry.addInterceptor(localeChangeInterceptor());
     }
+
 }

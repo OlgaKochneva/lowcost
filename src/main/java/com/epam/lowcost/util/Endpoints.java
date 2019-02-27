@@ -47,8 +47,22 @@ public final class Endpoints {
     public static final String AIRPORT="/airport";
     public static final String LOGIN = "/login";
 
-
+//Views
     public static final String FLIGHTSPAGE="flightsPage";
     public static final String FLIGHTSETTINGS="flightSettings";
+    public static final String ADDFLIGHT = "addFlight";
+    public static final String ADMIN = "admin";
+    public static final String BUY = "buy";
+    public static final String PLANESPAGE = "planesPage";
+    public static final String REGISTRATIONPAGE = "registrationPage";
+    public static final String SEARCHPAGE = "searchPage";
+    public static final String SETTINGSPAGE = "settingsPage";
+    public static final String TICKETSPAGE = "ticketsPage";
+    public static final String USERPAGE = "userPage";
+    public static final String USERSPAGE = "usersPage";
+    public static final String AIRPORTSPAGE = "airportsPage";
+    public static final String PLANESSETTINGS="planesSettings";
+    public static final String ADDPLANE="addPlane";
+
 }
 

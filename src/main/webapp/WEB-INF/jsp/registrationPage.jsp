@@ -10,7 +10,7 @@
 <html>
 <head>
     <title><spring:message code="lang.registrationPage"/></title>
-    <spring:url value="/resources/css/login.css" var="login_css"/>
+    <spring:url value="/resources/static/css/login.css" var="login_css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
