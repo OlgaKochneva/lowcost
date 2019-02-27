@@ -22,13 +22,11 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class FlightServiceImpl implements FlightService {
     private final FlightRepository flightRepository;
     private final TicketService ticketService;
-    private PlaneService planeService;
     public AirportService airportService;
 
     @Autowired
-    public FlightServiceImpl(FlightRepository flightRepository, PlaneService planeService, AirportService airportService, TicketService ticketService) {
+    public FlightServiceImpl(FlightRepository flightRepository, AirportService airportService, TicketService ticketService) {
         this.flightRepository = flightRepository;
-        this.planeService = planeService;
         this.airportService = airportService;
         this.ticketService = ticketService;
 
