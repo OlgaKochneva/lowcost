@@ -10,11 +10,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getSessionUser(){
+    public User getSessionUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return this.findByUsername(auth.getName());
     }
@@ -48,7 +48,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<Role>(){{add(Role.ROLE_USER);}});
+        user.setRoles(new HashSet<Role>() {{
+            add(Role.ROLE_USER);
+        }});
         userRepository.save(user);
     }
 
@@ -64,6 +66,7 @@ public class UserServiceImpl implements UserService{
         userRepository.save(userToBlock);
         return "User blocked successfully";
     }
+
     @Override
     public String unblockUser(long userId) {
         User userToBlock = userRepository.findById(userId);
@@ -72,24 +75,4 @@ public class UserServiceImpl implements UserService{
         return "User unblocked successfully";
     }
 
-    @Override
-    public User verifyUser(String log, String pass) {
-        return null;
-    }
-
-    private User userBuilder(Map<String, String> params) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.ROLE_USER);
-        User user = User.builder()
-                .username(params.get("email"))
-                .password(params.get("password"))
-                .active(true)
-                .roles(roles)
-                .firstName(params.get("firstName"))
-                .lastName(params.get("lastName"))
-                .documentInfo(params.get("documentInfo"))
-                .birthday(LocalDateTime.parse(params.get("birthday")))
-                .build();
-        return user;
-    }
 }

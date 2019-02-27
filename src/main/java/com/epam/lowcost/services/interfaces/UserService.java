@@ -19,7 +19,5 @@ public interface UserService {
 
     String unblockUser(long userId);
 
-    User verifyUser(String log, String pass);
-
-    public User getSessionUser();
+    User getSessionUser();
 }

@@ -58,7 +58,7 @@ public class UserController {
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)
     public String settings(ModelMap model) {
 
-        model.addAttribute("sessionUser",userService.getSessionUser());
+        model.addAttribute("sessionUser", userService.getSessionUser());
 
         return SETTINGS_PAGE;
     }
@@ -80,7 +80,7 @@ public class UserController {
     public String changePassword(@RequestParam Map<String, String> params, Model model) {
         User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
 
-        if (!bCryptPasswordEncoder.matches(params.get("oldPassword"),userToUpdate.getPassword())) {
+        if (!bCryptPasswordEncoder.matches(params.get("oldPassword"), userToUpdate.getPassword())) {
             model.addAttribute("message", "Wrong password!");
             return "redirect:" + USER_SETTINGS;
         }

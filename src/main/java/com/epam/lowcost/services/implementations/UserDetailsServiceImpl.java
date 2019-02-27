@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found!");
         }
-        if(!user.isActive()){
+        if (!user.isActive()) {
             throw new UsernameNotFoundException("User is Banned!");
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
