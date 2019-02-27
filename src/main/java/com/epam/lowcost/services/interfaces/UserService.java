@@ -1,22 +1,23 @@
 package com.epam.lowcost.services.interfaces;
 
 import com.epam.lowcost.model.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
-import java.util.Map;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
+    User findByUsername(String username);
+
     List<User> getAllUsers();
 
     User getById(long userId);
 
-    Boolean addUser(Map<String, String> params);
+    void addUser(User user);
 
     User updateUser(User user);
 
-    String deleteUser(long userId);
+    String blockUser(long userId);
 
-    User verifyUser(String log, String pass);
+    String unblockUser(long userId);
 
+    User getSessionUser();
 }
