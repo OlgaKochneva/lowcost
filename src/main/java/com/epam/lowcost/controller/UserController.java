@@ -4,9 +4,13 @@ import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -17,9 +21,23 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String mainPage(ModelMap model) {
-        System.out.println(userService.getAllUsers());
-        model.addAttribute("users",userService.getAllUsers());
-
+        model.addAttribute("users", userService.getAllUsers());
         return "usersPage";
     }
+
+    @RequestMapping(value = "/block-user", method = RequestMethod.POST)
+    public String blockUser(@RequestParam long id, Model model, Principal principal) {
+        if (principal.getName().equals(userService.getById(id).getUsername())) {
+            return "redirect:/users";
+        }
+        userService.blockUser(id);
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/unblock-user", method = RequestMethod.POST)
+    public String unblockUser(@RequestParam long id, ModelMap model) {
+        userService.unblockUser(id);
+        return "redirect:/users";
+    }
+
 }

@@ -18,6 +18,8 @@ public interface UserService {
 
     String blockUser(long userId);
 
+    String unblockUser(long userId);
+
     User verifyUser(String log, String pass);
 
 }

@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getById(long userId) {
-        return null;
+        return userRepository.findById(userId);
     }
 
     @Override
@@ -50,12 +50,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User updateUser(User user) {
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
     public String blockUser(long userId) {
-        return null;
+        User userToBlock = userRepository.findById(userId);
+        userToBlock.setActive(false);
+        userRepository.save(userToBlock);
+        return "User blocked successfully";
+    }
+    @Override
+    public String unblockUser(long userId) {
+        User userToBlock = userRepository.findById(userId);
+        userToBlock.setActive(true);
+        userRepository.save(userToBlock);
+        return "User unblocked successfully";
     }
 
     @Override

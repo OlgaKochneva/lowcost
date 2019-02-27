@@ -81,13 +81,21 @@
 
                         <td>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-
-                                <form action="<%=Endpoints.USER + Endpoints.DELETE%>" method="post">
+                                <c:if test="${user.active}">
+                                <form action="/block-user" method="post">
                                     <input type="hidden" name="id" value="${user.id}"/>
                                     <input type="submit" value="<spring:message code="lang.deleteUser"/>"
-                                           class="btn btn-outline-danger deletePlaneBtn"/>
+                                           class="btn btn-danger deletePlaneBtn"/>
                                 </form>
 
+                                </c:if>
+                                <c:if test="${!user.active}">
+                                    <form action="/unblock-user" method="post">
+                                        <input type="hidden" name="id" value="${user.id}"/>
+                                        <input type="submit" value="<spring:message code="lang.unblockUser"/>"
+                                               class="btn btn-success deletePlaneBtn"/>
+                                    </form>
+                                </c:if>
                             </sec:authorize>
 
                         </td>
