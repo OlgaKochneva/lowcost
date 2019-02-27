@@ -7,11 +7,17 @@ import java.util.List;
 public interface TicketService {
     List<Ticket> getAllUserTickets(long userId);
 
-    List<Ticket> getAllTickets();
+    List<Ticket> getAllTicketsForCurrentFlight(long flightId);
 
     Ticket addTicket(Ticket ticket);
 
-    Ticket updateTicket(Ticket ticket);
+    String deleteTicketById(long id);
 
-    String deleteTicket(long id);
+    long numberBoughtPlacesForEachClass(long flightId);
+
+    String deleteTicketsByFlightId(long id);
+
+    String deleteTicketsByUserId(long id);
+
+    long countAllTickets();
 }
