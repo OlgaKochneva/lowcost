@@ -1,6 +1,5 @@
-<%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
@@ -14,15 +13,15 @@
 
     <base href="/">
     <title><spring:message code="lang.login" text="Login"/></title>
-    <spring:url value="/resources/static/css/login.css" var="login_css" />
+    <spring:url value="/resources/static/css/login.css" var="login_css"/>
     <link href="/resources/static/css/login.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 </head>
 <body>
 
 <div class="wrapper">
-
 
 
     <br/>

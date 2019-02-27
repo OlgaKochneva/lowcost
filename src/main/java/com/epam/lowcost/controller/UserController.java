@@ -38,15 +38,15 @@ public class UserController {
         if (pageId <= 0) {
             pageId = 1;
         }
-        int usersOnPage = (int) model.getOrDefault("number",DEFAULT_NUMBER_OF_USERS_ON_PAGE);
+        int usersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
 
 
         Page<User> allUsers = userService.getAllUsers(pageId, usersOnPage);
         if (pageId >= allUsers.getTotalPages()) {
-            pageId = allUsers.getTotalPages()-1;
+            pageId = allUsers.getTotalPages() - 1;
         }
-        model.addAttribute("pageId",pageId);
-        model.addAttribute("pagesNum",String.valueOf(allUsers.getTotalPages()));
+        model.addAttribute("pageId", pageId);
+        model.addAttribute("pagesNum", String.valueOf(allUsers.getTotalPages()));
         model.addAttribute("users", allUsers.getContent());
         return USERS_PAGE;
     }

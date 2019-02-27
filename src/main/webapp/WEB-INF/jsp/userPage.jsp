@@ -26,7 +26,8 @@
             <spring:message code="lang.findUserById"/>
             <form action="<%=Endpoints.USER%>" method="get">
                 <input type="number" class="form-control input" name="id"/>
-                <input type="submit" class="btn btn-outline-primary findUserBtn" value="<spring:message code="lang.find"/>"/>
+                <input type="submit" class="btn btn-outline-primary findUserBtn"
+                       value="<spring:message code="lang.find"/>"/>
             </form>
 
         </div>

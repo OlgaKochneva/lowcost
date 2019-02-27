@@ -18,7 +18,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="${main_css}" rel="stylesheet">
-    </head>
+</head>
 <body>
 
 
@@ -87,23 +87,23 @@
                         <td>
 
                             <c:if test="${sessionUser.username != user.username}">
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <c:if test="${user.active}">
-                                <form action="/block-user" method="post">
-                                    <input type="hidden" name="id" value="${user.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.deleteUser"/>"
-                                           class="btn btn-danger deletePlaneBtn"/>
-                                </form>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <c:if test="${user.active}">
+                                        <form action="/block-user" method="post">
+                                            <input type="hidden" name="id" value="${user.id}"/>
+                                            <input type="submit" value="<spring:message code="lang.deleteUser"/>"
+                                                   class="btn btn-danger deletePlaneBtn"/>
+                                        </form>
 
-                                </c:if>
-                                <c:if test="${!user.active}">
-                                    <form action="/unblock-user" method="post">
-                                        <input type="hidden" name="id" value="${user.id}"/>
-                                        <input type="submit" value="<spring:message code="lang.unblockUser"/>"
-                                               class="btn btn-success deletePlaneBtn"/>
-                                    </form>
-                                </c:if>
-                            </sec:authorize>
+                                    </c:if>
+                                    <c:if test="${!user.active}">
+                                        <form action="/unblock-user" method="post">
+                                            <input type="hidden" name="id" value="${user.id}"/>
+                                            <input type="submit" value="<spring:message code="lang.unblockUser"/>"
+                                                   class="btn btn-success deletePlaneBtn"/>
+                                        </form>
+                                    </c:if>
+                                </sec:authorize>
                             </c:if>
 
                         </td>
@@ -126,7 +126,7 @@
             <form action="<%=Endpoints.USER%>/${pageId+1}">
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
             </form>
-           <c:out value="${pageScope.get(pagesNum)}"/>
+            <c:out value="${pageScope.get(pagesNum)}"/>
 
         </div>
     </div>

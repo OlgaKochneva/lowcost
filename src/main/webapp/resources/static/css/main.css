@@ -4,10 +4,12 @@
     margin-top: 2rem;
     /* margin-bottom: 100px; */
 }
-body{
+
+body {
     margin: 0px;
     font-family: 'Open Sans', sans-serif;
 }
+
 .header_btn {
     margin-right: 10px;
 }
@@ -74,6 +76,7 @@ body{
 .btn_fly {
     width: 10%;
 }
+
 /* -------------- header navbar --------------------*/
 .languageAndAccaunt {
     background-image: url(../img/canada-lake-feb.jpg);
@@ -84,18 +87,21 @@ body{
     padding: 5px 5%;
 
 }
-.language a{
+
+.language a {
     color: white;
     text-decoration: none;
 }
-.language a:hover{
+
+.language a:hover {
     color: white;
     text-decoration: underline;
 }
-.navbarLink{
+
+.navbarLink {
     color: white;
     font-size: 20px;
-    margin:0 1%;
+    margin: 0 1%;
     text-decoration: none;
 
 }
@@ -106,7 +112,8 @@ body{
     text-decoration: none;
 
 }
-.topnav{
+
+.topnav {
     margin-top: 10px;
     color: white;
     margin-bottom: 5px;
@@ -114,120 +121,139 @@ body{
 
 /*----------------UserPage----------------*/
 
-.OneTicket{
+.OneTicket {
     margin-top: 10px;
 }
-.backgroundTicket{
+
+.backgroundTicket {
     padding: 1rem;
     background-color: #f7f7f9;
-    border: 1px solid #68b1ff ;
+    border: 1px solid #68b1ff;
     border-radius: 5px;
-    -webkit-box-shadow: 6px 6px 3px -1px rgba(224,224,224,1);
-    -moz-box-shadow: 6px 6px 3px -1px rgba(224,224,224,1);
-    box-shadow: 6px 6px 3px -1px rgba(224,224,224,1);
+    -webkit-box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
+    -moz-box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
+    box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
 }
-.buttonFloatLeft{
+
+.buttonFloatLeft {
     float: left;
     margin-right: 10px;
 }
-.GroupSearch{
+
+.GroupSearch {
     color: #68b1ff;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.GroupSearch a{
+
+.GroupSearch a {
     border-bottom: 1px solid #68b1ff;
     color: #68b1ff;
     font-size: 18px;
     padding-bottom: 3px;
 }
 
-.GroupSearch a:hover{
+.GroupSearch a:hover {
     text-decoration: none;
     border-bottom: 1px solid #68b1ff;
     color: #68b1ff;
 
 }
-.buttonGroupCard{
+
+.buttonGroupCard {
     margin-top: 10px;
 
 }
+
 /*--------------SeatchPage--------------------------*/
-.SeachTicketSearch{
+.SeachTicketSearch {
     font-size: 24px;
 }
-.searchInput{
-    max-width:80%;
-}
-.searchInputSecond{
+
+.searchInput {
     max-width: 80%;
 }
-.leftBlockSerch{
+
+.searchInputSecond {
+    max-width: 80%;
+}
+
+.leftBlockSerch {
     padding-left: 10%;
     padding-top: 10px;
     width: 50%;
     float: left;
 }
-.leftBlockSerchRight{
+
+.leftBlockSerchRight {
     padding-top: 10px;
     padding-left: 10%;
 
     float: right;
     width: 50%;
 }
-.labelSeatchFlight{
+
+.labelSeatchFlight {
     margin-top: 5px;
     font-size: 24px;
     margin-bottom: 0px;
     padding-left: 10%;
 }
-.BlockBachground{
+
+.BlockBachground {
     color: white;
     width: 100%;
     background-color: #1967d2;
     margin-top: 30px;
     padding: 20px 0px;
     border-radius: 10px;
-    opacity:0.9;
+    opacity: 0.9;
     /*padding-left: 5%;*/
 }
-.serchButton{
+
+.serchButton {
 
 }
-.btnSeach{
-    margin-top:24%;
+
+.btnSeach {
+    margin-top: 24%;
     width: 70%;
 }
-.mainSerchPage{
+
+.mainSerchPage {
     margin-top: 20px;
 }
 
 /*---------------------buyPage*-----------------------/
  */
-.mainContentBuy{
+.mainContentBuy {
     margin-top: 20px;
 }
-.buyButtonBuyPage{
+
+.buyButtonBuyPage {
     margin-top: 16px;
     float: left;
     margin-right: 16px;
 
 }
-.cancellButtonBuyPage2{
+
+.cancellButtonBuyPage2 {
     margin: 0;
 
 }
+
 /*------------flights page-------------------*/
 
-.flightAddBtn{
+.flightAddBtn {
     margin-top: 17%;
     width: 70%;
 }
-.deleteFlight{
-    width:70%;
+
+.deleteFlight {
+    width: 70%;
 }
 
-.updateFlight{
+.updateFlight {
     width: 70%;
 }
 
@@ -236,36 +262,38 @@ body{
     margin-top: 20px;
 }
 
-.updateBtn{
+.updateBtn {
     margin-top: 16px;
     width: 70%;
 }
 
 /*----------------------------add flight page---------------------------------*/
-.addFlightBtn{
+.addFlightBtn {
     margin-top: 16px;
     width: 70%;
 }
 
-.mainContentAdd{
+.mainContentAdd {
     margin-top: 20px;
 }
 
 /*----------------------------------airports page--------------------------------*/
-.okBtnAirports{
+.okBtnAirports {
     margin-top: 10px;
     width: 70%;
 }
+
 .addAirportBtn {
     margin-top: 10px;
     width: 70%;
 }
+
 .updateAirportBtn {
     margin-top: 10px;
     width: 70%;
 }
 
-.codeInputAirports{
+.codeInputAirports {
     margin-right: 15px;
     float: left;
 }
@@ -277,20 +305,21 @@ body{
 .findAirportBtn {
     margin-top: 20px;
 }
+
 /*-----------------------------------planes Page-------------------------*/
 .findPlaneBtn {
     margin-top: 10px;
     width: 70%;
 }
+
 .addPlaneBtn {
     margin-top: 10px;
     width: 100%;
 }
 
-.updatePlaneBtn
-{
+.updatePlaneBtn {
 
-    width:100%;
+    width: 100%;
 }
 
 .deletePlaneBtn {
@@ -298,52 +327,62 @@ body{
     width: 100%;
 }
 
-.planeTitle{
+.planeTitle {
     margin-top: 20px;
 }
+
 /*---------------------------------settings page------------------------------------*/
 .changeDataBtn {
     margin-top: 10px;
     width: 70%;
 }
+
 .changePassBtn {
     margin-top: 10px;
     width: 70%;
 
 }
+
 .changeData {
     margin-top: 20px;
 }
-.changePass{
+
+.changePass {
     margin-top: 20px;
 
 }
+
 .changeDataTitle {
     margin-top: 20px;
 }
-.changePassTitle{
+
+.changePassTitle {
     margin-top: 20px;
 
 }
+
 /*----------------------------------------------tickets page----------------------------------*/
 .ticketsTable {
     margin-top: 20px;
 }
-.updateTicket{
+
+.updateTicket {
     width: 100%;
 }
-.deleteTicket{
+
+.deleteTicket {
     width: 100%;
 }
 
 /*---------------------------------------------------------users Page-------------------------------*/
 .usersTitle {
-    margin-top:20px;
-}
-
-.findUserForm{
     margin-top: 20px;
 }
+
+.findUserForm {
+    margin-top: 20px;
+}
+
 .findUserBtn {
     margin-top: 20px;
 }
@@ -354,11 +393,12 @@ body{
 
 }
 
-.paginationBtn{
+.paginationBtn {
     float: left;
     margin-right: 0px;
 
 }
-.numOfUsers{
+
+.numOfUsers {
     align: right;
 }

@@ -1,4 +1,3 @@
-<%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
@@ -63,7 +62,7 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
-                <h5>${message}</h5>
+            <h5>${message}</h5>
 
             <form action="/change-password" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>
