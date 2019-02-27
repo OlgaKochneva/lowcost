@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String deleteUser(long userId) {
+    public String blockUser(long userId) {
         return null;
     }
 

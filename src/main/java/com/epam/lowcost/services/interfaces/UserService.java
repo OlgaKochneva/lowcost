@@ -16,7 +16,7 @@ public interface UserService {
 
     User updateUser(User user);
 
-    String deleteUser(long userId);
+    String blockUser(long userId);
 
     User verifyUser(String log, String pass);
 
