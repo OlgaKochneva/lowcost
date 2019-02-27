@@ -82,24 +82,4 @@ public class UserServiceImpl implements UserService {
         return "User unblocked successfully";
     }
 
-    @Override
-    public User verifyUser(String log, String pass) {
-        return null;
-    }
-
-    private User userBuilder(Map<String, String> params) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.ROLE_USER);
-        User user = User.builder()
-                .username(params.get("email"))
-                .password(params.get("password"))
-                .active(true)
-                .roles(roles)
-                .firstName(params.get("firstName"))
-                .lastName(params.get("lastName"))
-                .documentInfo(params.get("documentInfo"))
-                .birthday(LocalDateTime.parse(params.get("birthday")))
-                .build();
-        return user;
-    }
 }
