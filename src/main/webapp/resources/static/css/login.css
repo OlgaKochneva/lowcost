@@ -3,12 +3,12 @@ body{
     margin: 0px;
     font-family: 'Open Sans', sans-serif;
 }
-.wraper{
-    /*background-color: #dedee0;*/
+.wrapper{
+
     background: url("../img/plane_take_off.jpg") no-repeat;
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
+    -moz-background-size: 100%;
+    -webkit-background-size: 100%;
+    -o-background-size: 100%;
     background-size: 100%;
     width: 100%;
     height: 100%;
@@ -47,7 +47,7 @@ body{
     font-size: 14px;
     color: #dc3545;
 }
-/*---------------------------------RegistrationPage-----------------------------*/
+
 .btnSignUp{
     margin-top: 15px;
     width: 100%;

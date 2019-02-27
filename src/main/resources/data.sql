@@ -1,11 +1,20 @@
 insert into users(id, username, password, active, first_name, last_name, document_info, birthday)
-values (1, 'EMAIL@MAIL.COM', 'PASSWORD', true, 'admin', 'admin', '1221', '2000-06-05T00:00:00'),
-       (2, 'ExampleEmail2@google.com', 'ExamplePassword2', true, 'user', 'user', '1221', '2000-06-05T00:00:00');
+values (1, 'EMAIL@MAIL.COM', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'admin', 'admin',
+        '1221', '2000-06-05T00:00:00'),
+       (2, 'ExampleEmail23@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user2', 'user', '1221', '2000-06-05T00:00:00'),
+       (3, 'ExampleEmail3@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user3', 'user', '1221', '2000-06-05T00:00:00'),
+       (4, 'ExampleEmail4@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user4', 'user', '1221', '2000-06-05T00:00:00'),
+       (5, 'ExampleEmail5@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user5', 'user', '1221', '2000-06-05T00:00:00'),
+       (6, 'ExampleEmail6@google.com', 'userpassword', true, 'user6', 'user', '1221', '2000-06-05T00:00:00');
 
 insert into user_role (user_id, roles)
 values (1, 'ROLE_ADMIN'),
        (1, 'ROLE_USER'),
-       (2, 'ROLE_USER');
+       (2, 'ROLE_USER'),
+       (3, 'ROLE_USER'),
+       (4, 'ROLE_USER'),
+       (5, 'ROLE_USER'),
+       (6, 'ROLE_USER');
 
 -- CREATE TABLE USERS(id LONG AUTO_INCREMENT NOT NULL, email VARCHAR(255) UNIQUE, password VARCHAR(255), isAdmin BOOL, firstName VARCHAR(255), lastName VARCHAR(255), documentInfo VARCHAR(255), birthday DATETIME, is_Deleted BOOL, PRIMARY KEY (id),UNIQUE (email)),
 -- INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, is_Deleted) VALUES ('EMAIL@MAIL.COM', '$2a$10$JvCWszTWV.jjPaRy.gqYfOpBzpntX3/eIjOGWO.BE5inOHxTzJmUi',true ,'Thomas1','Testyman1','№1234 bestpassport ever','2000-06-05 00:00:00',false),

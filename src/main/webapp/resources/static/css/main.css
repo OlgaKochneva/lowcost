@@ -19,7 +19,7 @@ body{
 
 .header_link {
 
-    background-image: url(../img/canada-lake-feb.jpg);
+    background-image: url("../img/canada-lake-feb.jpg");
     background-repeat: no-repeat;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -224,11 +224,11 @@ body{
     width: 70%;
 }
 .deleteFlight{
-    width:80%;
+    width:70%;
 }
 
 .updateFlight{
-    width: 80%;
+    width: 70%;
 }
 
 /*-----------------flights settings page----------------------------*/

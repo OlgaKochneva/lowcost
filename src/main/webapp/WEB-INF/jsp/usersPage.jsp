@@ -1,12 +1,14 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.users"/></title>
     <spring:url value="/resources/static/css/main.css" var="main_css"/>
+    <link href="/resources/static/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
@@ -72,25 +74,29 @@
 
                         <td><c:out value="${user.firstName}"/></td>
                         <td><c:out value="${user.lastName}"/></td>
-                        <td><c:out value="${user.email}"/></td>
+                        <td><c:out value="${user.username}"/></td>
                         <td><c:out value="${user.documentInfo}"/></td>
                         <td><c:out value="${user.birthday}"/></td>
 
 
                         <td>
-                            <c:if test="${sessionUser.isAdmin()}">
-                                <form action="<%=Endpoints.PLANE%>" method="get">
-                                    <input type="hidden" name="id" value="${user.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.update"/>"
-                                           class="btn btn-outline-primary updatePlaneBtn"/>
-                                </form>
-                                <form action="<%=Endpoints.USER + Endpoints.DELETE%>" method="post">
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <c:if test="${user.active}">
+                                <form action="/block-user" method="post">
                                     <input type="hidden" name="id" value="${user.id}"/>
                                     <input type="submit" value="<spring:message code="lang.deleteUser"/>"
-                                           class="btn btn-outline-danger deletePlaneBtn"/>
+                                           class="btn btn-danger deletePlaneBtn"/>
                                 </form>
 
-                            </c:if>
+                                </c:if>
+                                <c:if test="${!user.active}">
+                                    <form action="/unblock-user" method="post">
+                                        <input type="hidden" name="id" value="${user.id}"/>
+                                        <input type="submit" value="<spring:message code="lang.unblockUser"/>"
+                                               class="btn btn-success deletePlaneBtn"/>
+                                    </form>
+                                </c:if>
+                            </sec:authorize>
 
                         </td>
                     </tr>

@@ -1,4 +1,3 @@
-<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
@@ -31,13 +30,12 @@
     </div>
     <div class="row">
         <div class="col-md-3 changeData">
-            <form action="<%=Endpoints.USER + Endpoints.UPDATE%>" method="post">
+            <form action="/update-user" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>
 
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
-                                                                   value="${sessionUser.email}"
-                                                                   name="email"/>
-                <input type="hidden" name="isAdmin" value="${sessionUser.admin}"/>
+                                                                   value="${sessionUser.username}"
+                                                                   name="username"/>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
                                                                        value="${sessionUser.firstName}"/>
@@ -47,12 +45,10 @@
                 <spring:message code="lang.newDocument"/> <br/><input type="text" class="form-control input"
                                                                       name="documentInfo"
                                                                       value="${sessionUser.documentInfo}"/>
-                <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input"
+                <spring:message code="lang.newDateBirth"/><br/><input required type="date" class="form-control input"
                                                                       name="birthday" value="${sessionUser.birthday}"/>
 
-                Enter password for confirmation
-                <input type="password" name="password" />
-                <input type="hidden" name="updateFrom" value="user"/>
+
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="ОК"/>
             </form>
         </div>
@@ -67,8 +63,11 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
-            <div class="d-xl-inline-block"><h5>${message}</h5></div>
-            <form action="<%=Endpoints.USER + Endpoints.CHANGE_PASSWORD%>" method="post">
+                <h5>${message}</h5>
+
+            <form action="/change-password" method="post">
+                <input type="hidden" name="id" value="${sessionUser.id}"/>
+
                 <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input"
                                                                       type="password" name="oldPassword">
                 <spring:message code="lang.newPassword"/><br/><input required class="form-control input" type="password"

@@ -3,7 +3,6 @@ package com.epam.lowcost.services.interfaces;
 import com.epam.lowcost.model.User;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserService {
     User findByUsername(String username);
@@ -12,12 +11,13 @@ public interface UserService {
 
     User getById(long userId);
 
-    Boolean addUser(Map<String, String> params);
+    void addUser(User user);
 
     User updateUser(User user);
 
-    String deleteUser(long userId);
+    String blockUser(long userId);
 
-    User verifyUser(String log, String pass);
+    String unblockUser(long userId);
 
+    User getSessionUser();
 }
