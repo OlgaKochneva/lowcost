@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <spring:url value="/resources/css/main.css" var="main_css"/>
+    <spring:url value="/resources/static/css/main.css" var="main_css"/>
     <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
@@ -31,26 +31,23 @@
     <div class="row">
         <div class="col-md-3 changeData">
             <form action="<%=Endpoints.USER + Endpoints.UPDATE%>" method="post">
-                <input type="hidden" name="id" value="${sessionUser.id}"/>
+                <input type="hidden" name="id" value="${userToUpdate.id}"/>
 
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
-                                                                   value="${sessionUser.email}"
+                                                                   value="${userToUpdate.username}"
                                                                    name="email"/>
-                <input type="hidden" name="isAdmin" value="${sessionUser.admin}"/>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
-                                                                       value="${sessionUser.firstName}"/>
+                                                                       value="${userToUpdate.firstName}"/>
                 <spring:message code="lang.newLastName"/><br/><input type="text" class="form-control input"
                                                                      name="lastName"
-                                                                     value="${sessionUser.lastName}"/>
+                                                                     value="${userToUpdate.lastName}"/>
                 <spring:message code="lang.newDocument"/> <br/><input type="text" class="form-control input"
                                                                       name="documentInfo"
-                                                                      value="${sessionUser.documentInfo}"/>
+                                                                      value="${userToUpdate.documentInfo}"/>
                 <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input"
-                                                                      name="birthday" value="${sessionUser.birthday}"/>
+                                                                      name="birthday" value="${userToUpdate.birthday}"/>
 
-                Enter password for confirmation
-                <input type="password" name="password" />
 
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="ОК"/>
             </form>

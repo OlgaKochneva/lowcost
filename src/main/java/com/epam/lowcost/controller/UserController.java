@@ -1,8 +1,11 @@
 package com.epam.lowcost.controller;
 
+import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,6 +17,7 @@ import java.security.Principal;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
 public class UserController {
 
     @Autowired
@@ -38,6 +42,17 @@ public class UserController {
     public String unblockUser(@RequestParam long id, ModelMap model) {
         userService.unblockUser(id);
         return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/user/settings", method = RequestMethod.GET)
+    public String settings(ModelMap modelMap) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        User userToUpdate = userService.findByUsername(auth.getName());
+        System.out.println(userToUpdate);
+        modelMap.addAttribute("userToUpdate",userToUpdate);
+
+        return "settingsPage";
     }
 
 }
