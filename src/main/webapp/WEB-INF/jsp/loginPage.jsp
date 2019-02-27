@@ -26,8 +26,8 @@
     <div class="main_block">
         <p class="greeting"><spring:message code="lang.loginIntroduction"/></p>
         <p class="message">${message}</p>
-        <form action="<%=Endpoints.ENTRY %>" method="post">
-            <input type="email" name="email" class="form-control input" placeholder="<spring:message code="lang.login"/>"/>
+        <form action="/login" method="post">
+            <input type="text" name="username" class="form-control input" placeholder="<spring:message code="lang.login"/>"/>
             <br>
             <input type="password" name="password" class="form-control input" placeholder="<spring:message code="lang.password"/>"/>
             <br>

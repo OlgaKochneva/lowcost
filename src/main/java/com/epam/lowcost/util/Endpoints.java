@@ -46,5 +46,9 @@ public final class Endpoints {
 // Airport Controller endpoints
     public static final String AIRPORT="/airport";
     public static final String LOGIN = "/login";
+
+
+    public static final String FLIGHTSPAGE="flightsPage";
+    public static final String FLIGHTSETTINGS="flightSettings";
 }
 

@@ -14,7 +14,7 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.findFlight"/></title>
-    <spring:url value="/resources/css/main.css" var="main_css" />
+    <spring:url value="/resources/static/css/main.css" var="main_css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="${main_css}" rel="stylesheet">
@@ -55,36 +55,35 @@
         </div>
     </div>
 </div>
-
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
 
         </div>
         <div class="col-md-2 numOfUsers">
-            <form></form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="3"/>
+            <%--<form></form>--%>
+            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="3"/>--%>
 
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
-            </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="5"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
-            </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="10"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
-            </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="20"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
-            </form>
-        </div>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>--%>
+            <%--</form>--%>
+            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="5"/>--%>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>--%>
+            <%--</form>--%>
+            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="10"/>--%>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
+            <%--</form>--%>
+            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="20"/>--%>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>--%>
+            <%--</form>--%>
+        <%--</div>--%>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -117,11 +116,11 @@
                             <c:if test="${sessionUser.isAdmin()}">
                                 <form action="<%=Endpoints.FLIGHTS%>" method="get">
                                     <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updateFlight"/>
+                                    <input type="submit" value="update" class="btn btn-outline-primary updateFlight"/>
                                 </form>
                                 <form action="<%=Endpoints.FLIGHTS + Endpoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.delete"/>" class="btn btn-outline-danger deleteFlight"/>
+                                    <input type="submit" value="delete"" class="btn btn-outline-danger deleteFlight"/>
                                 </form>
 
 
@@ -136,7 +135,7 @@
                 </tbody>
             </table>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
+                <input type="submit" class="btn btn-link paginationBtn" value="previous"/>
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${page}">
@@ -144,7 +143,7 @@
                 </form>
             </c:forEach>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
+                <input type="submit" class="btn btn-link paginationBtn" value="next"/>
             </form>
         </div>
     </div>
