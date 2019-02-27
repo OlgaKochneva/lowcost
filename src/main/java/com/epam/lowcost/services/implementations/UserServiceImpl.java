@@ -5,21 +5,21 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.repositories.UserRepository;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -38,14 +38,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean addUser(Map<String, String> params) {
-        Boolean response = false;
-        User user = userBuilder(params);
-        if (!userRepository.existsByUsername(user.getUsername())) {
-            userRepository.save(user);
-            response = true;
-        }
-        return response;
+    public void addUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(new HashSet<Role>(){{add(Role.ROLE_USER);}});
+        userRepository.save(user);
     }
 
     @Override
