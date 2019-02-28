@@ -1,11 +1,10 @@
 package com.epam.lowcost.services.interfaces;
 
 import com.epam.lowcost.model.Ticket;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+
 public interface TicketService {
     List<Ticket> getAllUserTickets(long userId);
 

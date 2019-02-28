@@ -9,6 +9,7 @@ import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,6 +36,7 @@ public class TicketServiceImpl implements TicketService {
 
 
     @Override
+    @Transactional
     public Ticket addTicket(Ticket ticket) {
         Flight flight = flightService.getFlightByIdWithUpdatedPrice(ticket.getFlight().getId());
         User user = userService.getById(ticket.getUser().getId());
@@ -65,6 +67,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Transactional
     public String deleteTicketsByFlightId(long flightId) {
         getAllTicketsForCurrentFlight(flightId).forEach(t -> t.setDeleted(true));
         return bundle.getString("lang.allTicketsDelete") + flightId;
