@@ -25,19 +25,4 @@ public class AirportServiceImpl implements AirportService {
     public Airport getAirportByCode(String code) {
         return airportRepository.findAirportByCode(code);
     }
-
-    @Override
-    public Airport addNewAirport(Map<String, String> params) {
-        return null;
-    }
-
-    @Override
-    public Airport updateAirport(Map<String, String> params) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> getAirportsByPage(int pageId, int numberOfAirportsOnPage) {
-        return null;
-    }
 }
