@@ -31,10 +31,6 @@ public class TicketServiceImpl implements TicketService {
         return false;
     }
 
-    @Override
-    public int countTickets() {
-        return 0;
-    }
 
     @Autowired
     public TicketServiceImpl(TicketRepository ticketRepository,UserService userService) {

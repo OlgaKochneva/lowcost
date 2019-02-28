@@ -20,5 +20,4 @@ public interface TicketService {
 
     boolean deleteTicketsByUserId(long id);
 
-    int countTickets();
 }
