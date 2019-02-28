@@ -1,6 +1,7 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,15 +20,32 @@
 
         <div class="col-md-3 mainContentUpdate">
             <h4><spring:message code="lang.addNewPlane"/></h4>
-            <form action="<%=Endpoints.PLANE + Endpoints.ADD%>" method="post">
-                <spring:message code="lang.model"/><br/><input type="text" class="form-control input" required
-                                                               name="model"/>
-                <spring:message code="lang.businessPlacesNumber"/><br/><input type="number" class="form-control input"
-                                                                              required name="businessPlacesNumber"/>
-                <spring:message code="lang.economyPlacesNumber"/><br/><input type="number" class="form-control input"
-                                                                             required name="economPlacesNumber"/>
+            <form:form action="<%=Endpoints.PLANE + Endpoints.ADD%>" method="post" modelAttribute="planeForm">
+                <spring:bind path="model">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="text" path="model" class="form-control"
+                                    autofocus="true"></form:input>
+                        <form:errors path="model"></form:errors>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="businessPlacesNumber">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="number" path="businessPlacesNumber" class="form-control"
+                                    autofocus="true"></form:input>
+                        <form:errors path="businessPlacesNumber"></form:errors>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="economPlacesNumber">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="number" path="economPlacesNumber" class="form-control"
+                                    autofocus="true"></form:input>
+                        <form:errors path="economPlacesNumber"></form:errors>
+                    </div>
+                </spring:bind>
                 <input type="submit" class="btn btn-outline-success addPlaneBtn" value="OK"/>
-            </form>
+            </form:form>
         </div>
 
     </div>

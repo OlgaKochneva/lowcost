@@ -2,10 +2,12 @@ package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.services.interfaces.PlaneService;
+import com.epam.lowcost.util.PlaneValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -17,10 +19,12 @@ import static com.epam.lowcost.util.Endpoints.*;
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class PlaneController {
     private final PlaneService planeService;
+    private  final PlaneValidator planeValidator;
 
     @Autowired
-    public PlaneController(PlaneService planeService) {
+    public PlaneController(PlaneService planeService, PlaneValidator planeValidator) {
         this.planeService = planeService;
+        this.planeValidator = planeValidator;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -36,7 +40,11 @@ public class PlaneController {
     }
 
     @RequestMapping(value = ADD, method = RequestMethod.POST)
-    public String addPlane(@ModelAttribute("planeForm") Plane planeForm) {
+    public String addPlane(@ModelAttribute("planeForm") Plane planeForm, BindingResult bindingResult) {
+        planeValidator.validate(planeForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return ADD_PLANE_PAGE;
+        }
         planeService.addPlane(planeForm);
 
         return "redirect:" + PLANE;
