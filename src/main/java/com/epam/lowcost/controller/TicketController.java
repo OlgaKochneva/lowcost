@@ -9,5 +9,4 @@ import org.springframework.stereotype.Controller;
 public class TicketController {
     @Autowired
     TicketService ticketService;
-
 }

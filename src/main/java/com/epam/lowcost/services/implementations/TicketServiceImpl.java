@@ -36,7 +36,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> getAllTicketsForCurrentFlight(long flightId) {
-        return ticketRepository.findByFlight_Id(flightId);
+        return ticketRepository.findByFlight_IdAndAndIsDeleted(flightId, false);
     }
 
     @Override
@@ -48,23 +48,14 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public long numberBoughtPlacesForEachClass(long flightId, boolean isBusiness) {
+    public long getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness) {
         return ticketRepository.countAllByFlight_IdAndIsBusinessAndIsDeleted(flightId, isBusiness, false);
     }
 
     @Override
     public String deleteTicketsByFlightId(long flightId) {
-        List<Ticket> ticketsToDelete = getAllTicketsForCurrentFlight(flightId);
-        ticketsToDelete.forEach(f -> deleteTicketById(f.getId()));
+        getAllTicketsForCurrentFlight(flightId).forEach(t -> t.setDeleted(true));
         return "All tickets for flight " + flightId + "deleted";
-    }
-
-
-    @Override
-    public String deleteTicketsByUserId(long userId) {
-        List<Ticket> ticketsToDelete = getAllUserTickets(userId);
-        ticketsToDelete.forEach(f -> deleteTicketById(f.getId()));
-        return "All tickets for flight " + userId + "deleted";
     }
 
     private long countPrice(Ticket ticket) {
@@ -81,12 +72,5 @@ public class TicketServiceImpl implements TicketService {
         }
         return price;
     }
-
-
-    @Override
-    public long countAllTickets() {
-        return ticketRepository.count();
-    }
-
 
 }

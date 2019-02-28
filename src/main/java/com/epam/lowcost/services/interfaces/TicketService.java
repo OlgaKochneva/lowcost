@@ -1,6 +1,7 @@
 package com.epam.lowcost.services.interfaces;
 
 import com.epam.lowcost.model.Ticket;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,11 +14,9 @@ public interface TicketService {
 
     String deleteTicketById(long id);
 
-    long numberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
+    long getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
 
+    @Transactional
     String deleteTicketsByFlightId(long id);
 
-    String deleteTicketsByUserId(long id);
-
-    long countAllTickets();
 }
