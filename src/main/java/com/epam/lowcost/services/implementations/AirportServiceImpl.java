@@ -27,17 +27,11 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public Airport addNewAirport(Map<String, String> params) {
-        return null;
+    public List<Airport> findAllByCity(String city) {
+        city =city.toLowerCase();
+        city=city.substring(0,1).toUpperCase().concat(city.substring(1,city.length()));
+        return airportRepository.findAllByCityEng(city);
     }
 
-    @Override
-    public Airport updateAirport(Map<String, String> params) {
-        return null;
-    }
 
-    @Override
-    public Map<String, Object> getAirportsByPage(int pageId, int numberOfAirportsOnPage) {
-        return null;
-    }
 }

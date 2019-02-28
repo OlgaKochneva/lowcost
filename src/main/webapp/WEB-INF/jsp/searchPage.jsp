@@ -89,7 +89,7 @@
                 <tr>
                     <th scope="col"><spring:message code="lang.departureAirport"/></th>
                     <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
-                    <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
+                    <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col">  <spring:message code="lang.price"/></th>
                     <th></th>
@@ -98,14 +98,17 @@
                 <tbody>
 
 <c:forEach items="${flights}" var="flight">
+    <c:if test="${flight.departureDate gt currentTime}">
 
 <tr>
 
 
+
     <td><c:out value="${flight.departureAirport.cityEng}"/></td>
     <td> <c:out value="${flight.arrivalAirport.cityEng}"/></td>
-    <td>   <c:out value="${flight.departureDate}"/></td>
-    <td>  <c:out value="${flight.arrivalDate}"/></td>
+
+    <td>   <c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
+    <td> <c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
     <td>  <c:out value="${flight.initialPrice}"/></td>
     <td>
         <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>" method="get">
@@ -115,6 +118,7 @@
         </form>
     </td>
 </tr>
+    </c:if>
 </c:forEach>
                 </tbody>
             </table>

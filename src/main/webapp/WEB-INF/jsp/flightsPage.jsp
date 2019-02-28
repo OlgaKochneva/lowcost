@@ -95,7 +95,7 @@
                 <tr>
                     <th scope="col"><spring:message code="lang.departureAirport"/></th>
                     <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
-                    <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
+                    <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col">  <spring:message code="lang.price"/></th>
                     <th></th>
@@ -108,21 +108,29 @@
                     <tr>
 
 
+
                         <td><c:out value="${flight.departureAirport.cityEng}"/></td>
                         <td> <c:out value="${flight.arrivalAirport.cityEng}"/></td>
-                        <td>   <c:out value="${flight.departureDate}"/></td>
-                        <td>  <c:out value="${flight.arrivalDate}"/></td>
+                        <td>   <c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
+                        <td> <c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
                         <td>  <c:out value="${flight.initialPrice}"/></td>
 
 
                         <td>
+                            <c:if test="${flight.departureDate gt currentTime}">
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">
-                                    <input type="submit" value="update" class="btn btn-outline-primary updateFlight"/>
+                                    <input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updateFlight"/>
                                 </form>
+                            </sec:authorize>
+                            </c:if>
+                            <c:if test="${flight.departureDate lt currentTime}">
+                                <p style="color:#28a745" >      <spring:message code="lang.complete"/></p>
+                            </c:if>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <form action="<%=Endpoints.FLIGHTS + Endpoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="delete" class="btn btn-outline-danger deleteFlight"/>
+                                    <input type="submit" value="<spring:message code="lang.delete"/>" class="btn btn-outline-danger deleteFlight"/>
                                 </form>
                             </sec:authorize>
 
@@ -137,7 +145,7 @@
                 </tbody>
             </table>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="previous"/>
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>"/>
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${page}">
@@ -145,7 +153,7 @@
                 </form>
             </c:forEach>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="next"/>
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>"/>
             </form>
         </div>
     </div>

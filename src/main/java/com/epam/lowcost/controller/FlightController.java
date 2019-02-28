@@ -32,6 +32,7 @@ public class FlightController {
     @RequestMapping(value = ALL, method = RequestMethod.GET)
     public String getAllFlights(ModelMap model) {
         model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
 
         return FLIGHTSPAGE;
@@ -53,8 +54,8 @@ public class FlightController {
     }
 
     @PostMapping(value = DELETE)
-    public String deleteFlight(@RequestParam Long id, Model model) {
-        model.addAttribute("flight", flightService.deleteFlight(id));
+    public String deleteFlight(@RequestParam Long id) {
+        flightService.deleteFlight(id);
         return "redirect:" + FLIGHTS + ALL;
     }
 
@@ -89,6 +90,7 @@ public class FlightController {
     public String searchForFlight(ModelMap model) {
         model.addAttribute("flights", flightService.getAllFlights());
         model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("currentTime", LocalDateTime.now());
         return SEARCHPAGE;
     }
 
