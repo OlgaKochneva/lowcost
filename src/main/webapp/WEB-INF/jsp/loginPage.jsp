@@ -14,8 +14,9 @@
 
     <base href="/">
     <title><spring:message code="lang.login" text="Login"/></title>
-    <spring:url value="/resources/static/css/login.css" var="login_css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    <spring:url value="/resources/static/css/login.css" var="login_css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="/resources/static/css/login.css" rel="stylesheet">
 
@@ -25,23 +26,26 @@
 <div class="wrapper">
 
 
-
     <br/>
     <div class="main_block">
         <p class="greeting"><spring:message code="lang.loginIntroduction"/></p>
-        <form method="POST" action="${contextPath}/login" >
+        <p class="message">${message}</p>
+        <form method="POST" action="${contextPath}/login">
 
 
-            <div class="form-group ${error != null ? 'has-error' : ''}">
-                <span>${message}</span>
-                <input name="username" type="text" class="form-control input" placeholder="Username"
-                       autofocus="true"/>
-                <input name="password" type="password" class="form-control input" placeholder="Password"/>
-                <span>${error}</span>
-                <button class="btn btn-lg btn-primary btn-block btnAuth" type="submit"><spring:message code="lang.logIn"/></button>
+            ${error != null ? 'has-error' : ''}
 
-                <a href="${contextPath}/registration"><spring:message code="lang.signIn"/></a>
-            </div>
+            <input name="username" type="text" class="form-control input" placeholder="Username"
+                   autofocus="true"/>
+                <br/>
+            <input name="password" type="password" class="form-control input" placeholder="Password"/>
+            <span>${error}</span>
+                <br/>
+            <button class="btn btn-outline-primary btnAuth" type="submit"><spring:message
+                    code="lang.logIn"/></button>
+
+            <a href="${contextPath}/registration"><spring:message code="lang.signIn"/></a>
+
         </form>
     </div>
 
