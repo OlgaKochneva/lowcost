@@ -1,7 +1,9 @@
 package com.epam.lowcost.repositories;
 
 import com.epam.lowcost.model.Ticket;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

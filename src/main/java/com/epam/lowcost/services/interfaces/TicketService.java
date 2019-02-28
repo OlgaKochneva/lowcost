@@ -18,4 +18,10 @@ public interface TicketService {
 
     String deleteTicketsByFlightId(long id);
 
+
+    boolean deleteTicketsByFlightId(long id);
+
+    boolean deleteTicketsByUserId(long id);
+
+    int countTickets();
 }

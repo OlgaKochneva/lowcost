@@ -21,6 +21,26 @@ public class TicketServiceImpl implements TicketService {
     private UserService userService;
     private ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
+    @Override
+    public int numberBoughtPlaces(long flightId, boolean isBusiness) {
+        return 0;
+    }
+
+    @Override
+    public boolean deleteTicketsByFlightId(long id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteTicketsByUserId(long id) {
+        return false;
+    }
+
+    @Override
+    public int countTickets() {
+        return 0;
+    }
+
     @Autowired
     public TicketServiceImpl(TicketRepository ticketRepository, FlightService flightService, UserService userService) {
         this.ticketRepository = ticketRepository;
