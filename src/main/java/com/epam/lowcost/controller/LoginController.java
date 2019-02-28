@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ResourceBundle;
+
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
@@ -22,6 +24,7 @@ public class LoginController {
     private final UserService userService;
     private final SecurityService securityService;
     private final UserValidator userValidator;
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("messages");
 
     @Autowired
     public LoginController(UserService userService, SecurityService securityService, UserValidator userValidator) {
@@ -55,11 +58,11 @@ public class LoginController {
     @GetMapping(LOGIN)
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("error", "Your username and password is invalid or you have been banned!.");
+            model.addAttribute("error", resourceBundle.getString("lang.wrongPasswordOrBanned"));
         }
 
         if (logout != null) {
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "lang.logOutMessage");
         }
 
         model.addAttribute("sessionUser", userService.getSessionUser());

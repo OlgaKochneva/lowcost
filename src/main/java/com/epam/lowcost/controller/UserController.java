@@ -20,7 +20,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes({"sessionUser", "number"})
+@SessionAttributes({"number"})
 public class UserController {
 
 
@@ -75,7 +75,7 @@ public class UserController {
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)
     public String settings(ModelMap model) {
 
-        model.addAttribute("sessionUser", userService.getSessionUser());
+       model.addAttribute("sessionUser", userService.getSessionUser());
 
         return SETTINGS_PAGE;
     }
