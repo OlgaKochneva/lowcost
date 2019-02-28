@@ -41,6 +41,7 @@ public class PlaneController {
 
     @RequestMapping(value = ADD, method = RequestMethod.POST)
     public String addPlane(@ModelAttribute("planeForm") Plane planeForm, BindingResult bindingResult) {
+        int i = 1;
         planeValidator.validate(planeForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return ADD_PLANE_PAGE;

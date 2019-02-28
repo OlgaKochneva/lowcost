@@ -22,6 +22,7 @@
             <h4><spring:message code="lang.addNewPlane"/></h4>
             <form:form action="<%=Endpoints.PLANE + Endpoints.ADD%>" method="post" modelAttribute="planeForm">
                 <spring:bind path="model">
+                    <spring:message code="lang.model"/>
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="text" path="model" class="form-control"
                                     autofocus="true"></form:input>
@@ -30,6 +31,7 @@
                 </spring:bind>
 
                 <spring:bind path="businessPlacesNumber">
+                    <spring:message code="lang.numBusiness"/>
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="number" path="businessPlacesNumber" class="form-control"
                                     autofocus="true"></form:input>
@@ -38,6 +40,7 @@
                 </spring:bind>
 
                 <spring:bind path="economPlacesNumber">
+                    <spring:message code="lang.numEconom"/>
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="number" path="economPlacesNumber" class="form-control"
                                     autofocus="true"></form:input>
