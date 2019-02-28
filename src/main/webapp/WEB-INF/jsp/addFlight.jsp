@@ -48,7 +48,15 @@
                 <%--<spring:message code="lang.departureDateFrom"/><br/><input type="datetime-local"  class="form-control input" required name="departureDate"/>--%>
                 <%--<spring:message code="lang.arriveAt"/><br/><input type="datetime-local"  class="form-control input" required name="arrivalDate"/>--%>
                 <spring:message code="lang.departureAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="departureAirport"/>
-                <spring:message code="lang.arrivalAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="arrivalAirport"/>
+                <%--<spring:message code="lang.arrivalAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="arrivalAirport"/>--%>
+                <spring:bind path="arrivalAirport">
+                    <div>
+                        <spring:message code="lang.arrivalAirport"/><br/>
+                        <form:errors path="arrivalAirport" cssStyle="color: #dc3545"/>
+                        <form:input type="text"  path="arrivalAirport" list="airport" class="form-control input"/>
+
+                    </div>
+                </spring:bind>
                 <spring:message code="lang.placePriorityPrice"/>.<br/><input type="text"  class="form-control input" required name="placePriorityPrice"/>
                 <spring:message code="lang.businessPrice"/><br/><input type="text"  class="form-control input" required name="businessPrice"/>
                 <spring:message code="lang.luggagePrice"/><br/><input type="text"  class="form-control input" required name="luggagePrice"/>
@@ -60,7 +68,7 @@
 </div>
 <datalist id="airport">
     <c:forEach items="${airports}" var="airport">
-        <option hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
+        <option value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
     </c:forEach>
 </datalist>
 

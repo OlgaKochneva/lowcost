@@ -83,9 +83,10 @@ public class FlightController {
     }
 
     @RequestMapping(value = ADD, method = RequestMethod.POST)
-    public String addNewFlight(@ModelAttribute("flight") Flight flight, BindingResult bindingResult) {
+    public String addNewFlight(@ModelAttribute("flight") Flight flight, BindingResult bindingResult, Model model) {
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("airports", airportService.getAllAirports());
             return ADDFLIGHT;
         }
         flightService.addNewFlight(flight);
