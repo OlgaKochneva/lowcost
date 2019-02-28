@@ -9,13 +9,5 @@ public interface AirportService {
     List<Airport> getAllAirports();
 
     Airport getAirportByCode(String code);
-
-    Airport addNewAirport(Map<String, String> params);
-
-    // Airport deleteAirport(Long id);
-
-    Airport updateAirport(Map<String, String> params);
-
-    Map<String,Object> getAirportsByPage(int pageId, int numberOfAirportsOnPage);
-
+    
 }
