@@ -31,8 +31,8 @@
             <form action="<%=Endpoints.PLANE%>/${plane.id}" method="post">
                 <input type="hidden" name="planeId" value="${plane.id}"/>
                 <spring:message code="lang.model"/><br/><input type="text" required name="model" class="form-control input" value="${plane.model}"/>
-                <spring:message code="lang.businessPlacesNumber"/>. <br/> <input type="name" required name="businessPlacesNumber" class="form-control input" value="${plane.businessPlacesNumber}"/>
-                <spring:message code="lang.economyPlacesNumber"/> <br/><input type="name" required class="form-control input" name="economPlacesNumber" value="${plane.economPlacesNumber}"/>
+                <spring:message code="lang.businessPlacesNumber"/>. <br/> <input type="number" required name="businessPlacesNumber" class="form-control input" value="${plane.businessPlacesNumber}"/>
+                <spring:message code="lang.economyPlacesNumber"/> <br/><input type="number" required class="form-control input" name="economPlacesNumber" value="${plane.economPlacesNumber}"/>
                 <input type="submit" value="<spring:message code="lang.updatePlane"/>"
                        class="btn btn-outline-success updateBtn"/>
             </form>
