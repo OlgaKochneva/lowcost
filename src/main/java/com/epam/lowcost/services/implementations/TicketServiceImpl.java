@@ -7,6 +7,8 @@ import com.epam.lowcost.repositories.TicketRepository;
 import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.services.interfaces.UserService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,19 +19,12 @@ import java.util.ResourceBundle;
 @Service
 public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
+    private final UserService userService;
+    @Autowired
+    @Getter
+    @Setter
     private FlightService flightService;
-    private UserService userService;
     private ResourceBundle bundle = ResourceBundle.getBundle("messages");
-
-    @Override
-    public int numberBoughtPlaces(long flightId, boolean isBusiness) {
-        return 0;
-    }
-
-    @Override
-    public boolean deleteTicketsByFlightId(long id) {
-        return false;
-    }
 
     @Override
     public boolean deleteTicketsByUserId(long id) {
@@ -42,9 +37,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository, FlightService flightService, UserService userService) {
+    public TicketServiceImpl(TicketRepository ticketRepository,UserService userService) {
         this.ticketRepository = ticketRepository;
-        this.flightService = flightService;
         this.userService = userService;
     }
 
@@ -82,7 +76,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public long getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness) {
+    public int getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness) {
         return ticketRepository.countAllByFlight_IdAndIsBusinessAndIsDeleted(flightId, isBusiness, false);
     }
 
