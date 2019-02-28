@@ -17,4 +17,6 @@ public interface FlightService {
     String deleteFlight(Long id);
 
     List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
+
+    Flight getFlightByIdWithUpdatedPrice(long id);
 }
