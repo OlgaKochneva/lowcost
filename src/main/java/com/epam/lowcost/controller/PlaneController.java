@@ -49,15 +49,21 @@ public class PlaneController {
         return PLANES_SETTINGS;
     }
 
-    @RequestMapping(value = "{plane}", method = RequestMethod.POST)
-    public String updatePlane(@RequestParam Long id,
+    @RequestMapping(value = "{planeId}", method = RequestMethod.POST)
+    public String updatePlane(@RequestParam Long planeId,
                               @RequestParam Map<String, String> params) {
-        Plane plane = planeService.getById(id);
-
+        Plane plane = planeService.getById(planeId);
         plane.setModel(params.get("model"));
         plane.setBusinessPlacesNumber(Integer.parseInt(params.get("businessPlacesNumber")));
         plane.setEconomPlacesNumber(Integer.parseInt(params.get("economPlacesNumber")));
         planeService.updatePlane(plane);
+
+        return "redirect:" + PLANE;
+    }
+
+    @RequestMapping(value = DELETE, method = RequestMethod.POST)
+    public String deletePlane(@RequestParam Long planeId) {
+        planeService.deletePlane(planeId);
 
         return "redirect:" + PLANE;
     }

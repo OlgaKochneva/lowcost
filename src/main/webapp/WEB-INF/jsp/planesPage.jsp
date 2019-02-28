@@ -55,7 +55,7 @@
                                     code="lang.update"/></a>
 
                             <form action="<%=Endpoints.PLANE + Endpoints.DELETE%>" method="post">
-                                <input type="hidden" name="id" value="${plane.id}"/>
+                                <input type="hidden" name="planeId" value="${plane.id}"/>
                                 <input type="submit" value="<spring:message code="lang.delete"/>"
                                        class="btn btn-outline-danger deletePlaneBtn"/>
                             </form>

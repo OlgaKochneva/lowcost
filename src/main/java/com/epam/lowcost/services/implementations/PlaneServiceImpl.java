@@ -19,7 +19,7 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public List<Plane> getAllPlanes() {
-        return planeRepository.findAll();
+        return planeRepository.getAllByIsDeletedFalse();
     }
 
     @Override
@@ -40,6 +40,8 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public void deletePlane(long planeId) {
-
+        Plane plane = planeRepository.getById(planeId);
+        plane.setDeleted(true);
+        planeRepository.save(plane);
     }
 }
