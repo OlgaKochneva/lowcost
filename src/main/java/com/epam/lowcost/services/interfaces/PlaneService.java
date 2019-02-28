@@ -9,7 +9,7 @@ public interface PlaneService {
 
     Plane getById(long planeId);
 
-    Plane addPlane(Plane plane);
+    void addPlane(Plane plane);
 
     Plane updatePlane(Plane plane);
 

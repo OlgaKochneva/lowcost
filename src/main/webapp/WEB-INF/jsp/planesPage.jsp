@@ -22,12 +22,13 @@
     <div class="row">
         <div class="col-md-4 addPlaneBtn">
 
-            <form action="<%=Endpoints.PLANE%>" method="post">
-                <input type="submit" class="btn btn-outline-primary addPlaneBtn" value="<spring:message code="lang.addNewPlane"/> "/>
-            </form>
+            <a href="<%=Endpoints.PLANE + Endpoints.ADD%>" class="btn btn-outline-primary addPlaneBtn"> <spring:message
+                    code="lang.addNewPlane"/></a>
 
         </div>
     </div>
+
+    <h5>${message}</h5>
 
     <div class="row">
         <div class="col-md-12">
@@ -49,22 +50,18 @@
                         <td><c:out value="${plane.economPlacesNumber}"/></td>
 
 
-                    <td>
-                    <c:if test="${sessionUser.isAdmin()}">
-                    <form action="<%=Endpoints.PLANE%>" method="get">
-                    <input type="hidden" name="id" value="${plane.id}"/>
-                    <input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updatePlaneBtn"/>
-                    </form>
-                    <form action="<%=Endpoints.PLANE + Endpoints.DELETE%>" method="post">
-                    <input type="hidden" name="id" value="${plane.id}"/>
-                    <input type="submit" value="<spring:message code="lang.delete"/>" class="btn btn-outline-danger deletePlaneBtn"/>
-                    </form>
-
-
-
-                    </c:if>
-
-                    </td>
+                        <td>
+                            <form action="<%=Endpoints.PLANE%>" method="get">
+                                <input type="hidden" name="id" value="${plane.id}"/>
+                                <input type="submit" value="<spring:message code="lang.update"/>"
+                                       class="btn btn-outline-primary updatePlaneBtn"/>
+                            </form>
+                            <form action="<%=Endpoints.PLANE + Endpoints.DELETE%>" method="post">
+                                <input type="hidden" name="id" value="${plane.id}"/>
+                                <input type="submit" value="<spring:message code="lang.delete"/>"
+                                       class="btn btn-outline-danger deletePlaneBtn"/>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -74,9 +71,6 @@
         </div>
     </div>
     <br/>
-
-
-
 
 </div>
 
