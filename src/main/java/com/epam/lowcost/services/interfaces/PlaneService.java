@@ -11,7 +11,7 @@ public interface PlaneService {
 
     void addPlane(Plane plane);
 
-    Plane updatePlane(Plane plane);
+    void updatePlane(Plane plane);
 
     void deletePlane(long planeId);
 }

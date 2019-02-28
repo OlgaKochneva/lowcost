@@ -6,7 +6,7 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.planes"/></title>
-    <spring:url value="/resources/css/main.css" var="main_css"/>
+    <spring:url value="/resources/static/css/main.css" var="main_css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
@@ -51,11 +51,9 @@
 
 
                         <td>
-                            <form action="<%=Endpoints.PLANE%>" method="get">
-                                <input type="hidden" name="id" value="${plane.id}"/>
-                                <input type="submit" value="<spring:message code="lang.update"/>"
-                                       class="btn btn-outline-primary updatePlaneBtn"/>
-                            </form>
+                            <a href="<%=Endpoints.PLANE%>/${plane.id}" class="btn btn-outline-primary updatePlaneBtn"> <spring:message
+                                    code="lang.update"/></a>
+
                             <form action="<%=Endpoints.PLANE + Endpoints.DELETE%>" method="post">
                                 <input type="hidden" name="id" value="${plane.id}"/>
                                 <input type="submit" value="<spring:message code="lang.delete"/>"

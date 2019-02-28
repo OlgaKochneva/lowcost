@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlaneRepository extends JpaRepository<Plane, Long> {
+    Plane getById(Long planeId);
 }

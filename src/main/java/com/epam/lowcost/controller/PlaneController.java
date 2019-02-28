@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -38,6 +38,26 @@ public class PlaneController {
     @RequestMapping(value = ADD, method = RequestMethod.POST)
     public String addPlane(@ModelAttribute("planeForm") Plane planeForm) {
         planeService.addPlane(planeForm);
+
+        return "redirect:" + PLANE;
+    }
+
+    @RequestMapping(value = "{plane}", method = RequestMethod.GET)
+    public String updatePlanePage(@PathVariable Plane plane, Model model) {
+        model.addAttribute("plane", plane);
+
+        return PLANES_SETTINGS;
+    }
+
+    @RequestMapping(value = "{plane}", method = RequestMethod.POST)
+    public String updatePlane(@RequestParam Long id,
+                              @RequestParam Map<String, String> params) {
+        Plane plane = planeService.getById(id);
+
+        plane.setModel(params.get("model"));
+        plane.setBusinessPlacesNumber(Integer.parseInt(params.get("businessPlacesNumber")));
+        plane.setEconomPlacesNumber(Integer.parseInt(params.get("economPlacesNumber")));
+        planeService.updatePlane(plane);
 
         return "redirect:" + PLANE;
     }

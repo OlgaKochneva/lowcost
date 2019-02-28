@@ -24,7 +24,7 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public Plane getById(long planeId) {
-        return planeRepository.findById(planeId).orElse(Plane.builder().build());
+        return planeRepository.getById(planeId);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class PlaneServiceImpl implements PlaneService {
     }
 
     @Override
-    public Plane updatePlane(Plane plane) {
-        return null;
+    public void updatePlane(Plane plane) {
+        planeRepository.save(plane);
     }
 
     @Override
