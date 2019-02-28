@@ -20,8 +20,8 @@ import static com.epam.lowcost.util.Endpoints.*;
 @RequestMapping(value = FLIGHTS)
 public class FlightController {
 
-    private FlightService flightService;
-    private AirportService airportService;
+    private final FlightService flightService;
+    private final AirportService airportService;
 
     @Autowired
     public FlightController(FlightService flightService, AirportService airportService) {
@@ -96,9 +96,11 @@ public class FlightController {
     @RequestMapping(value = SEARCH, method = RequestMethod.GET)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         LocalDateTime departureDateTo;
-        if (params.get("departureDateTo").equals(""))
-            departureDateTo =LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1) ;
-        else departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay();
+        if (params.get("departureDateTo").equals("")) {
+            departureDateTo = LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1);
+        } else {
+            departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay();
+        }
 
         model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
                 (airportService.getAirportByCode(params.get("departureAirport")),

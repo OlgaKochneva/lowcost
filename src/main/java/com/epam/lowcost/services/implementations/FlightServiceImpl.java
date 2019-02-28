@@ -22,7 +22,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class FlightServiceImpl implements FlightService {
     private final FlightRepository flightRepository;
     private final TicketService ticketService;
-    public AirportService airportService;
+    private final AirportService airportService;
 
     @Autowired
     public FlightServiceImpl(FlightRepository flightRepository, AirportService airportService, TicketService ticketService) {
@@ -75,6 +75,7 @@ public class FlightServiceImpl implements FlightService {
         flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
         return flights;
     }
+
     private long calculateInitialFlightPriceByDate(long daysBetween, long minPrice) {
         long daysNumber = 60;//min number of days for price rising
         long price;
@@ -88,7 +89,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List <Flight> getAllFlightsWithUpdatedPrice() {
+    public List<Flight> getAllFlightsWithUpdatedPrice() {
 
         List<Flight> flights = getAllFlights();
         flights.forEach(this::updateFlightPrice);
