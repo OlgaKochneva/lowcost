@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface TicketService {
     List<Ticket> getAllUserTickets(long userId);
 
@@ -16,7 +17,6 @@ public interface TicketService {
 
     long getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
 
-    @Transactional
     String deleteTicketsByFlightId(long id);
 
 }

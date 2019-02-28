@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 @Service
 public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
     private FlightService flightService;
     private UserService userService;
+    private ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
     @Autowired
     public TicketServiceImpl(TicketRepository ticketRepository, FlightService flightService, UserService userService) {
@@ -41,7 +43,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPrice(flight.getInitialPrice());
         ticket.setPrice(countPrice(ticket));
         ticket.setDeleted(false);
-        return ticketRepository.save(ticket);
+        return ticket;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticketToDelete = ticketRepository.findById(id);
         ticketToDelete.setDeleted(true);
         ticketRepository.save(ticketToDelete);
-        return "Ticket successfully returned";
+        return bundle.getString("lang.ticketSuccessfullyReturned");
     }
 
     @Override
@@ -65,7 +67,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public String deleteTicketsByFlightId(long flightId) {
         getAllTicketsForCurrentFlight(flightId).forEach(t -> t.setDeleted(true));
-        return "All tickets for flight " + flightId + "deleted";
+        return bundle.getString("lang.allTicketsDelete") + flightId;
     }
 
     private long countPrice(Ticket ticket) {
