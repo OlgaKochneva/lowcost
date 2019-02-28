@@ -2,6 +2,7 @@ package com.epam.lowcost.services.implementations;
 
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
+import com.epam.lowcost.model.User;
 import com.epam.lowcost.repositories.TicketRepository;
 import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.TicketService;
@@ -18,8 +19,10 @@ public class TicketServiceImpl implements TicketService {
     private UserService userService;
 
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository, FlightService flightService, UserService userService) {
         this.ticketRepository = ticketRepository;
+        this.flightService = flightService;
+        this.userService = userService;
     }
 
 
@@ -31,7 +34,14 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket addTicket(Ticket ticket) {
-        return null;
+        Flight flight = flightService.getFlightByIdWithUpdatedPrice(ticket.getFlight().getId());
+        User user = userService.getById(ticket.getUser().getId());
+        ticket.setFlight(flight);
+        ticket.setUser(user);
+        ticket.setPrice(flight.getInitialPrice());
+        ticket.setPrice(countPrice(ticket));
+        ticket.setDeleted(false);
+        return ticketRepository.save(ticket);
     }
 
     @Override

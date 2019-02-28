@@ -47,4 +47,9 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate) {
         return null;
     }
+
+    @Override
+    public Flight getFlightByIdWithUpdatedPrice(long id) {
+        return null;
+    }
 }
