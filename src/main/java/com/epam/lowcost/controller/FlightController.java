@@ -3,6 +3,7 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
+import com.epam.lowcost.util.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +23,13 @@ public class FlightController {
 
     private final FlightService flightService;
     private final AirportService airportService;
+    private final FlightValidator flightValidator;
 
     @Autowired
-    public FlightController(FlightService flightService, AirportService airportService) {
+    public FlightController(FlightService flightService, AirportService airportService, FlightValidator flightValidator) {
         this.flightService = flightService;
         this.airportService = airportService;
+        this.flightValidator = flightValidator;
     }
 
     @RequestMapping(value = ALL, method = RequestMethod.GET)
@@ -81,6 +84,10 @@ public class FlightController {
 
     @RequestMapping(value = ADD, method = RequestMethod.POST)
     public String addNewFlight(@ModelAttribute("flight") Flight flight, BindingResult bindingResult) {
+        flightValidator.validate(flight, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return ADDFLIGHT;
+        }
         flightService.addNewFlight(flight);
         return "redirect:" + FLIGHTS + ALL;
     }
