@@ -37,5 +37,7 @@ public class Ticket {
 
     private LocalDateTime purchaseDate;
 
+    @ManyToOne
+    @JoinColumn(name = "IS_DELETED")
     private boolean isDeleted;
 }
