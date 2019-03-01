@@ -14,14 +14,10 @@ public interface TicketService {
 
     String deleteTicketById(long id);
 
-    long getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
+    int getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
 
     String deleteTicketsByFlightId(long id);
 
-
-    boolean deleteTicketsByFlightId(long id);
-
     boolean deleteTicketsByUserId(long id);
 
-    int countTickets();
 }
