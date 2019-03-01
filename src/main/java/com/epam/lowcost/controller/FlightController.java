@@ -3,6 +3,7 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
+import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.util.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.modelmbean.ModelMBeanAttributeInfo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -23,13 +25,16 @@ public class FlightController {
 
     private final FlightService flightService;
     private final AirportService airportService;
+    private final TicketService ticketService;
     private final FlightValidator flightValidator;
 
     @Autowired
-    public FlightController(FlightService flightService, AirportService airportService, FlightValidator flightValidator) {
+    public FlightController(FlightService flightService, AirportService airportService,
+                            FlightValidator flightValidator, TicketService ticketService) {
         this.flightService = flightService;
         this.airportService = airportService;
         this.flightValidator = flightValidator;
+        this.ticketService = ticketService;
     }
 
     @RequestMapping(value = ALL, method = RequestMethod.GET)
@@ -62,6 +67,11 @@ public class FlightController {
         return "redirect:" + FLIGHTS + ALL;
     }
 
+    @RequestMapping (value = TICKETS + "/{id}", method = RequestMethod.GET)
+    public String getAllTicketsForFlight(@PathVariable Long id, ModelMap modelMap) {
+        modelMap.addAttribute("tickets",ticketService.getAllTicketsForCurrentFlight(id));
+        return TICKETS_PAGE;
+    }
 
     @GetMapping(value = NEW_TICKET + "/{id}")
     public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
@@ -96,7 +106,7 @@ public class FlightController {
 
     @RequestMapping(value = FLIGHT, method = RequestMethod.GET)
     public String searchForFlight(ModelMap model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());
         return SEARCHPAGE;

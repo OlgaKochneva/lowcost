@@ -23,7 +23,7 @@
 <jsp:include page="navigationPanel.jsp"/>
 <div class="container">
     <div class="row">
-        <div class="col-md-3 mainContentAdd">
+        <div class="col-md-4 mainContentAdd">
             <h4><spring:message code="lang.addNewFlight"/><br/></h4>
             <form:form method="post" action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" modelAttribute="flight" >
 
