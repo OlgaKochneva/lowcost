@@ -9,6 +9,8 @@ import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.PlaneService;
 import com.epam.lowcost.services.interfaces.TicketService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +23,16 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class FlightServiceImpl implements FlightService {
     private final FlightRepository flightRepository;
-    private final TicketService ticketService;
     private final AirportService airportService;
+    @Autowired
+    @Getter
+    @Setter
+    private TicketService ticketService;
 
     @Autowired
-    public FlightServiceImpl(FlightRepository flightRepository, AirportService airportService, TicketService ticketService) {
+    public FlightServiceImpl(FlightRepository flightRepository, AirportService airportService) {
         this.flightRepository = flightRepository;
         this.airportService = airportService;
-        this.ticketService = ticketService;
-
     }
 
     @Override
@@ -125,7 +128,7 @@ public class FlightServiceImpl implements FlightService {
 
     private int getNumberOfFreeBusinessPlaces(Flight flight) {
         int totalNumber = flight.getPlane().getBusinessPlacesNumber();
-        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), true);
+        int holdPlaces = ticketService.getNumberBoughtPlacesForEachClass(flight.getId(), true);
         return totalNumber - holdPlaces;
     }
 
@@ -140,7 +143,7 @@ public class FlightServiceImpl implements FlightService {
 
     private int getNumberOfFreeEconomyPlaces(Flight flight) {
         int totalNumber = flight.getPlane().getEconomPlacesNumber();
-        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), false);
+        int holdPlaces = ticketService.getNumberBoughtPlacesForEachClass(flight.getId(), false);
         return totalNumber - holdPlaces;
     }
 
