@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDateTime;
-
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
