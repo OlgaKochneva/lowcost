@@ -38,5 +38,7 @@ public class Ticket {
 
     private LocalDateTime purchaseDate;
 
+    private boolean isPaid;
+
     private boolean isDeleted;
 }

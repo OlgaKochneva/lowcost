@@ -35,7 +35,7 @@
             <c:forEach items="${tickets}" var="ticket">
                 <tr>
                     <td><c:out value="${ticket.user.firstName}"/></td>
-                    <td><c:out value="${ticket.user.email}"/></td>
+                    <td><c:out value="${ticket.user.username}"/></td>
                     <td><c:out value="${ticket.flight.departureAirport.cityEng}"/></td>
                     <td><c:out value="${ticket.flight.arrivalAirport.cityEng}"/></td>
                     <td><c:out value="${ticket.flight.departureDate}"/></td>
