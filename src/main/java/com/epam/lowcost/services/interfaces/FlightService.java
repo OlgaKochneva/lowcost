@@ -18,6 +18,7 @@ public interface FlightService {
 
     Flight deleteFlight(Long id);
 
+
     List<Flight> getByFromToDate(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
 
 
@@ -26,4 +27,5 @@ public interface FlightService {
     List<Flight> getAllFlightsWithUpdatedPrice();
 
     Flight getFlightByIdWithUpdatedPrice(Long id);
+
 }
