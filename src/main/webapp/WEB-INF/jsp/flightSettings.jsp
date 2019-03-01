@@ -32,14 +32,30 @@
                 <input type="hidden" name="id" value="${flight.id}"/>
                 <spring:message code="lang.planeId"/><br/>
                 <input type="text" required name="plane" class="form-control input" value="${flight.plane.id}"/>
-                <spring:message code="lang.departureAt"/><br/><input type="datetime-local" required name="departureDate" class="form-control input" value="${flight.departureDate}"/>
-                <spring:message code="lang.arriveAt"/>. <br/> <input type="datetime-local" required name="arrivalDate" class="form-control input" value="${flight.arrivalDate}"/>
-                <spring:message code="lang.departureAirport"/> <br/><input type="text" required list="airport" class="form-control input" name="departureAirport" value="${flight.departureAirport.code}"/>
-                <spring:message code="lang.arrivalAirport"/> <br/><input type="text" class="form-control input" required list="airport" name="arrivalAirport" value="${flight.arrivalAirport.code}"/>
-                <spring:message code="lang.placePriorityPrice"/><br/><input type="text" class="form-control input" required name="placePriorityPrice" value="${flight.placePriorityPrice}"/>
-                <spring:message code="lang.businessPrice"/><br/><input type="text" class="form-control input" required name="luggagePrice"value="${flight.businessPrice}"/>
-                <spring:message code="lang.luggagePrice"/><br/><input type="text" class="form-control input" required name="businessPrice" value="${flight.luggagePrice}"/>
-                <spring:message code="lang.price"/>.<br/><input type="text" class="form-control input" required name="initialPrice" value="${flight.initialPrice}"/>
+                <spring:message code="lang.departureAt"/><br/><input type="datetime-local" required name="departureDate"
+                                                                     class="form-control input"
+                                                                     value="${flight.departureDate}"/>
+                <spring:message code="lang.arriveAt"/>. <br/> <input type="datetime-local" required name="arrivalDate"
+                                                                     class="form-control input"
+                                                                     value="${flight.arrivalDate}"/>
+                <spring:message code="lang.departureAirport"/> <br/><input type="text" required list="airport"
+                                                                           class="form-control input"
+                                                                           name="departureAirport"
+                                                                           value="${flight.departureAirport.code}"/>
+                <spring:message code="lang.arrivalAirport"/> <br/><input type="text" class="form-control input" required
+                                                                         list="airport" name="arrivalAirport"
+                                                                         value="${flight.arrivalAirport.code}"/>
+                <spring:message code="lang.placePriorityPrice"/><br/><input type="text" class="form-control input"
+                                                                            required name="placePriorityPrice"
+                                                                            value="${flight.placePriorityPrice}"/>
+                <spring:message code="lang.businessPrice"/><br/><input type="text" class="form-control input" required
+                                                                       name="luggagePrice"
+                                                                       value="${flight.businessPrice}"/>
+                <spring:message code="lang.luggagePrice"/><br/><input type="text" class="form-control input" required
+                                                                      name="businessPrice"
+                                                                      value="${flight.luggagePrice}"/>
+                <spring:message code="lang.price"/>.<br/><input type="text" class="form-control input" required
+                                                                name="initialPrice" value="${flight.initialPrice}"/>
                 <input type="submit" value="update"
                        class="btn btn-outline-success updateBtn"/>
             </form>

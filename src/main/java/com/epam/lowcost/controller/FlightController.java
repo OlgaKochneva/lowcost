@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.modelmbean.ModelMBeanAttributeInfo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -113,21 +112,19 @@ public class FlightController {
     }
 
 
-
     public void findFlightByFromToDate(@RequestParam Map<String, String> params, Model model, boolean isAdmin) {
         LocalDateTime departureDateTo;
         if (params.get("departureDateTo").equals(""))
             departureDateTo = LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1).plusDays(1);
         else departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay().plusDays(1);
-        if (isAdmin){
+        if (isAdmin) {
             model.addAttribute("flights", flightService.getByFromToDate
                     (airportService.getAirportByCode(params.get("departureAirport")),
                             airportService.getAirportByCode(params.get("arrivalAirport")),
                             LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                             departureDateTo));
 
-        }
-        else {
+        } else {
             model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
                     (airportService.getAirportByCode(params.get("departureAirport")),
                             airportService.getAirportByCode(params.get("arrivalAirport")),
@@ -139,15 +136,14 @@ public class FlightController {
     }
 
     @RequestMapping(value = SEARCH, method = RequestMethod.GET)
-    public String findFlightByFromToDateUser(@RequestParam Map<String, String> params, Model model){
+    public String findFlightByFromToDateUser(@RequestParam Map<String, String> params, Model model) {
         findFlightByFromToDate(params, model, false);
         return SEARCHPAGE;
     }
 
 
-
-    @RequestMapping(value = SEARCH+ADMIN, method = RequestMethod.GET)
-    public String findFlightByFromToDateAdmin(@RequestParam Map<String, String> params, Model model){
+    @RequestMapping(value = SEARCH + ADMIN, method = RequestMethod.GET)
+    public String findFlightByFromToDateAdmin(@RequestParam Map<String, String> params, Model model) {
         findFlightByFromToDate(params, model, true);
         return FLIGHTSPAGE;
     }
