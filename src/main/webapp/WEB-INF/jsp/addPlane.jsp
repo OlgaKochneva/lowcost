@@ -24,8 +24,8 @@
                 <spring:bind path="model">
                     <spring:message code="lang.model"/>
                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="model" class="form-control"
-                                    autofocus="true"></form:input>
+                        <form:input type="text" required="true" path="model" class="form-control"
+                                    bodycontent ="" autofocus="true"></form:input>
                         <form:errors path="model"></form:errors>
                     </div>
                 </spring:bind>
@@ -33,7 +33,7 @@
                 <spring:bind path="businessPlacesNumber">
                     <spring:message code="lang.numBusiness"/>
                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="number" path="businessPlacesNumber" class="form-control"
+                        <form:input type="number" required="true"  path="businessPlacesNumber" class="form-control"
                                     autofocus="true"></form:input>
                         <form:errors path="businessPlacesNumber"></form:errors>
                     </div>
@@ -42,7 +42,7 @@
                 <spring:bind path="economPlacesNumber">
                     <spring:message code="lang.numEconom"/>
                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="number" path="economPlacesNumber" class="form-control"
+                        <form:input type="number" required="true"  path="economPlacesNumber" class="form-control"
                                     autofocus="true"></form:input>
                         <form:errors path="economPlacesNumber"></form:errors>
                     </div>
