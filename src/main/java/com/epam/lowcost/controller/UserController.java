@@ -20,7 +20,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes({"number"})
+@SessionAttributes({"sessionUser","number"})
 public class UserController {
 
 
@@ -40,14 +40,18 @@ public class UserController {
         }
         int usersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
 
+        String searchTerm = "lastName";
+        String searchString = "Petrov";
 
-        Page<User> allUsers = userService.getAllUsers(pageId, usersOnPage);
-        if (pageId >= allUsers.getTotalPages()) {
-            pageId = allUsers.getTotalPages() - 1;
+
+        Page<User> pageWithUsers = userService.searchByTerm(pageId, searchTerm, searchString, usersOnPage);
+
+        if (pageId >= pageWithUsers.getTotalPages()) {
+            pageId = pageWithUsers.getTotalPages() - 1;
         }
         model.addAttribute("pageId", pageId);
-        model.addAttribute("pagesNum", String.valueOf(allUsers.getTotalPages()));
-        model.addAttribute("users", allUsers.getContent());
+        model.addAttribute("pagesNum", String.valueOf(pageWithUsers.getTotalPages()));
+        model.addAttribute("users", pageWithUsers.getContent());
         return USERS_PAGE;
     }
 
@@ -75,7 +79,7 @@ public class UserController {
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)
     public String settings(ModelMap model) {
 
-       model.addAttribute("sessionUser", userService.getSessionUser());
+        model.addAttribute("sessionUser", userService.getSessionUser());
 
         return SETTINGS_PAGE;
     }

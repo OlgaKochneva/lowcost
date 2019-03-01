@@ -1,7 +1,6 @@
 package com.epam.lowcost.controller;
 
 
-import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;

@@ -8,6 +8,8 @@ public interface UserService {
 
     Page<User> getAllUsers(Integer pageId, int usersOnPage);
 
+    Page<User> searchByTerm(Integer pageId, String searchTerm, String searchString, int usersOnPage);
+
     User getById(long userId);
 
     void addUser(User user);
