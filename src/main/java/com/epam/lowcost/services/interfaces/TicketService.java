@@ -4,16 +4,24 @@ import com.epam.lowcost.model.Ticket;
 
 import java.util.List;
 
+
 public interface TicketService {
     List<Ticket> getAllUserTickets(long userId);
 
-    List<Ticket> getAllTickets();
+    List<Ticket> getAllTicketsForCurrentFlight(long flightId);
 
     Ticket addTicket(Ticket ticket);
 
-    Ticket updateTicket(Ticket ticket);
+    String deleteTicketById(long id);
 
-    String deleteTicket(long id);
+    long getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness);
+
+    String deleteTicketsByFlightId(long id);
 
 
+    boolean deleteTicketsByFlightId(long id);
+
+    boolean deleteTicketsByUserId(long id);
+
+    int countTickets();
 }

@@ -20,6 +20,9 @@ dependencies {
 	compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	compile 'javax.servlet:jstl'
 	compile 'org.springframework.boot:spring-boot-starter-security'
+	
+	compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.1.4.RELEASE'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	compile 'org.springframework.boot:spring-boot-devtools'

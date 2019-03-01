@@ -1,13 +1,9 @@
 package com.epam.lowcost.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "AIRPORTS")
@@ -15,7 +11,9 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Airport {
+
     @Id
     private String code;
     private String cityEng;
@@ -24,5 +22,5 @@ public class Airport {
     private String nameRus;
     private String countryEng;
     private String countryRus;
-}
 
+}
