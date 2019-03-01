@@ -30,7 +30,7 @@
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" method="get">
+            <form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH + Endpoints.ADMIN%>" method="get">
                 <div class="leftBlockSerch">
                     <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
                     <input type="date" id="inpSerc" required name="departureDateFrom" class="form-control searchInput"/>
@@ -45,7 +45,6 @@
                     <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
                     <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport"
                            class="form-control searchInput"/> <br/>
-                    <input type="text" hidden name="adminPage" value="true"/>
                 </div>
 
         </div>

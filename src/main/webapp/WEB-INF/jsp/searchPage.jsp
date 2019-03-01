@@ -41,7 +41,7 @@
                     <input type="text" id="inpSerc3" required list="airport" name="departureAirport" class="form-control searchInput"/> <br/>
                     <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
                     <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport" class="form-control searchInput"/>  <br/>
-                    <input type="text" hidden name="adminPage" value="false"/>
+
                     </div>
 
         </div>

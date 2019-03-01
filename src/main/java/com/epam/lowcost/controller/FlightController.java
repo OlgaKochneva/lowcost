@@ -67,9 +67,9 @@ public class FlightController {
         return "redirect:" + FLIGHTS + ALL;
     }
 
-    @RequestMapping (value = TICKETS + "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = TICKETS + "/{id}", method = RequestMethod.GET)
     public String getAllTicketsForFlight(@PathVariable Long id, ModelMap modelMap) {
-        modelMap.addAttribute("tickets",ticketService.getAllTicketsForCurrentFlight(id));
+        modelMap.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(id));
         return TICKETS_PAGE;
     }
 
@@ -113,27 +113,43 @@ public class FlightController {
     }
 
 
-    @RequestMapping(value = SEARCH, method = RequestMethod.GET)
-    public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
+
+    public void findFlightByFromToDate(@RequestParam Map<String, String> params, Model model, boolean isAdmin) {
         LocalDateTime departureDateTo;
-        if (params.get("departureDateTo").equals("")) {
-            departureDateTo = LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1);
-        } else {
-            departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay();
-        }
+        if (params.get("departureDateTo").equals(""))
+            departureDateTo = LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1).plusDays(1);
+        else departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay().plusDays(1);
+        if (isAdmin){
+            model.addAttribute("flights", flightService.getByFromToDate
+                    (airportService.getAirportByCode(params.get("departureAirport")),
+                            airportService.getAirportByCode(params.get("arrivalAirport")),
+                            LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
+                            departureDateTo));
 
-        model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
-                (airportService.getAirportByCode(params.get("departureAirport")),
-                        airportService.getAirportByCode(params.get("arrivalAirport")),
-                        LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
-                        departureDateTo));
+        }
+        else {
+            model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
+                    (airportService.getAirportByCode(params.get("departureAirport")),
+                            airportService.getAirportByCode(params.get("arrivalAirport")),
+                            LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
+                            departureDateTo));
+        }
         model.addAttribute("airports", airportService.getAllAirports());
-        if (params.get("adminPage").equals("true")) {
-            return FLIGHTSPAGE;
-        }
-        return SEARCHPAGE;
-
+        model.addAttribute("currentTime", LocalDateTime.now());
     }
 
+    @RequestMapping(value = SEARCH, method = RequestMethod.GET)
+    public String findFlightByFromToDateUser(@RequestParam Map<String, String> params, Model model){
+        findFlightByFromToDate(params, model, false);
+        return SEARCHPAGE;
+    }
+
+
+
+    @RequestMapping(value = SEARCH+ADMIN, method = RequestMethod.GET)
+    public String findFlightByFromToDateAdmin(@RequestParam Map<String, String> params, Model model){
+        findFlightByFromToDate(params, model, true);
+        return FLIGHTSPAGE;
+    }
 
 }
