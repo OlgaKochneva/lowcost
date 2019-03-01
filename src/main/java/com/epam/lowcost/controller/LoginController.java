@@ -69,7 +69,7 @@ public class LoginController {
         }
 
         if (logout != null) {
-            model.addAttribute("message", "lang.logOutMessage");
+            model.addAttribute("message", resourceBundle.getString("lang.loginIntroduction"));
         }
 
         model.addAttribute("sessionUser", userService.getSessionUser());

@@ -56,6 +56,7 @@ public final class Endpoints {
     public static final String USERS_PAGE = "usersPage";
     public static final String AIRPORTS_PAGE = "airportsPage";
     public static final String PLANE_SSETTINGS = "planesSettings";
+    public static final String FIRST_PAGE = "/1";
 
     //  Airport Controller endpoints
     public static final String AIRPORT = "/airport";
