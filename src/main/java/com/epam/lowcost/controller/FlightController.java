@@ -112,7 +112,7 @@ public class FlightController {
     }
 
 
-    public void findFlightByFromToDate(@RequestParam Map<String, String> params, Model model, boolean isAdmin) {
+    private void findFlightByFromToDate(@RequestParam Map<String, String> params, Model model, boolean isAdmin) {
         LocalDateTime departureDateTo;
         if (params.get("departureDateTo").equals(""))
             departureDateTo = LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1).plusDays(1);
