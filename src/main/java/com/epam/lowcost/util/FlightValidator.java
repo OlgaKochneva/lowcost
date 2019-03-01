@@ -30,7 +30,7 @@ public class FlightValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Flight flight = (Flight) target;
-        if (flight.getDepartureDate().isBefore(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT))){
+        if (flight.getDepartureDate().isBefore(LocalDateTime.now())){
             errors.rejectValue("departureDate", "Date.incorrect.pastNow");
         }
 
