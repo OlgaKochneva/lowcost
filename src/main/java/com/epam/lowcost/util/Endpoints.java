@@ -65,5 +65,11 @@ public final class Endpoints {
     public static final String UNBLOCK_USER = "/unblock-user";
     public static final String UPDATE_USER = "/update-user";
     public static final String LOGIN_PAGE = "loginPage";
+    public static final String AIRPORTSPAGE="airportsPage";
+    public static final String FLIGHTSETTINGS="flightSettings";
+    public static final String FLIGHTSPAGE="flightsPage";
+    public static final String ADDFLIGHT="addFlight";
+    public static final String SEARCHPAGE="searchPage";
+
 }
 
