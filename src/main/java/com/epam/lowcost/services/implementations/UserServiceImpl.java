@@ -54,9 +54,11 @@ public class UserServiceImpl implements UserService {
                 pageWithUsers = userRepository.findAllByUsernameContains(searchString.trim(), usersWithSpecificName);
                 break;
             case "lastName":
-                pageWithUsers = userRepository.findAllByLastNameContains(searchString.trim(),usersWithSpecificName);
+                pageWithUsers = userRepository.findAllByLastNameContains(searchString.trim(), usersWithSpecificName);
                 break;
             case "documentInfo":
+                pageWithUsers = userRepository.findAllByDocumentInfoContains(searchString.trim(), usersWithSpecificName);
+                break;
             case "role":
             default:
                 pageWithUsers = this.getAllUsers(pageId, usersOnPage);
