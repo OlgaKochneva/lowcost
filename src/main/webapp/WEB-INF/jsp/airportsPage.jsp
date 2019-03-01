@@ -13,7 +13,7 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.airports"/></title>
-    <spring:url value="/resources/css/main.css" var="main_css"/>
+    <spring:url value="/resources/static/css/main.css" var="main_css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
@@ -39,6 +39,34 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-9">
+
+        </div>
+        <%--<div class="col-md-3 numOfUsers">--%>
+            <%--<form></form>--%>
+            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="10"/>--%>
+
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
+            <%--</form>--%>
+            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="50"/>--%>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="50"/>--%>
+            <%--</form>--%>
+            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="100"/>--%>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="100"/>--%>
+            <%--</form>--%>
+            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
+                <%--<input type="hidden" name="number" value="200"/>--%>
+                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
+                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="200"/>--%>
+            <%--</form>--%>
+        <%--</div>--%>
     <div class="row">
         <div class="col-md-12  mainContentAirport">
             <table class="table table-striped">
@@ -71,6 +99,17 @@
                 </tbody>
 
             </table>
+            <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${pageId-1}">
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
+            </form>
+            <c:forEach var="page" begin="1" end="${pagesNum}">
+                <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${page}">
+                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
+                </form>
+            </c:forEach>
+            <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${pageId+1}">
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
+            </form>
         </div>
     </div>
 
@@ -78,6 +117,7 @@
     <br/>
     ${airport}<br/> <h4>${message}</h4>
 
+</div>
 </div>
 </body>
 </html>

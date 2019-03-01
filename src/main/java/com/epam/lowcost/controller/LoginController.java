@@ -1,7 +1,10 @@
 package com.epam.lowcost.controller;
 
 
+import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.services.interfaces.AirportService;
+import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.SecurityService;
 import com.epam.lowcost.services.interfaces.UserService;
 import com.epam.lowcost.util.UserValidator;
@@ -25,12 +28,16 @@ public class LoginController {
     private final SecurityService securityService;
     private final UserValidator userValidator;
     private ResourceBundle resourceBundle = ResourceBundle.getBundle("messages");
+    private final FlightService flightService;
+    private final AirportService airportService;
 
     @Autowired
-    public LoginController(UserService userService, SecurityService securityService, UserValidator userValidator) {
+    public LoginController(UserService userService, SecurityService securityService, UserValidator userValidator, FlightService flightService,AirportService airportService) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
+        this.flightService = flightService;
+        this.airportService = airportService;
     }
 
     @GetMapping(REGISTRATION)
@@ -52,7 +59,7 @@ public class LoginController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/";
+        return REGISTRATION_PAGE;
     }
 
     @GetMapping(LOGIN)
@@ -73,6 +80,8 @@ public class LoginController {
     @GetMapping("/")
     public String welcome(Model model) {
         model.addAttribute("sessionUser", userService.getSessionUser());
+        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("airports", airportService.getAllAirports());
         return SEARCH_PAGE;
     }
 
