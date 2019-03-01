@@ -6,11 +6,8 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -18,6 +15,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @RequestMapping(value = TICKETS)
+@SessionAttributes(value = "sessionUser")
 public class TicketController {
     private final TicketService ticketService;
 
@@ -27,23 +25,19 @@ public class TicketController {
     }
 
     @GetMapping(value = FLIGHT)
-    public String getAllTickets(Model model) {
-        //получаем id самолета и потом удаляем все билеты на него
-        model.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(1));
+    public String getAllTickets(@RequestParam long id, ModelMap model) {
+        model.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(id));
         return TICKETS_PAGE;
     }
 
 
     @PostMapping(value = ADD)
-    public String addTicket(@RequestParam Map<String, String> params, Model model) {
+    public String addTicket(@RequestParam Map<String, String> params, ModelMap model) {
         Flight flight = Flight.builder()
                 .id(Long.parseLong(params.get("flightId")))
                 .build();
 
-        User user = User.builder()
-                .id((long) 1) // id сессионного пользователя
-                .build();
-
+        User user = (User) model.get("sessionUser");// id сессионного пользователя
         model.addAttribute("ticket", ticketService.addTicket(
                 Ticket.builder()
                         .user(user)
@@ -53,31 +47,31 @@ public class TicketController {
                         .isBusiness(Boolean.parseBoolean(params.get("isBusiness")))
                         .build()));
 
-        model.addAttribute("message", "Ticket successfully added");
         return "redirect:" + TICKETS + SELF;
     }
 
     @PostMapping(value = DELETE)
-    public String deleteTicket(@RequestParam long id, Model model) {
+    public String deleteTicket(@RequestParam long id, ModelMap model) {
         model.addAttribute("message", ticketService.deleteTicketById(id));
         return "redirect:" + TICKETS + FLIGHT;
     }
 
     @PostMapping(value = PAY)
-    public String payTicket(@RequestParam long id, Model model) {
+    public String payTicket(@RequestParam long id, ModelMap model) {
         model.addAttribute("message", ticketService.payTicketById(id));
         return "redirect:" + TICKETS + SELF;
     }
 
     @PostMapping(value = CANCEL)
-    public String cancelTicket(@RequestParam long id, Model model) {
+    public String cancelTicket(@RequestParam long id, ModelMap model) {
         model.addAttribute("message", ticketService.deleteTicketById(id));
         return "redirect:" + TICKETS + SELF;
     }
 
     @GetMapping(value = SELF)
-    public String getAllUserTickets(Model model) {
-        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(1));//сессионный юзер
+    public String getAllUserTickets(ModelMap model) {
+        User user = (User) model.get("sessionUser");
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
         return ACCOUNT;
     }
 }
