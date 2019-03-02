@@ -29,13 +29,12 @@ public class UserController {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final UserRepository userRepository;
+
 
     @Autowired
     public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userRepository = userRepository;
     }
 
     @RequestMapping(value = USERS)
@@ -53,7 +52,7 @@ public class UserController {
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("searchString", searchString);
 
-        return "redirect:/users";
+        return "redirect:" + USERS;
     }
 
 
@@ -63,13 +62,13 @@ public class UserController {
             return "redirect:" + USER;
         }
         userService.blockUser(id);
-        return "redirect:" + USER + FIRST_PAGE;
+        return "redirect:" + USERS;
     }
 
     @RequestMapping(value = UNBLOCK_USER, method = RequestMethod.POST)
     public String unblockUser(@RequestParam long id, ModelMap model) {
         userService.unblockUser(id);
-        return "redirect:" + USER + FIRST_PAGE;
+        return "redirect:" + USERS;
     }
 
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)
