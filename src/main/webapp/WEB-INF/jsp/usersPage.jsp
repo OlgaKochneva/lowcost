@@ -1,4 +1,6 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
+<%@ page import="static com.epam.lowcost.util.Endpoints.BLOCK_USER" %>
+<%@ page import="static com.epam.lowcost.util.Endpoints.UNBLOCK_USER" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -72,7 +74,7 @@
                             <c:if test="${sessionUser.id != user.id}">
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                                     <c:if test="${user.active}">
-                                        <form action="/block-user" method="post">
+                                        <form action="<%=BLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.blockUser"/>"
                                                    class="btn btn-danger deletePlaneBtn"/>
@@ -80,7 +82,7 @@
 
                                     </c:if>
                                     <c:if test="${!user.active}">
-                                        <form action="/unblock-user" method="post">
+                                        <form action="<%=UNBLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.unblockUser"/>"
                                                    class="btn btn-success deletePlaneBtn"/>
