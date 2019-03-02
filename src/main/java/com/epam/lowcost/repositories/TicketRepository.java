@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> findByUser_Id(long userId);
+    List<Ticket> findByUser_IdAndIsDeleted(long userId, boolean isDeleted);
 
     List<Ticket> findAll();
 
