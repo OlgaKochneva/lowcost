@@ -16,8 +16,9 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.findFlight"/></title>
-    <spring:url value="/resources/static/css/main.css" var="main_css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    <spring:url value="/resources/static/css/main.css" var="main_css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="${main_css}" rel="stylesheet">
 
@@ -29,19 +30,21 @@
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" method="get">
+            <form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH + Endpoints.ADMIN%>" method="get">
                 <div class="leftBlockSerch">
                     <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
-                    <input type="date" id="inpSerc" required name="departureDateFrom" class="form-control searchInput"/> <br/>
+                    <input type="date" id="inpSerc" required name="departureDateFrom" class="form-control searchInput"/>
+                    <br/>
                     <label for="inpSerc2"><spring:message code="lang.departureDateTo"/>: </label>
                     <input type="date" id="inpSerc2" name="departureDateTo" class="form-control searchInput"/><br/>
                 </div>
                 <div class="leftBlockSerchRight">
                     <label for="inpSerc3"><spring:message code="lang.departureAirport"/>: </label>
-                    <input type="text" id="inpSerc3" required list="airport" name="departureAirport" class="form-control searchInput"/> <br/>
+                    <input type="text" id="inpSerc3" required list="airport" name="departureAirport"
+                           class="form-control searchInput"/> <br/>
                     <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
-                    <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport" class="form-control searchInput"/>  <br/>
-                    <input type="text" hidden name="adminPage" value="true"/>
+                    <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport"
+                           class="form-control searchInput"/> <br/>
                 </div>
 
         </div>
@@ -51,7 +54,8 @@
             </form>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" method="get">
-                    <input type="submit" value="<spring:message code="lang.addNewFlight"/>" class="flightAddBtn btn btn-outline-success"/>
+                    <input type="submit" value="<spring:message code="lang.addNewFlight"/>"
+                           class="flightAddBtn btn btn-outline-success"/>
                 </form>
             </sec:authorize>
         </div>
@@ -65,28 +69,28 @@
         <div class="col-md-2 numOfUsers">
             <%--<form></form>--%>
             <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="3"/>--%>
+            <%--<input type="hidden" name="number" value="3"/>--%>
 
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>--%>
+            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>--%>
             <%--</form>--%>
             <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="5"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>--%>
+            <%--<input type="hidden" name="number" value="5"/>--%>
+            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>--%>
             <%--</form>--%>
             <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="10"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
+            <%--<input type="hidden" name="number" value="10"/>--%>
+            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
             <%--</form>--%>
             <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="20"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>--%>
+            <%--<input type="hidden" name="number" value="20"/>--%>
+            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
+            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>--%>
             <%--</form>--%>
-        <%--</div>--%>
-    </div>
+            <%--</div>--%>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -95,9 +99,10 @@
                 <tr>
                     <th scope="col"><spring:message code="lang.departureAirport"/></th>
                     <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
-                    <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
-                    <th scope="col"> <spring:message code="lang.arriveAt"/></th>
-                    <th scope="col">  <spring:message code="lang.price"/></th>
+                    <th scope="col"><spring:message code="lang.departureAt"/></th>
+                    <th scope="col"><spring:message code="lang.arriveAt"/></th>
+                    <th scope="col"><spring:message code="lang.price"/></th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -109,24 +114,41 @@
 
 
                         <td><c:out value="${flight.departureAirport.cityEng}"/></td>
-                        <td> <c:out value="${flight.arrivalAirport.cityEng}"/></td>
-                        <td>   <c:out value="${flight.departureDate}"/></td>
-                        <td>  <c:out value="${flight.arrivalDate}"/></td>
-                        <td>  <c:out value="${flight.initialPrice}"/></td>
+                        <td><c:out value="${flight.arrivalAirport.cityEng}"/></td>
+                        <td><c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
+                        <td><c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
+                        <td><c:out value="${flight.initialPrice}"/></td>
+                        <td><c:if test="${flight.departureDate gt currentTime}">
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">
+                                    <input type="submit" value="<spring:message code="lang.update"/>"
+                                           class="btn btn-outline-primary updateFlight"/>
+                                </form>
+                            </sec:authorize>
+                        </c:if>
+                            <c:if test="${flight.departureDate lt currentTime}">
+                                <p style="color:#28a745"><spring:message code="lang.complete"/></p>
+                            </c:if>
+
+                        </td>
 
 
                         <td>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">
-                                    <input type="submit" value="update" class="btn btn-outline-primary updateFlight"/>
-                                </form>
-                                <form action="<%=Endpoints.FLIGHTS + Endpoints.DELETE%>" method="post">
-                                    <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="delete" class="btn btn-outline-danger deleteFlight"/>
+                                <form action="<%=Endpoints.FLIGHTS+ Endpoints.TICKETS%>/${flight.id}" method="get">
+                                    <input type="submit" value="<spring:message code="lang.tickets"/>"
+                                           class="btn btn-outline-primary updateFlight"/>
                                 </form>
                             </sec:authorize>
 
 
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <form action="<%=Endpoints.FLIGHTS + Endpoints.DELETE%>" method="post">
+                                    <input type="hidden" name="id" value="${flight.id}"/>
+                                    <input type="submit" value="<spring:message code="lang.delete"/>"
+                                           class="btn btn-outline-danger deleteFlight"/>
+                                </form>
+                            </sec:authorize>
 
 
                         </td>
@@ -137,7 +159,7 @@
                 </tbody>
             </table>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="previous"/>
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>"/>
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${page}">
@@ -145,17 +167,16 @@
                 </form>
             </c:forEach>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="next"/>
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>"/>
             </form>
         </div>
     </div>
 </div>
 
 
-
 <datalist id="airport">
     <c:forEach items="${airports}" var="airport">
-        <option  hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
+        <option hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
     </c:forEach>
 </datalist>
 <br/>
