@@ -39,28 +39,6 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-   /* @RequestMapping(value = USER + "/{pageId}", method = RequestMethod.GET)
-    public String mainPage(@PathVariable int pageId, ModelMap model) {
-        if (pageId <= 0) {
-            pageId = 1;
-        }
-        int usersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
-
-        String searchTerm = "username";
-        String searchString = "example";
-
-
-        Page<User> pageWithUsers = userService.searchByTerm(pageId, searchTerm, searchString, usersOnPage);
-
-        if (pageId >= pageWithUsers.getTotalPages()) {
-            pageId = pageWithUsers.getTotalPages() - 1;
-        }
-        model.addAttribute("pageId", pageId);
-        model.addAttribute("pagesNum", String.valueOf(pageWithUsers.getTotalPages()));
-        model.addAttribute("users", pageWithUsers.getContent());
-        return USERS_PAGE;
-    }*/
-
 
     @RequestMapping(value = "/users")
     public String showUsers(Model model,Pageable pageable) {

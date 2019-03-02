@@ -37,7 +37,7 @@
 
         <div class="col-md-2 numOfUsers">
             <form></form>
-            <spring:message code="lang.showUsersBy"/>   <a href="?size=1">1 |  </a><a href="?size=5"> 5</a>
+            <spring:message code="lang.showUsersBy"/> <a href="?size=1">1 | </a><a href="?size=5"> 5</a>
         </div>
     </div>
 
@@ -97,11 +97,14 @@
             </table>
 
             <div>
-                <c:if test="${users.hasPrevious()}"> <a href="?page=${users.number-1}&size=${users.size}"><spring:message code="lang.previous"/></a></c:if>
+                <c:if test="${users.hasPrevious()}"> <a
+                        href="?page=${users.number-1}&size=${users.size}"><spring:message
+                        code="lang.previous"/></a></c:if>
                 <c:forEach var="page" begin="1" end="${users.totalPages}">
                     <a href="?page=${page-1}&size=${users.size}">${page}</a>
                 </c:forEach>
-                <c:if test="${users.hasNext()}"> <a href="?page=${users.number+1}&size=${users.size}"><spring:message code="lang.next"/></a></c:if>
+                <c:if test="${users.hasNext()}"> <a href="?page=${users.number+1}&size=${users.size}"><spring:message
+                        code="lang.next"/></a></c:if>
             </div>
 
 

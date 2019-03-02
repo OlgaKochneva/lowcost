@@ -9,8 +9,6 @@ public interface UserService {
 
     Page<User> getAllUsers(Pageable pageable);
 
-    /*Page<User> searchByTerm(Integer pageId, String searchTerm, String searchString, int usersOnPage);*/
-
     User getById(long userId);
 
     void addUser(User user);
