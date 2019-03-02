@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--@elvariable id="users" type="com.epam.lowcost.model.User"--%>
+<%--@elvariable id="users" type="org.springframework.data.domain.Page"--%>
 <%--@elvariable id="sessionUser" type="com.epam.lowcost.model.User"--%>
 
 <html>
@@ -33,28 +33,11 @@
         <div class="col-md-10">
 
         </div>
+
+
         <div class="col-md-2 numOfUsers">
             <form></form>
-            <form action="<%=Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="3"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
-            </form>
-            <form action="<%=Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="5"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
-            </form>
-            <form action="<%=Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="10"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
-            </form>
-            <form action="<%=Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="20"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
-            </form>
+            <spring:message code="lang.showUsersBy"/>   <a href="?size=1">1 |  </a><a href="?size=5"> 5</a>
         </div>
     </div>
 
@@ -74,7 +57,7 @@
 
                 </thead>
                 <tbody>
-                <c:forEach items="${users}" var="user">
+                <c:forEach items="${users.getContent()}" var="user">
                     <tr>
 
                         <td><c:out value="${user.firstName}"/></td>
@@ -113,20 +96,14 @@
 
             </table>
 
-            <form action="<%=Endpoints.USER%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
-            </form>
-            <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.USER%>/${page}">
+            <div>
+                <c:if test="${users.hasPrevious()}"> <a href="?page=${users.number-1}&size=${users.size}"><spring:message code="lang.previous"/></a></c:if>
+                <c:forEach var="page" begin="1" end="${users.totalPages}">
+                    <a href="?page=${page-1}&size=${users.size}">${page}</a>
+                </c:forEach>
+                <c:if test="${users.hasNext()}"> <a href="?page=${users.number+1}&size=${users.size}"><spring:message code="lang.next"/></a></c:if>
+            </div>
 
-                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
-
-                </form>
-            </c:forEach>
-            <form action="<%=Endpoints.USER%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
-            </form>
-            <c:out value="${pageScope.get(pagesNum)}"/>
 
         </div>
     </div>

@@ -1,21 +1,25 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.repositories.UserRepository;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Map;
 
-import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
@@ -26,22 +30,24 @@ public class UserController {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = USER + "/{pageId}", method = RequestMethod.GET)
+   /* @RequestMapping(value = USER + "/{pageId}", method = RequestMethod.GET)
     public String mainPage(@PathVariable int pageId, ModelMap model) {
         if (pageId <= 0) {
             pageId = 1;
         }
         int usersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
 
-        String searchTerm = "lastName";
-        String searchString = "Petrov";
+        String searchTerm = "username";
+        String searchString = "example";
 
 
         Page<User> pageWithUsers = userService.searchByTerm(pageId, searchTerm, searchString, usersOnPage);
@@ -52,6 +58,13 @@ public class UserController {
         model.addAttribute("pageId", pageId);
         model.addAttribute("pagesNum", String.valueOf(pageWithUsers.getTotalPages()));
         model.addAttribute("users", pageWithUsers.getContent());
+        return USERS_PAGE;
+    }*/
+
+
+    @RequestMapping(value = "/users")
+    public String showUsers(Model model,Pageable pageable) {
+        model.addAttribute("users", userService.getAllUsers(pageable));
         return USERS_PAGE;
     }
 

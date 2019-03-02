@@ -30,7 +30,7 @@
                 code="lang.personalCabinet"/></a>
 
         <sec:authorize
-                access="hasRole('ROLE_ADMIN')"> |<a href="<%=Endpoints.USER + Endpoints.FIRST_PAGE%>" class="navbarLink">
+                access="hasRole('ROLE_ADMIN')"> |<a href="<%=Endpoints.USERS%>" class="navbarLink">
             <spring:message code="lang.users"/></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE + Endpoints.ALL %>"
                                                           class="navbarLink"> <spring:message code="lang.planes"/></a>|</sec:authorize>

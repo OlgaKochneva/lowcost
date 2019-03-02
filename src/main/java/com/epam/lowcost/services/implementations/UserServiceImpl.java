@@ -39,12 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> getAllUsers(Integer pageId, int usersOnPage) {
-        Pageable pageWithTwoElements = PageRequest.of(pageId - 1, usersOnPage, Sort.Direction.ASC, "id");
-        return userRepository.findAll(pageWithTwoElements);
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
-    @Override
+    /*@Override
     public Page<User> searchByTerm(Integer pageId, String searchTerm, String searchString, int usersOnPage) {
 
         Page<User> pageWithUsers;
@@ -59,13 +58,12 @@ public class UserServiceImpl implements UserService {
             case "documentInfo":
                 pageWithUsers = userRepository.findAllByDocumentInfoContains(searchString.trim(), usersWithSpecificName);
                 break;
-            case "role":
             default:
                 pageWithUsers = this.getAllUsers(pageId, usersOnPage);
         }
 
         return pageWithUsers;
-    }
+    }*/
 
     @Override
     public User getById(long userId) {

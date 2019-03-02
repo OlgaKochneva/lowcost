@@ -40,6 +40,7 @@ public final class Endpoints {
 //  User Controller endpoints
 
     public static final String USER = "/user";
+    public static final String USERS = "/users";
     public static final String CHANGE_PASSWORD = "/change-password";
 
     // View endpoints
