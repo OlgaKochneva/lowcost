@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.time.LocalDateTime;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
@@ -76,7 +77,8 @@ public class LoginController {
 
     @GetMapping("/")
     public String welcome(Model model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
+        model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
         return SEARCH_PAGE;
     }

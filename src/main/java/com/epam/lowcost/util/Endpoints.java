@@ -25,6 +25,7 @@ public final class Endpoints {
 
     public static final String REGISTRATION = "/registration";
     public static final String LOGOUT = "/logout";
+    public static final String ADMIN = "/admin";
 
 //  Plane Controller endpoints
 
