@@ -46,12 +46,6 @@ public class UserController {
         return USERS_PAGE;
     }
 
-    @RequestMapping(value = PAGE, method = RequestMethod.GET)
-    public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
-        model.addAttribute("number", Integer.parseInt(number));
-        return "redirect:" + fromPage + FIRST_PAGE;
-    }
-
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
     public String blockUser(@RequestParam long id, Model model, Principal principal) {
         if (principal.getName().equals(userService.getById(id).getUsername())) {
