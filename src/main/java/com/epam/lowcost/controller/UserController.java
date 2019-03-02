@@ -5,7 +5,6 @@ import com.epam.lowcost.repositories.UserRepository;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes({"sessionUser","number"})
+@SessionAttributes({"sessionUser", "searchTerm","searchString"})
 public class UserController {
 
 
@@ -39,40 +38,31 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-   /* @RequestMapping(value = USER + "/{pageId}", method = RequestMethod.GET)
-    public String mainPage(@PathVariable int pageId, ModelMap model) {
-        if (pageId <= 0) {
-            pageId = 1;
-        }
-        int usersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
+    @RequestMapping(value = USERS)
+    public String showUsers(ModelMap model, Pageable pageable) {
+        String searchTerm = (String) model.getOrDefault("searchTerm","all");
+        String searchString = (String) model.getOrDefault("searchString","not-relevant");
 
-        String searchTerm = "username";
-        String searchString = "example";
+        System.out.println(searchTerm);
+        System.out.println(searchString);
 
 
-        Page<User> pageWithUsers = userService.searchByTerm(pageId, searchTerm, searchString, usersOnPage);
-
-        if (pageId >= pageWithUsers.getTotalPages()) {
-            pageId = pageWithUsers.getTotalPages() - 1;
-        }
-        model.addAttribute("pageId", pageId);
-        model.addAttribute("pagesNum", String.valueOf(pageWithUsers.getTotalPages()));
-        model.addAttribute("users", pageWithUsers.getContent());
-        return USERS_PAGE;
-    }*/
-
-
-    @RequestMapping(value = "/users")
-    public String showUsers(Model model,Pageable pageable) {
-        model.addAttribute("users", userService.getAllUsers(pageable));
+        model.addAttribute("users", userService.searchByTerm(searchTerm, searchString, pageable));
         return USERS_PAGE;
     }
+    @RequestMapping(value = SEARCH, method = RequestMethod.POST)
+    public String setSearchConditions(@RequestParam(value = "searchTerm") String searchTerm,
+                                      @RequestParam(value = "searchString") String searchString,
+                                      ModelMap model){
+        System.out.println("search method");
+        model.addAttribute("searchTerm",searchTerm);
+        model.addAttribute("searchString",searchString);
 
-    @RequestMapping(value = PAGE, method = RequestMethod.GET)
-    public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
-        model.addAttribute("number", Integer.parseInt(number));
-        return "redirect:" + fromPage + FIRST_PAGE;
+        return "redirect:/users";
     }
+
+
+
 
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
     public String blockUser(@RequestParam long id, Model model, Principal principal) {

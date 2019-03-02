@@ -43,27 +43,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll(pageable);
     }
 
-    /*@Override
-    public Page<User> searchByTerm(Integer pageId, String searchTerm, String searchString, int usersOnPage) {
+    @Override
+    public Page<User> searchByTerm(String searchTerm, String searchString,Pageable pageable) {
 
         Page<User> pageWithUsers;
-        Pageable usersWithSpecificName = PageRequest.of(pageId - 1, usersOnPage, Sort.Direction.ASC, "id");
+
         switch (searchTerm) {
             case "username":
-                pageWithUsers = userRepository.findAllByUsernameContains(searchString.trim(), usersWithSpecificName);
+                pageWithUsers = userRepository.findAllByUsernameContains(searchString.trim(), pageable);
                 break;
             case "lastName":
-                pageWithUsers = userRepository.findAllByLastNameContains(searchString.trim(), usersWithSpecificName);
+                pageWithUsers = userRepository.findAllByLastNameContains(searchString.trim(), pageable);
                 break;
             case "documentInfo":
-                pageWithUsers = userRepository.findAllByDocumentInfoContains(searchString.trim(), usersWithSpecificName);
+                pageWithUsers = userRepository.findAllByDocumentInfoContains(searchString.trim(), pageable);
                 break;
             default:
-                pageWithUsers = this.getAllUsers(pageId, usersOnPage);
+                pageWithUsers = this.getAllUsers(pageable);
         }
 
         return pageWithUsers;
-    }*/
+    }
 
     @Override
     public User getById(long userId) {

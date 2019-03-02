@@ -9,7 +9,7 @@ public interface UserService {
 
     Page<User> getAllUsers(Pageable pageable);
 
-    /*Page<User> searchByTerm(Integer pageId, String searchTerm, String searchString, int usersOnPage);*/
+    Page<User> searchByTerm(String searchTerm, String searchString,Pageable pageable);
 
     User getById(long userId);
 
