@@ -59,7 +59,7 @@ public class UserController {
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
     public String blockUser(@RequestParam long id, Model model, Principal principal) {
         if (principal.getName().equals(userService.getById(id).getUsername())) {
-            return "redirect:" + USER;
+            return "redirect:" + USERS;
         }
         userService.blockUser(id);
         return "redirect:" + USERS;

@@ -42,11 +42,9 @@
                     <input type="text" id="inpSerc3" required list="airport" name="departureAirport"
                            class="form-control searchInput"/> <br/>
                     <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
-                    <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport"
-                           class="form-control searchInput"/> <br/>
-                    <input type="text" hidden name="adminPage" value="false"/>
-                </div>
+                    <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport" class="form-control searchInput"/>  <br/>
 
+                    </div>
         </div>
         <div class="col-md-4">
             <input type="submit" value="<spring:message code="lang.search"/>" class="btn btn-outline-warning btnSeach"/>
@@ -92,34 +90,34 @@
                 <tr>
                     <th scope="col"><spring:message code="lang.departureAirport"/></th>
                     <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
-                    <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
-                    <th scope="col"><spring:message code="lang.arriveAt"/></th>
-                    <th scope="col"><spring:message code="lang.price"/></th>
+                    <th scope="col"><spring:message code="lang.departureAt"/></th>
+                    <th scope="col"> <spring:message code="lang.arriveAt"/></th>
+                    <th scope="col">  <spring:message code="lang.price"/></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <c:forEach items="${flights}" var="flight">
 
+<c:forEach items="${flights}" var="flight">
+    <c:if test="${flight.departureDate gt currentTime}">
                     <tr>
+    <td><c:out value="${flight.departureAirport.cityEng}"/></td>
+    <td> <c:out value="${flight.arrivalAirport.cityEng}"/></td>
 
+    <td>   <c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
+    <td> <c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
+    <td>  <c:out value="${flight.initialPrice}"/></td>
+    <td>
+        <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>" method="get">
+            <input type="hidden" name="id" value="${flight.id}"/>
+            <input type="submit" value="<spring:message code="lang.buy" text="Buy"/>" class="btn btn-outline-primary"/>
 
-                        <td><c:out value="${flight.departureAirport.cityEng}"/></td>
-                        <td><c:out value="${flight.arrivalAirport.cityEng}"/></td>
-                        <td><c:out value="${flight.departureDate}"/></td>
-                        <td><c:out value="${flight.arrivalDate}"/></td>
-                        <td><c:out value="${flight.initialPrice}"/></td>
-                        <td>
-                            <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>" method="get">
-                                <input type="hidden" name="id" value="${flight.id}"/>
-                                <input type="submit" value="<spring:message code="lang.buy" text="Buy"/>"
-                                       class="btn btn-outline-primary"/>
-
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+        </form>
+    </td>
+</tr>
+    </c:if>
+</c:forEach>
                 </tbody>
             </table>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>/${pageId-1}">
