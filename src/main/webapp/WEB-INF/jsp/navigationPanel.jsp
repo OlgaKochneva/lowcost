@@ -23,10 +23,12 @@
 
     </div>
     <div class="topnav">
-        <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
-        <a class=" navbarLink " href="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"><spring:message code="lang.buyMoreTickets"/></a>|
-        <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="<%=Endpoints.USER%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
-        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE + Endpoints.ALL %>" class="navbarLink"> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>
+       <a class=" navbarLink " href="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USER%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink"> <spring:message code="lang.planes" /></a>|</sec:authorize>
+      
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
 
