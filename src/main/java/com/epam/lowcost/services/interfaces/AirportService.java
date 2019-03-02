@@ -9,5 +9,7 @@ public interface AirportService {
     List<Airport> getAllAirports();
 
     Airport getAirportByCode(String code);
+
+    List <Airport> findAllByCity(String city);
     
 }

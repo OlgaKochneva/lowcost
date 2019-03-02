@@ -1,10 +1,10 @@
 package com.epam.lowcost.repositories;
 
 import com.epam.lowcost.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -12,7 +12,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
 
-    List<User> findAll();
+    Page<User> findAll(Pageable pageable);
+
+    Page<User> findAllByUsernameContains(String username,Pageable pageable);
+
+    Page<User> findAllByLastNameContains(String lastName,Pageable pageable);
+
+    Page<User> findAllByDocumentInfoContains(String documentInfo,Pageable pageable);
 
     User findById(long id);
 

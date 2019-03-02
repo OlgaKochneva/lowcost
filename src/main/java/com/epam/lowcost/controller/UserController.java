@@ -4,6 +4,8 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes(value = "sessionUser")
+@SessionAttributes({"sessionUser"})
 public class UserController {
 
 
@@ -38,26 +40,25 @@ public class UserController {
         this.emailService = emailService;
     }
 
-    @RequestMapping(value = USER, method = RequestMethod.GET)
-    public String mainPage(ModelMap model) throws MessagingException {
-        emailService.sendMessageWithAttachment("stepanov.ilia.u@gmail.com","testAttacment","Here is some email with attachment","C:\\Users\\Ilia_Stepanov\\IdeaProjects\\lowcost\\wallpapersden.jpg");
-        model.addAttribute("users", userService.getAllUsers());
+    @RequestMapping(value = USERS)
+    public String showUsers(Model model,Pageable pageable) {
+        emailService.sendMessageWithAttachment("stepanov.ilia.u@gmail.com","testAttacment","Here is some email with attachment","C:\\Users\\Ilia_Stepanov\\IdeaProjects\\lowcost\\wallpapersden.jpg");        model.addAttribute("users", userService.getAllUsers(pageable));
         return USERS_PAGE;
     }
 
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
     public String blockUser(@RequestParam long id, Model model, Principal principal) {
         if (principal.getName().equals(userService.getById(id).getUsername())) {
-            return "redirect:" + USER;
+            return "redirect:" + USERS;
         }
         userService.blockUser(id);
-        return "redirect:" + USER;
+        return "redirect:" + USERS;
     }
 
     @RequestMapping(value = UNBLOCK_USER, method = RequestMethod.POST)
     public String unblockUser(@RequestParam long id, ModelMap model) {
         userService.unblockUser(id);
-        return "redirect:" + USER;
+        return "redirect:" + USERS;
     }
 
     @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)

@@ -1,10 +1,14 @@
 insert into users(id, username, password, active, first_name, last_name, document_info, birthday)
 values (1, 'EMAIL@MAIL.COM', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'admin', 'admin',
         '1221', '2000-06-05T00:00:00'),
-       (2, 'ExampleEmail23@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user2', 'user', '1221', '2000-06-05T00:00:00'),
-       (3, 'ExampleEmail3@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user3', 'user', '1221', '2000-06-05T00:00:00'),
-       (4, 'ExampleEmail4@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user4', 'user', '1221', '2000-06-05T00:00:00'),
-       (5, 'ExampleEmail5@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user5', 'user', '1221', '2000-06-05T00:00:00'),
+       (2, 'ExampleEmail23@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user2',
+        'Vasiliev', '1221 passport', '2000-06-05T00:00:00'),
+       (3, 'ExampleEmail3@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user3',
+        'Petrov', '1221 passport', '2000-06-05T00:00:00'),
+       (4, 'ExampleEmail4@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user4',
+        'Petrov', '1221 document', '2000-06-05T00:00:00'),
+       (5, 'ExampleEmail5@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user5',
+        'Sidorov', '1221 something', '2000-06-05T00:00:00'),
        (6, 'ExampleEmail6@google.com', 'userpassword', true, 'user6', 'user', '1221', '2000-06-05T00:00:00');
 
 insert into user_role (user_id, roles)
@@ -3485,8 +3489,8 @@ VALUES (1, '500', '1', FALSE, '2019-02-11 11:00:00', '2019-02-11 13:00:00', '100
        (3, '1500', '2', FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00', '600', '15000', '1800', 'ABP', 'PPO'),
        (4, '2000', '3', FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00', '450', '8700', '900', 'DME', 'MQF');
 -- CREATE TABLE TICKETS(id LONG AUTO_INCREMENT NOT NULL, user_Id LONG NOT NULL, flight_Id LONG NOT NULL, is_Business BOOL, has_Luggage BOOL, place_Priority BOOL, purchase_Date DATETIME, price LONG, is_Deleted BOOL, PRIMARY KEY (id), FOREIGN KEY (user_Id) REFERENCES USERS(id) ON UPDATE CASCADE, FOREIGN KEY (flight_Id) REFERENCES FLIGHTS(id) ON UPDATE CASCADE),
-INSERT INTO TICKETS(id, user_Id, flight_Id, is_Business, has_Luggage, place_Priority, purchase_Date, price, is_Deleted)
-VALUES (1, 1, 1, TRUE, TRUE, TRUE, '2019-01-01 11:00:00', 8050, false),
-       (2, 1, 2, TRUE, TRUE, TRUE, '2019-01-12 05:45:00', 15021, false),
-       (3, 2, 2, FALSE, TRUE, FALSE, '2019-11-01 05:45:00', 3165, false),
-       (4, 2, 1, FALSE, FALSE, FALSE, '2019-02-01 11:00:00', 847, false);
+INSERT INTO TICKETS(id, user_Id, flight_Id, is_Business, has_Luggage, place_Priority, purchase_Date, price, is_Paid, is_Deleted)
+VALUES (1, 1, 1, TRUE, TRUE, TRUE, '2019-01-01 11:00:00', 8050, true,false),
+       (2, 1, 2, TRUE, TRUE, TRUE, '2019-01-12 05:45:00', 15021, true, false),
+       (3, 2, 2, FALSE, TRUE, FALSE, '2019-11-01 05:45:00', 3165, true, false),
+       (4, 2, 1, FALSE, FALSE, FALSE, '2019-02-01 11:00:00', 847, true, false);

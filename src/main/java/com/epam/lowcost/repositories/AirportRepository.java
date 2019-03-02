@@ -11,4 +11,5 @@ import java.util.List;
 public interface AirportRepository extends JpaRepository<Airport,String > {
     List <Airport> findAll();
     Airport findAirportByCode(String code);
+    List<Airport> findAllByCityEng(String city);
 }
