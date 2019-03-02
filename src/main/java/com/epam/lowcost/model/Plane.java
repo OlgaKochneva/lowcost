@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Plane {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String model;
@@ -24,5 +24,5 @@ public class Plane {
 
     private int economPlacesNumber;
 
-    private Boolean isDeleted;
+    private boolean isDeleted;
 }

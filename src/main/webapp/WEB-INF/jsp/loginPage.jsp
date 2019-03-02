@@ -1,13 +1,6 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html xmlns:th="http://www.thymeleaf.org">
-<%--
-  Created by IntelliJ IDEA.
-  User: Ilia_Stepanov
-  Date: 13-Feb-19
-  Time: 11:37
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,24 +21,18 @@
 
     <br/>
     <div class="main_block">
-        <p class="greeting"><spring:message code="lang.loginIntroduction"/></p>
-        <p class="message">${message}</p>
-        <form method="POST" action="${contextPath}/login">
+        <form method="POST" action="${contextPath}/login" class="form-signin">
+            <h2 class="form-heading">Log in</h2>
 
-
-            ${error != null ? 'has-error' : ''}
-
-            <input name="username" type="text" class="form-control input" placeholder="Username"
-                   autofocus="true"/>
-                <br/>
-            <input name="password" type="password" class="form-control input" placeholder="Password"/>
-            <span>${error}</span>
-                <br/>
-            <button class="btn btn-outline-primary btnAuth" type="submit"><spring:message
-                    code="lang.logIn"/></button>
-
-            <a href="${contextPath}/registration"><spring:message code="lang.signIn"/></a>
-
+            <div>
+                <span>${error}</span>
+                <span>${message}</span>
+                <input name="username" type="text" class="form-control" placeholder="Username"
+                       autofocus="true"/>
+                <input name="password" type="password" class="form-control" placeholder="Password"/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+                <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
+            </div>
         </form>
     </div>
 
