@@ -10,35 +10,38 @@ import java.util.List;
 
 @Service
 public class PlaneServiceImpl implements PlaneService {
-    private final PlaneRepository repository;
+    private final PlaneRepository planeRepository;
 
     @Autowired
-    public PlaneServiceImpl(PlaneRepository repository) {
-        this.repository = repository;
+    public PlaneServiceImpl(PlaneRepository planeRepository) {
+        this.planeRepository = planeRepository;
     }
 
     @Override
     public List<Plane> getAllPlanes() {
-        return (List<Plane>) repository.findAll();
+        return planeRepository.getAllByIsDeletedFalse();
     }
 
     @Override
     public Plane getById(long planeId) {
-        return repository.findById(planeId).orElse(Plane.builder().build());
+        return planeRepository.getById(planeId);
     }
 
     @Override
-    public Plane addPlane(Plane plane) {
-        return null;
+    public void addPlane(Plane plane) {
+        plane.setDeleted(false);
+        planeRepository.save(plane);
     }
 
     @Override
-    public Plane updatePlane(Plane plane) {
-        return null;
+    public void updatePlane(Plane plane) {
+        planeRepository.save(plane);
     }
 
     @Override
     public void deletePlane(long planeId) {
-
+        Plane plane = planeRepository.getById(planeId);
+        plane.setDeleted(true);
+        planeRepository.save(plane);
     }
 }
