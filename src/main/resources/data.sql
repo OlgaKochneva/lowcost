@@ -1,10 +1,14 @@
 insert into users(id, username, password, active, first_name, last_name, document_info, birthday)
 values (1, 'EMAIL@MAIL.COM', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'admin', 'admin',
         '1221', '2000-06-05T00:00:00'),
-       (2, 'ExampleEmail23@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user2', 'user', '1221', '2000-06-05T00:00:00'),
-       (3, 'ExampleEmail3@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user3', 'user', '1221', '2000-06-05T00:00:00'),
-       (4, 'ExampleEmail4@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user4', 'user', '1221', '2000-06-05T00:00:00'),
-       (5, 'ExampleEmail5@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user5', 'user', '1221', '2000-06-05T00:00:00'),
+       (2, 'ExampleEmail23@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user2',
+        'Vasiliev', '1221 passport', '2000-06-05T00:00:00'),
+       (3, 'ExampleEmail3@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user3',
+        'Petrov', '1221 passport', '2000-06-05T00:00:00'),
+       (4, 'ExampleEmail4@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user4',
+        'Petrov', '1221 document', '2000-06-05T00:00:00'),
+       (5, 'ExampleEmail5@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user5',
+        'Sidorov', '1221 something', '2000-06-05T00:00:00'),
        (6, 'ExampleEmail6@google.com', 'userpassword', true, 'user6', 'user', '1221', '2000-06-05T00:00:00');
 
 insert into user_role (user_id, roles)

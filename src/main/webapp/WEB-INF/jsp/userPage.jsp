@@ -23,6 +23,7 @@
                     code="lang.buyMoreTickets"/></a>
         </div>
     </div>
+
     <div class="row OneRow">
 
 

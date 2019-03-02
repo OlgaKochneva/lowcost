@@ -1,7 +1,6 @@
 package com.epam.lowcost.controller;
 
 
-import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+
+import java.util.ResourceBundle;
 import java.time.LocalDateTime;
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -26,6 +27,7 @@ public class LoginController {
     private final UserService userService;
     private final SecurityService securityService;
     private final UserValidator userValidator;
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("messages");
     private final FlightService flightService;
     private final AirportService airportService;
 
@@ -63,11 +65,11 @@ public class LoginController {
     @GetMapping(LOGIN)
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", resourceBundle.getString("lang.wrongPasswordOrBanned"));
         }
 
         if (logout != null) {
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", resourceBundle.getString("lang.loginIntroduction"));
         }
 
         model.addAttribute("sessionUser", userService.getSessionUser());
@@ -77,7 +79,9 @@ public class LoginController {
 
     @GetMapping("/")
     public String welcome(Model model) {
-        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
+
+        model.addAttribute("sessionUser", userService.getSessionUser());
+        model.addAttribute("flights", flightService.getAllFlights());
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
         return SEARCH_PAGE;

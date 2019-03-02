@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 airportTitle">
-        <spring:message code="lang.airports"/>
+            <spring:message code="lang.airports"/>
             <br/>
         </div>
     </div>

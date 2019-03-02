@@ -1,10 +1,17 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
+<%@ page import="static com.epam.lowcost.util.Endpoints.BLOCK_USER" %>
+<%@ page import="static com.epam.lowcost.util.Endpoints.UNBLOCK_USER" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--@elvariable id="users" type="org.springframework.data.domain.Page"--%>
+<%--@elvariable id="sessionUser" type="com.epam.lowcost.model.User"--%>
+
 <html>
 <head>
+
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.users"/></title>
     <spring:url value="/resources/static/css/main.css" var="main_css"/>
@@ -13,7 +20,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="${main_css}" rel="stylesheet">
-    </head>
+</head>
 <body>
 
 
@@ -28,28 +35,11 @@
         <div class="col-md-10">
 
         </div>
+
+
         <div class="col-md-2 numOfUsers">
             <form></form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="3"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
-            </form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="5"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
-            </form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="10"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
-            </form>
-            <form action="<%=Endpoints.USER + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="20"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.USER + Endpoints.ALL%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
-            </form>
+            <spring:message code="lang.showUsersBy"/> <a href="?size=1">1 | </a><a href="?size=5"> 5</a>
         </div>
     </div>
 
@@ -69,7 +59,7 @@
 
                 </thead>
                 <tbody>
-                <c:forEach items="${users}" var="user">
+                <c:forEach items="${users.getContent()}" var="user">
                     <tr>
 
                         <td><c:out value="${user.firstName}"/></td>
@@ -80,23 +70,26 @@
 
 
                         <td>
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <c:if test="${user.active}">
-                                <form action="/block-user" method="post">
-                                    <input type="hidden" name="id" value="${user.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.deleteUser"/>"
-                                           class="btn btn-danger deletePlaneBtn"/>
-                                </form>
 
-                                </c:if>
-                                <c:if test="${!user.active}">
-                                    <form action="/unblock-user" method="post">
-                                        <input type="hidden" name="id" value="${user.id}"/>
-                                        <input type="submit" value="<spring:message code="lang.unblockUser"/>"
-                                               class="btn btn-success deletePlaneBtn"/>
-                                    </form>
-                                </c:if>
-                            </sec:authorize>
+                            <c:if test="${sessionUser.id != user.id}">
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <c:if test="${user.active}">
+                                        <form action="<%=BLOCK_USER%>" method="post">
+                                            <input type="hidden" name="id" value="${user.id}"/>
+                                            <input type="submit" value="<spring:message code="lang.blockUser"/>"
+                                                   class="btn btn-danger deletePlaneBtn"/>
+                                        </form>
+
+                                    </c:if>
+                                    <c:if test="${!user.active}">
+                                        <form action="<%=UNBLOCK_USER%>" method="post">
+                                            <input type="hidden" name="id" value="${user.id}"/>
+                                            <input type="submit" value="<spring:message code="lang.unblockUser"/>"
+                                                   class="btn btn-success deletePlaneBtn"/>
+                                        </form>
+                                    </c:if>
+                                </sec:authorize>
+                            </c:if>
 
                         </td>
                     </tr>
@@ -105,19 +98,17 @@
 
             </table>
 
-            <form action="<%=Endpoints.USER + Endpoints.ALL%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
-            </form>
-            <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.USER + Endpoints.ALL%>/${page}">
+            <div>
+                <c:if test="${users.hasPrevious()}"> <a
+                        href="?page=${users.number-1}&size=${users.size}"><spring:message
+                        code="lang.previous"/></a></c:if>
+                <c:forEach var="page" begin="1" end="${users.totalPages}">
+                    <a href="?page=${page-1}&size=${users.size}">${page}</a>
+                </c:forEach>
+                <c:if test="${users.hasNext()}"> <a href="?page=${users.number+1}&size=${users.size}"><spring:message
+                        code="lang.next"/></a></c:if>
+            </div>
 
-                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
-
-                </form>
-            </c:forEach>
-            <form action="<%=Endpoints.USER + Endpoints.ALL%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
-            </form>
 
         </div>
     </div>

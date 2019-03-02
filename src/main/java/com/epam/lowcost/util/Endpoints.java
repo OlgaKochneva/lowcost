@@ -42,6 +42,7 @@ public final class Endpoints {
 //  User Controller endpoints
 
     public static final String USER = "/user";
+    public static final String USERS = "/users";
     public static final String CHANGE_PASSWORD = "/change-password";
 
     // View endpoints
@@ -59,6 +60,8 @@ public final class Endpoints {
     public static final String USERS_PAGE = "usersPage";
     public static final String ACCOUNT = "account";
     public static final String AIRPORTS_PAGE = "airportsPage";
+    public static final String PLANE_SETTINGS = "planesSettings";
+    public static final String FIRST_PAGE = "/1";
     public static final String PLANES_SETTINGS = "planeSettings";
 
     //  Airport Controller endpoints
