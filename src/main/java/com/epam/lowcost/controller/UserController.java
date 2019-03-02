@@ -24,7 +24,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes({"sessionUser","number"})
+@SessionAttributes({"sessionUser"})
 public class UserController {
 
 
