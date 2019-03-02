@@ -1,6 +1,7 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.mail.MessagingException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Map;
@@ -27,15 +29,18 @@ public class UserController {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailServiceImpl emailService;
 
     @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, EmailServiceImpl emailService) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.emailService = emailService;
     }
 
     @RequestMapping(value = USER, method = RequestMethod.GET)
-    public String mainPage(ModelMap model) {
+    public String mainPage(ModelMap model) throws MessagingException {
+        emailService.sendMessageWithAttachment("stepanov.ilia.u@gmail.com","testAttacment","Here is some email with attachment","C:\\Users\\Ilia_Stepanov\\IdeaProjects\\lowcost\\wallpapersden.jpg");
         model.addAttribute("users", userService.getAllUsers());
         return USERS_PAGE;
     }
