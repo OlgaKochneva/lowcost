@@ -31,11 +31,11 @@
 
     <div class="row">
         <div class="col-md-3 findAirportBtn">
-            <spring:message code="lang.findAirportByCode"/>
-            <form action="<%=Endpoints.AIRPORT%>" method="get">
-                <input class="form-control input codeInputAirports" type="text" name="code"/>
-                <input type="submit" class="btn btn-outline-primary okBtnAirports" name="OK"/>
-            </form>
+        <spring:message code="lang.findAirportByCity"/>
+        <form action="<%=Endpoints.AIRPORT%>" method="get">
+            <input class="form-control input codeInputAirports" required type="text" name="city"/>
+            <input type="submit" class="btn btn-outline-primary okBtnAirports" name="OK"/>
+        </form>
         </div>
 
     </div>

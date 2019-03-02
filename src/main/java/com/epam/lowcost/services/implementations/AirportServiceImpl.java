@@ -25,4 +25,13 @@ public class AirportServiceImpl implements AirportService {
     public Airport getAirportByCode(String code) {
         return airportRepository.findAirportByCode(code);
     }
+
+    @Override
+    public List<Airport> findAllByCity(String city) {
+        city =city.toLowerCase();
+        city=city.substring(0,1).toUpperCase().concat(city.substring(1,city.length()));
+        return airportRepository.findAllByCityEng(city);
+    }
+
+
 }

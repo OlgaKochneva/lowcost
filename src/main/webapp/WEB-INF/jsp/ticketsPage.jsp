@@ -13,7 +13,9 @@
 </head>
 <body>
 <div class="container">
-<div class="row">
+<div class="row mainContentAdd">
+
+    <h4><spring:message code="lang.allTickets"/><br/></h4>
     <div class="col-md-12 ticketsTable">
 
 
@@ -34,12 +36,14 @@
             <tbody>
             <c:forEach items="${tickets}" var="ticket">
                 <tr>
-                    <td><c:out value="${ticket.user.firstName}"/></td>
-                    <td><c:out value="${ticket.user.email}"/></td>
+                    <%--<td><c:out value="${ticket.user.firstName}"/></td>--%>
+                    <%--<td><c:out value="${ticket.user.email}"/></td>--%>
+                        <td></td>
+                        <td></td>
                     <td><c:out value="${ticket.flight.departureAirport.cityEng}"/></td>
                     <td><c:out value="${ticket.flight.arrivalAirport.cityEng}"/></td>
-                    <td><c:out value="${ticket.flight.departureDate}"/></td>
-                    <td><c:out value="${ticket.flight.arrivalDate}"/></td>
+                    <td><c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
+                    <td><c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
                     <td><c:out value="${ticket.price}"/></td>
                     <%--<td>--%>
                         <%--<c:if test="${sessionUser.isAdmin()}">--%>
