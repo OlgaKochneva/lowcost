@@ -23,7 +23,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@SessionAttributes({"sessionUser", "searchTerm","searchString"})
+@SessionAttributes({"sessionUser", "searchTerm", "searchString"})
 public class UserController {
 
 
@@ -40,28 +40,21 @@ public class UserController {
 
     @RequestMapping(value = USERS)
     public String showUsers(ModelMap model, Pageable pageable) {
-        String searchTerm = (String) model.getOrDefault("searchTerm","all");
-        String searchString = (String) model.getOrDefault("searchString","not-relevant");
-
-        System.out.println(searchTerm);
-        System.out.println(searchString);
-
-
+        String searchTerm = (String) model.getOrDefault("searchTerm", "all");
+        String searchString = (String) model.getOrDefault("searchString", "not-relevant");
         model.addAttribute("users", userService.searchByTerm(searchTerm, searchString, pageable));
         return USERS_PAGE;
     }
+
     @RequestMapping(value = SEARCH, method = RequestMethod.POST)
     public String setSearchConditions(@RequestParam(value = "searchTerm") String searchTerm,
                                       @RequestParam(value = "searchString") String searchString,
-                                      ModelMap model){
-        System.out.println("search method");
-        model.addAttribute("searchTerm",searchTerm);
-        model.addAttribute("searchString",searchString);
+                                      ModelMap model) {
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchString", searchString);
 
         return "redirect:/users";
     }
-
-
 
 
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
