@@ -36,6 +36,7 @@ public final class Endpoints {
     public static final String TICKETS = "/tickets";
     public static final String SELF = "/self";
     public static final String CANCEL = "/cancel";
+    public static final String PAY = "/pay";
 
 
 //  User Controller endpoints
@@ -56,6 +57,7 @@ public final class Endpoints {
     public static final String USER_PAGE = "userPage";
     public static final String ADD_PLANE_PAGE = "addPlane";
     public static final String USERS_PAGE = "usersPage";
+    public static final String ACCOUNT = "account";
     public static final String AIRPORTS_PAGE = "airportsPage";
     public static final String PLANES_SETTINGS = "planeSettings";
 
