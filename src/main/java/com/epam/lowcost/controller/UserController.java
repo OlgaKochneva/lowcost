@@ -5,7 +5,6 @@ import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.mail.MessagingException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Map;
@@ -40,7 +38,7 @@ public class UserController {
     }
 
     @RequestMapping(value = USERS)
-    public String showUsers(Model model, Pageable pageable) throws MessagingException {
+    public String showUsers(Model model, Pageable pageable) {
         model.addAttribute("users", userService.getAllUsers(pageable));
         return USERS_PAGE;
     }
