@@ -45,7 +45,7 @@
                     <td><c:out value="${ticket.user.firstName}"/></td>
                     <td><c:out value="${ticket.user.lastName}"/></td>
                     <td><c:out value="${ticket.user.documentInfo}"/></td>
-                    <td><c:out value="${ticket.user.birthday.toString().replaceAll( 'T', ' ')}"/></td>
+                    <td><c:out value="${ticket.user.birthday.toString()}"/></td>
                     <td><c:if test="${ticket.placePriority}"><p align="center"><spring:message code="lang.yes"/></p>  </c:if></td>
                     <td><c:if test="${ticket.business}"><p align="center"> <spring:message code="lang.yes"/></p> </c:if></td>
                     <td><c:if test="${ticket.hasLuggage}"><p align="center"> <spring:message code="lang.yes"/></p> </c:if></td>
