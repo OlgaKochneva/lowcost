@@ -84,6 +84,11 @@
                         </div>
                     </div>
                 </c:if>
+                <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
+                    <input type="hidden" name="ticketId" value="${ticket.id}">
+                    <input type ="hidden" name="userEmail" value="${sessionUser.username}">
+                    <input type="submit" value="Get Pdf to email" class="btn-outline-secondary"/>
+                </form>
 
             </div>
         </c:forEach>
