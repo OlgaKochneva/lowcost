@@ -35,6 +35,7 @@
                 <th scope="col"><spring:message code="lang.isBusiness"/></th>
                 <th scope="col"><spring:message code="lang.hasLuggage"/></th>
                 <th scope="col"><spring:message code="lang.price"/> </th>
+                <th scope="col"><spring:message code="lang.status"/> </th>
             </tr>
 
             </thead>
@@ -49,23 +50,8 @@
                     <td><c:out value="${ticket.business}"/></td>
                     <td><c:out value="${ticket.hasLuggage}"/></td>
                     <td><c:out value="${ticket.price}"/></td>
-                    <%--<td>--%>
-                        <%--<c:if test="${sessionUser.isAdmin()}">--%>
-                            <%--<form action="<%=EndPoints.TICKETS%>" method="get">--%>
-                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
-                                <%--<input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updateTicket"/>--%>
-                            <%--</form>--%>
-                            <%--<form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">--%>
-                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
-                                <%--<input type="submit" value="<spring:message code="lang.deleteTicket"/>" class="btn btn-outline-danger deleteTicket"/>--%>
-                            <%--</form>--%>
-
-
-
-                        <%--</c:if>--%>
-
-                    <%--</td>--%>
-
+                    <td><c:if test="${ticket.paid}"><spring:message code="lang.paid"/> </c:if>
+                        <c:if test="${!ticket.paid}"><p style="color: #dc3545"> <spring:message code="lang.unpaid"/> </c:if> </p></td>
 
                 </tr>
             </c:forEach>

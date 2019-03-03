@@ -25,17 +25,19 @@
 
         <c:forEach items="${currentUserTickets}" var="ticket">
             <div class="col-md-6 OneTicket">
+                <c:if test="${ticket.paid}">
                 <div class="backgroundTicket">
+
                     <spring:message code="lang.departureAirport"/> <c:out
                         value="${ticket.flight.departureAirport.cityEng}"/><br/>
                     <spring:message code="lang.arrivalAirport"/> <c:out
                         value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
-                    <spring:message code="lang.departureAt"/> <c:out value="${ticket.flight.departureDate}"/><br/>
-                    <spring:message code="lang.arriveAt"/> <c:out value="${ticket.flight.arrivalDate}"/><br/>
+                    <spring:message code="lang.departureAt"/> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                    <spring:message code="lang.arriveAt"/> <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
                     <spring:message code="lang.price"/> <c:out value="${ticket.price}"/><br/>
                     <div class="buttonGroupCard">
 
-                    </div>
+
                     <input type="button"
                            onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport.cityEng} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport.cityEng} At ${ticket.flight.arrivalDate}')"
                            value="<spring:message code="lang.details"/>"
@@ -43,10 +45,47 @@
 
                     <form action="<%=Endpoints.TICKETS + Endpoints.CANCEL%>" method="post">
                         <input type="hidden" name="id" value="${ticket.id}"/>
-                        <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-info"/>
+                        <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-danger buttonFloatLeft"/>
 
                     </form>
+                        <br/> <br/>
+                    </div>
                 </div>
+                </c:if>
+                <c:if test="${!ticket.paid}">
+                    <div class="backgroundTicketUnpaid">
+
+                        <spring:message code="lang.departureAirport"/> <c:out
+                            value="${ticket.flight.departureAirport.cityEng}"/><br/>
+                        <spring:message code="lang.arrivalAirport"/> <c:out
+                            value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
+                        <spring:message code="lang.departureAt"/> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                        <spring:message code="lang.arriveAt"/> <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                        <spring:message code="lang.price"/> <c:out value="${ticket.price}"/><br/>
+                        <div class="buttonGroupCard">
+
+
+                            <input type="button"
+                                   onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport.cityEng} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport.cityEng} At ${ticket.flight.arrivalDate}')"
+                                   value="<spring:message code="lang.details"/>"
+                                   class="btn btn-outline-primary buttonFloatLeft"/>
+
+                            <form action="<%=Endpoints.TICKETS + Endpoints.CANCEL%>" method="post">
+                                <input type="hidden" name="id" value="${ticket.id}"/>
+                                <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-danger buttonFloatLeft"/>
+
+                            </form>
+                            <c:if test="${!ticket.paid}">
+                                <form action="<%=Endpoints.TICKETS+Endpoints.PAY%>" method="post">
+                                    <input type="submit" value="<spring:message code="lang.pay"/> " class="btn btn-outline-success btPay "/>
+                                </form>
+                            </c:if>
+
+
+                        </div>
+                    </div>
+                </c:if>
+
             </div>
         </c:forEach>
     </div>

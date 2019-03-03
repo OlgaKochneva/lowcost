@@ -83,7 +83,7 @@
                     value="${flight.luggagePrice}"/><br/>
                 <input type="hidden" name="flight" value="${flight.id}"/>
                 <spring:message code="lang.total"/> <output id="price">${flight.initialPrice}</output>
-                </br> <input type="submit" value="<spring:message code="lang.buy"/>" class="buyButtonBuyPage btn btn-outline-success"/>
+                </br> <input type="submit" value="<spring:message code="lang.book"/>" class="buyButtonBuyPage btn btn-outline-success"/>
             </form:form>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.RETURN%>" method="get">
                 <input type="submit" value="<spring:message code="lang.cancel"/>" class="cancellButtonBuyPage2 btn btn-outline-danger"/>

@@ -134,6 +134,15 @@ body {
     -moz-box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
     box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
 }
+.backgroundTicketUnpaid {
+    padding: 1rem;
+    background-color: #f7f7f9;
+    border: 1px solid #dc3545;
+    border-radius: 5px;
+    -webkit-box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
+    -moz-box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
+    box-shadow: 6px 6px 3px -1px rgba(224, 224, 224, 1);
+}
 
 .buttonFloatLeft {
     float: left;
@@ -164,7 +173,9 @@ body {
     margin-top: 10px;
 
 }
-
+/*.cancelTicket{*/
+    /*float: left;*/
+/*}*/
 /*--------------SeatchPage--------------------------*/
 .SeachTicketSearch {
     font-size: 24px;
@@ -407,4 +418,7 @@ body {
 
 .numOfUsers {
     align: right;
+}
+.btPay{
+    margin-bottom: -6px;
 }

@@ -29,7 +29,7 @@
 
     </div>
     <div class="topnav">
-        <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>
+        <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
         <a class=" navbarLink " href="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"><spring:message code="lang.buyMoreTickets"/></a>|
         <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
 
