@@ -34,7 +34,6 @@ public class TicketController {
     @PostMapping(value = ADD)
     public String addTicket(@ModelAttribute ("ticket") Ticket ticket, ModelMap model) {
         User user = (User) model.get("sessionUser");
-        System.out.println(user.getFirstName());
         ticket.setUser(user);
         Flight flight = (Flight) model.get("flight");
         ticketService.addTicket(ticket);
@@ -48,8 +47,8 @@ public class TicketController {
         return "redirect:" + TICKETS + FLIGHT;
     }
 
-    @PostMapping(value = PAY+ "/{id}")
-    public String payTicket(@PathVariable long id, ModelMap model) {
+    @PostMapping(value = PAY)
+    public String payTicket(@RequestParam long id, ModelMap model) {
         model.addAttribute("message", ticketService.payTicketById(id));
         return "redirect:" + TICKETS + SELF;
     }

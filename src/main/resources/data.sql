@@ -3484,9 +3484,9 @@ VALUES ('AAA', 'Anaa', 'Анаа', 'Anaa', 'Анаа', 'French Polynesia', 'Фр
 -- CREATE TABLE FLIGHTS(id LONG AUTO_INCREMENT NOT NULL, planeId LONG NOT NULL, initial_Price LONG, departure_Airport VARCHAR (255), arrival_Airport VARCHAR (255), departure_Date DATETIME, arrival_Date DATETIME, is_Deleted BOOL, luggage_Price LONG, place_Priority_Price LONG,business_Price LONG,  PRIMARY KEY(id), FOREIGN KEY (planeId) REFERENCES PLANES ON UPDATE CASCADE, FOREIGN KEY(departure_Airport) REFERENCES AIRPORTS(code) ON UPDATE CASCADE, FOREIGN KEY(arrival_Airport) REFERENCES AIRPORTS (code) ON UPDATE CASCADE),
 INSERT INTO FLIGHTS(id, initial_Price, plane_Id, is_Deleted, departure_Date, arrival_Date, place_Priority_Price,
                     business_Price, luggage_Price, departure_Airport, arrival_Airport)
-VALUES (1, '500', '1', FALSE, '2019-02-11 11:00:00', '2019-02-11 13:00:00', '1000', '5000', '1500', 'AAA', 'AAK'),
-       (2, '1200', '2', FALSE, '2019-01-14 05:45:00', '2019-01-14 08:10:00', '800', '10000', '1900', 'AAL', 'AAQ'),
-       (3, '1500', '2', FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00', '600', '15000', '1800', 'ABP', 'PPO'),
+VALUES (1, '500', '1', FALSE, '2019-03-21 11:00:00', '2019-03-21 13:00:00', '1000', '5000', '1500', 'LED', 'VKO'),
+       (2, '1200', '2', FALSE, '2019-03-15 05:45:00', '2019-03-15 08:10:00', '800', '10000', '1900', 'CEK', 'DME'),
+       (3, '1500', '2', FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00', '600', '15000', '1800', 'SVX', 'SVO'),
        (4, '2000', '3', FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00', '450', '8700', '900', 'DME', 'MQF');
 -- CREATE TABLE TICKETS(id LONG AUTO_INCREMENT NOT NULL, user_Id LONG NOT NULL, flight_Id LONG NOT NULL, is_Business BOOL, has_Luggage BOOL, place_Priority BOOL, purchase_Date DATETIME, price LONG, is_Deleted BOOL, PRIMARY KEY (id), FOREIGN KEY (user_Id) REFERENCES USERS(id) ON UPDATE CASCADE, FOREIGN KEY (flight_Id) REFERENCES FLIGHTS(id) ON UPDATE CASCADE),
 INSERT INTO TICKETS(id, user_Id, flight_Id, is_Business, has_Luggage, place_Priority, purchase_Date, price, paid, is_Deleted)

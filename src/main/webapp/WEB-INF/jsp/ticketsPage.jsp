@@ -46,9 +46,9 @@
                     <td><c:out value="${ticket.user.lastName}"/></td>
                     <td><c:out value="${ticket.user.documentInfo}"/></td>
                     <td><c:out value="${ticket.user.birthday.toString().replaceAll( 'T', ' ')}"/></td>
-                    <td><c:out value="${ticket.placePriority}"/></td>
-                    <td><c:out value="${ticket.business}"/></td>
-                    <td><c:out value="${ticket.hasLuggage}"/></td>
+                    <td><c:if test="${ticket.placePriority}"><p align="center"><spring:message code="lang.yes"/></p>  </c:if></td>
+                    <td><c:if test="${ticket.business}"><p align="center"> <spring:message code="lang.yes"/></p> </c:if></td>
+                    <td><c:if test="${ticket.hasLuggage}"><p align="center"> <spring:message code="lang.yes"/></p> </c:if></td>
                     <td><c:out value="${ticket.price}"/></td>
                     <td><c:if test="${ticket.paid}"><spring:message code="lang.paid"/> </c:if>
                         <c:if test="${!ticket.paid}"><p style="color: #dc3545"> <spring:message code="lang.unpaid"/> </c:if> </p></td>

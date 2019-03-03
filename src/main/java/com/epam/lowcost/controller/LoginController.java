@@ -81,7 +81,7 @@ public class LoginController {
     public String welcome(Model model) {
 
         model.addAttribute("sessionUser", userService.getSessionUser());
-        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
         return SEARCH_PAGE;
