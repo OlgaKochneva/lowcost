@@ -26,22 +26,23 @@ public class TicketServiceImpl implements TicketService {
     private FlightService flightService;
     private ResourceBundle bundle = ResourceBundle.getBundle("messages");
 
-    @Override
-    public boolean deleteTicketsByUserId(long id) {
-        return false;
-    }
-
-
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository,UserService userService) {
+    public TicketServiceImpl(TicketRepository ticketRepository, UserService userService) {
         this.ticketRepository = ticketRepository;
         this.userService = userService;
     }
 
+    @Override
+    @Transactional
+    public String payTicketById(long id) {
+        Ticket ticketForPayment = ticketRepository.findById(id);
+        ticketForPayment.setPaid(true);
+        return bundle.getString("lang.ticketSuccessfullyPaid");
+    }
 
     @Override
     public List<Ticket> getAllUserTickets(long userId) {
-        return ticketRepository.findByUser_Id(userId);
+        return ticketRepository.findByUser_IdAndIsDeleted(userId, false);
     }
 
 
@@ -55,6 +56,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPrice(flight.getInitialPrice());
         ticket.setPrice(countPrice(ticket));
         ticket.setDeleted(false);
+        ticket.setPaid(false);
         return ticket;
     }
 
@@ -64,10 +66,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Transactional
     public String deleteTicketById(long id) {
         Ticket ticketToDelete = ticketRepository.findById(id);
         ticketToDelete.setDeleted(true);
-        ticketRepository.save(ticketToDelete);
         return bundle.getString("lang.ticketSuccessfullyReturned");
     }
 

@@ -11,6 +11,5 @@ public interface AirportService {
     Airport getAirportByCode(String code);
 
     List <Airport> findAllByCity(String city);
-
-
+    
 }

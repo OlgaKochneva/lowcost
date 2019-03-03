@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-body{
+
+body {
     margin: 0px;
     font-family: 'Open Sans', sans-serif;
 }
-.wrapper{
+
+.wrapper {
 
     background: url("../img/plane_take_off.jpg") no-repeat;
     -moz-background-size: 100%;
@@ -15,40 +17,48 @@ body{
     padding: 0;
     margin: 0;
 }
-.main_block{
+
+.main_block {
     background-color: white;
     border: 1px solid #007bff;
-    border-radius:10px;
+    border-radius: 10px;
     padding: 2rem 1rem 1rem 1rem;
     width: 32%;
     margin-left: 34%;
 }
-.greeting{
+
+.greeting {
     text-align: left;
 }
-.btnAuth{
+
+.btnAuth {
     width: 100%;
     text-align: center;
 
 }
-.greeting{
+
+.greeting {
     font-size: 20px;
 }
-.input{
+
+.input {
     font-size: 12px;
 }
-.language a{
+
+.language a {
     color: white;
 }
-.language a:hover{
+
+.language a:hover {
     color: white;
 }
-.message{
+
+.message {
     font-size: 14px;
     color: #dc3545;
 }
 
-.btnSignUp{
+.btnSignUp {
     margin-top: 15px;
     width: 100%;
     text-align: center;

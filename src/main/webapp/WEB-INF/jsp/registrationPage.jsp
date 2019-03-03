@@ -18,11 +18,10 @@
 
 <body>
 
-<div class="wrapper">
-    <p align="right" class="language"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></p>
-    <div class="main_block">
-        <h5><spring:message code="lang.fillForm"/></h5>
-    <form:form method="POST" modelAttribute="userForm">
+<div class="container">
+
+    <form:form action="<%=Endpoints.REGISTRATION%>" method="POST" modelAttribute="userForm" class="form-signin">
+        <h2 class="form-signin-heading">Create your account</h2>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control input" placeholder="Username"
@@ -49,8 +48,6 @@
         <button class="btn btn-outline-primary btnSignUp" type="submit">Submit</button>
     </form:form>
     </div>
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>--%>
-    <%--<script src="${contextPath}/resources/js/bootstrap.min.js"></script>--%>
 
 </div>
 </body>
