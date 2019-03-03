@@ -6,6 +6,8 @@ import java.util.List;
 
 
 public interface TicketService {
+    public Ticket getTicketById(long id);
+
     List<Ticket> getAllUserTickets(long userId);
 
     List<Ticket> getAllTicketsForCurrentFlight(long flightId);
