@@ -335,11 +335,11 @@ body {
 }
 
 .updatePlaneBtn {
-
     width: 100%;
 }
 
 .deletePlaneBtn {
+    margin-top: 20px;
 
     width: 100%;
 }
