@@ -77,5 +77,6 @@ public final class Endpoints {
     public static final String ADDFLIGHT="addFlight";
     public static final String SEARCHPAGE="searchPage";
 
+    public static final String PDF = "/pdf" ;
 }
 

@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--@elvariable id="sessionUser" type="com.epam.lowcost.model.User"--%>
 <html>
 <head>
     <title><spring:message code="lang.personalCabinet"/><</title>
@@ -44,8 +45,14 @@
                     <form action="<%=Endpoints.TICKETS + Endpoints.CANCEL%>" method="post">
                         <input type="hidden" name="id" value="${ticket.id}"/>
                         <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-info"/>
-
                     </form>
+
+                    <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
+                        <input type="hidden" name="ticketId" value="${ticket.id}">
+                        <input type ="hidden" name="userEmail" value="${sessionUser.username}">
+                        <input type="submit" value="Get Pdf to email" class="btn-outline-secondary"/>
+                    </form>
+
                 </div>
             </div>
         </c:forEach>
