@@ -35,7 +35,7 @@ public class TicketController {
     public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail){
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
-            emailService.sendMessageWithAttachment("Ilia_Stepanov@epam.com",
+            emailService.sendMessageWithAttachment(userEmail,
                     "pdf sending test",
                     "here is your ticket m8",String.format("Ticket_%d.pdf",ticketId));
         } catch (Exception e) {
