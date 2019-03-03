@@ -1,7 +1,6 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
-import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,7 @@ public class UserController {
 
 
     @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, EmailServiceImpl emailService) {
+    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
