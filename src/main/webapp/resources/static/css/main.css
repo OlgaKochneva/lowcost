@@ -218,6 +218,12 @@ body{
 
 }
 /*------------flights page-------------------*/
+.modifyFlight{
+    margin-top: 8px;
+}
+.inProgress{
+    margin-top: 8px;
+}
 
 .flightAddBtn{
     margin-top: 17%;

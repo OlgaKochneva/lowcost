@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,22 +47,23 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    @Transactional
     public Flight addNewFlight(Flight flight) {
         flight.setDeleted(false);
-
         return flightRepository.save(flight);
     }
 
     @Override
+    @Transactional
     public Flight updateFlight(Flight flight) {
         return flightRepository.save(flight);
     }
 
     @Override
+    @Transactional
     public Flight deleteFlight(Long id) {
         Flight flight = flightRepository.getById(id);
         flight.setDeleted(true);
-       // ticketService.deleteTicketsByFlightId(id);
         return flightRepository.save(flight);
 
     }
