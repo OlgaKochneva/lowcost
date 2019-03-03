@@ -30,38 +30,38 @@
 
 <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-<form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" method="get" commandName="search">
-    <div class="leftBlockSerch">
-    <spring:bind path="departureDateFrom">
-        <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
-        <form:input type="date" id="inpSerc" path="departureDateF" class="form-control searchInput"/> <br/>
-        <form:errors path="departureDate"/>
-    </spring:bind>
-    <spring:bind path="arrivalDate">
-        <label for="inpSerc2"><spring:message code="lang.departureDateTo"/>: </label>
-        <form:input type="date" id="inpSerc2" path="arrivalDate" class="form-control searchInput"/><br/>
-        <form:errors path="arrivalDate"/>
-    </spring:bind>
-    </div>
-    <div class="leftBlockSerchRight">
-    <spring:bind path="departureAirport">
-        <label for="inpSerc3"><spring:message code="lang.departureAirport"/>: </label>
-        <form:input type="text" id="inpSerc3" list="airport" path="departureAirport" class="form-control searchInput"/>
-        <br/>
-        <form:errors path="departureAirport"/>
-    </spring:bind>
-    <spring:bind path="arrivalAirport">
-    <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
-    <form:input type="text" id="inpSerc4"  list="airport" path="arrivalAirport" class="form-control searchInput"/> <br/>
-        <form:errors path="arrivalAirport"/>
-    </spring:bind>
-    </div>
+<%--<form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" method="get">--%>
+    <%--<div class="leftBlockSerch">--%>
+    <%--<spring:bind path="departureDateFrom">--%>
+        <%--<label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>--%>
+        <%--<form:input type="date" id="inpSerc" path="departureDateF" class="form-control searchInput"/> <br/>--%>
+        <%--<form:errors path="departureDate"/>--%>
+    <%--</spring:bind>--%>
+    <%--<spring:bind path="arrivalDate">--%>
+        <%--<label for="inpSerc2"><spring:message code="lang.departureDateTo"/>: </label>--%>
+        <%--<form:input type="date" id="inpSerc2" path="arrivalDate" class="form-control searchInput"/><br/>--%>
+        <%--<form:errors path="arrivalDate"/>--%>
+    <%--</spring:bind>--%>
+    <%--</div>--%>
+    <%--<div class="leftBlockSerchRight">--%>
+    <%--<spring:bind path="departureAirport">--%>
+        <%--<label for="inpSerc3"><spring:message code="lang.departureAirport"/>: </label>--%>
+        <%--<form:input type="text" id="inpSerc3" list="airport" path="departureAirport" class="form-control searchInput"/>--%>
+        <%--<br/>--%>
+        <%--<form:errors path="departureAirport"/>--%>
+    <%--</spring:bind>--%>
+    <%--<spring:bind path="arrivalAirport">--%>
+    <%--<label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>--%>
+    <%--<form:input type="text" id="inpSerc4"  list="airport" path="arrivalAirport" class="form-control searchInput"/> <br/>--%>
+        <%--<form:errors path="arrivalAirport"/>--%>
+    <%--</spring:bind>--%>
+    <%--</div>--%>
 
-    </div>
-    <div class="col-md-4">
-    <input type="submit" value="<spring:message code="lang.search"/>" class="btn btn-outline-warning btnSeach"/>
+    <%--</div>--%>
+    <%--<div class="col-md-4">--%>
+    <%--<input type="submit" value="<spring:message code="lang.search"/>" class="btn btn-outline-warning btnSeach"/>--%>
 
-        </form:form>
+        <%--</form:form>--%>
     </div>
     </div>
     </div>
@@ -123,8 +123,7 @@
                 <td><c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
                 <td><c:out value="${flight.initialPrice}"/></td>
                 <td>
-                    <form action="<%=Endpoints.FLIGHTS + Endpoints.NEW_TICKET%>" method="get">
-                        <input type="hidden" name="id" value="${flight.id}"/>
+                    <form action="<%=Endpoints.FLIGHTS+ Endpoints.NEW_TICKET%>/${flight.id}" method="get">
                         <input type="submit" value="<spring:message code="lang.buy" text="Buy"/>"
                                class="btn btn-outline-primary"/>
 

@@ -57,6 +57,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPrice(countPrice(ticket));
         ticket.setDeleted(false);
         ticket.setPaid(false);
+        ticketRepository.save(ticket);
         return ticket;
     }
 

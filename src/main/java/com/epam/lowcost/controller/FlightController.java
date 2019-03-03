@@ -1,6 +1,7 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.TicketService;
@@ -20,6 +21,7 @@ import java.util.Map;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
+@SessionAttributes({"sessionUser"})
 @RequestMapping(value = FLIGHTS)
 public class FlightController {
 
@@ -78,9 +80,10 @@ public class FlightController {
         return TICKETS_PAGE;
     }
 
-    @GetMapping(value = NEW_TICKET + "/{id}")
+    @RequestMapping(value = NEW_TICKET + "/{id}", method = RequestMethod.GET)
     public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
         model.addAttribute("flight", flightService.getFlightByIdWithUpdatedPrice(id));
+        model.addAttribute("ticket", new Ticket());
         return BUY;
     }
 

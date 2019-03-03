@@ -1,6 +1,7 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -44,7 +45,7 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-12 mainContentBuy">
-            <form action="<%=Endpoints.TICKETS + Endpoints.ADD%>" method="post">
+            <form:form action="<%=Endpoints.TICKETS + Endpoints.ADD%>" modelAttribute="ticket" method="post">
 
                <strong><spring:message code="lang.firstName"/>:</strong>
                 <output name="firstName">${sessionUser.firstName}</output>
@@ -65,10 +66,10 @@
                 <output name="arrivaAirport">${flight.arrivalAirport.cityEng}</output>
                 <br/>
                 <spring:message code="lang.departureAt"/>
-                <output name="departureDate">${flight.departureDate}</output>
+                <output name="departureDate">${flight.departureDate.toString().replaceAll('T',' ')}</output>
                 <br/>
                 <spring:message code="lang.arriveAt"/>
-                <output name="arrivalDate">${flight.arrivalDate}</output>
+                <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
                 <br/>
                 <spring:message code="lang.isBusiness"/>: <input type="checkbox" id="isBusiness" value="true" name="isBusiness"
                                                                  onclick="updatePrice()"/>
@@ -80,10 +81,10 @@
                                                                     value="true"
                                                                     onclick="updatePrice()"/> + <c:out
                     value="${flight.luggagePrice}"/><br/>
-                <input type="hidden" name="flightId" value="${flight.id}"/>
+                <input type="hidden" name="flight" value="${flight.id}"/>
                 <spring:message code="lang.total"/> <output id="price">${flight.initialPrice}</output>
                 </br> <input type="submit" value="<spring:message code="lang.buy"/>" class="buyButtonBuyPage btn btn-outline-success"/>
-            </form>
+            </form:form>
             <form action="<%=Endpoints.FLIGHTS + Endpoints.RETURN%>" method="get">
                 <input type="submit" value="<spring:message code="lang.cancel"/>" class="cancellButtonBuyPage2 btn btn-outline-danger"/>
             </form>
