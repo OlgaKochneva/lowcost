@@ -3,6 +3,8 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.services.implementations.EmailServiceImpl;
+import com.epam.lowcost.services.implementations.PDFService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,28 @@ import static com.epam.lowcost.util.Endpoints.*;
 @SessionAttributes(value = "sessionUser")
 public class TicketController {
     private final TicketService ticketService;
+    private final PDFService pdfService;
+    private final EmailServiceImpl emailService;
 
     @Autowired
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketService ticketService, PDFService pdfService, EmailServiceImpl emailService) {
         this.ticketService = ticketService;
+        this.pdfService = pdfService;
+        this.emailService = emailService;
+    }
+
+
+    @GetMapping(value = PDF)
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail){
+        try {
+            pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
+            emailService.sendMessageWithAttachment(userEmail,
+                    "pdf sending test",
+                    "here is your ticket m8",String.format("Ticket_%d.pdf",ticketId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:" + TICKETS + SELF;
     }
 
     @GetMapping(value = FLIGHT)

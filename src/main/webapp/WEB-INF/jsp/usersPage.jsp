@@ -1,6 +1,7 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ page import="static com.epam.lowcost.util.Endpoints.BLOCK_USER" %>
 <%@ page import="static com.epam.lowcost.util.Endpoints.UNBLOCK_USER" %>
+<%@ page import="static com.epam.lowcost.util.Endpoints.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -33,13 +34,25 @@
     <div class="row">
 
         <div class="col-md-10">
-
         </div>
-
-
-        <div class="col-md-2 numOfUsers">
+        <form action="<%=SEARCH%>" method="post">
+            <div class="select-and-input">
+                Search Users By:
+                <select name="searchTerm">
+                    <option value="all">show all</option>
+                    <option value="username">email</option>
+                    <option value="lastName">last name</option>
+                    <option value="documentInfo">document info</option>
+                </select>
+                <input type="text" name="searchString" />
+                <input type="submit" value="Search"/>
+            </div>
+        </form>
+        <div  class="col-md-2 numOfUsers">
             <form></form>
-            <spring:message code="lang.showUsersBy"/> <a href="?size=1">1 | </a><a href="?size=5"> 5</a>
+            <spring:message code="lang.showUsersBy"/> <a
+                href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
+                href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
         </div>
     </div>
 
