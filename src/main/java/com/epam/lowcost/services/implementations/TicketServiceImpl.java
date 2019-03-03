@@ -34,6 +34,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
+    public Ticket getTicketById(long id) {
+        return ticketRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
     public String payTicketById(long id) {
         Ticket ticketForPayment = ticketRepository.findById(id);
         ticketForPayment.setPaid(true);

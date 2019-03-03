@@ -31,18 +31,17 @@ public class UserController {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final EmailServiceImpl emailService;
+
 
     @Autowired
     public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, EmailServiceImpl emailService) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.emailService = emailService;
     }
 
     @RequestMapping(value = USERS)
-    public String showUsers(Model model,Pageable pageable) {
-        emailService.sendMessageWithAttachment("stepanov.ilia.u@gmail.com","testAttacment","Here is some email with attachment","C:\\Users\\Ilia_Stepanov\\IdeaProjects\\lowcost\\wallpapersden.jpg");        model.addAttribute("users", userService.getAllUsers(pageable));
+    public String showUsers(Model model, Pageable pageable) throws MessagingException {
+        model.addAttribute("users", userService.getAllUsers(pageable));
         return USERS_PAGE;
     }
 

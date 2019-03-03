@@ -40,7 +40,7 @@ public class EmailServiceImpl{
 
         FileSystemResource file
                 = new FileSystemResource(new File(pathToAttachment));
-        helper.addAttachment("Invoice.jpg", file);
+        helper.addAttachment("Ticket.pdf",file);
 
         emailSender.send(message);
 
