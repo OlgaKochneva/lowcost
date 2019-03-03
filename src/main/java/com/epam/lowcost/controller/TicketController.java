@@ -48,8 +48,8 @@ public class TicketController {
         return "redirect:" + TICKETS + FLIGHT;
     }
 
-    @PostMapping(value = PAY)
-    public String payTicket(@RequestParam long id, ModelMap model) {
+    @PostMapping(value = PAY+ "/{id}")
+    public String payTicket(@PathVariable long id, ModelMap model) {
         model.addAttribute("message", ticketService.payTicketById(id));
         return "redirect:" + TICKETS + SELF;
     }

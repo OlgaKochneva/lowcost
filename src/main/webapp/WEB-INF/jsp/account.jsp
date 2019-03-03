@@ -43,7 +43,7 @@
                            value="<spring:message code="lang.details"/>"
                            class="btn btn-outline-primary buttonFloatLeft"/>
 
-                    <form action="<%=Endpoints.TICKETS + Endpoints.CANCEL%>" method="post">
+                    <form action="<%=Endpoints.TICKETS + Endpoints.CANCEL%>/" method="post">
                         <input type="hidden" name="id" value="${ticket.id}"/>
                         <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-danger buttonFloatLeft"/>
 
@@ -76,7 +76,7 @@
 
                             </form>
                             <c:if test="${!ticket.paid}">
-                                <form action="<%=Endpoints.TICKETS+Endpoints.PAY%>" method="post">
+                                <form action="<%=Endpoints.TICKETS+Endpoints.PAY%>/${ticket.id}" method="post">
                                     <input type="submit" value="<spring:message code="lang.pay"/> " class="btn btn-outline-success btPay "/>
                                 </form>
                             </c:if>
