@@ -29,7 +29,10 @@
             <%--<h4><spring:message code="lang.update"/></h4>--%>
 
             <form:form method="post" action="<%=Endpoints.FLIGHTS + Endpoints.UPDATE%>" modelAttribute="flight">
-                    <input type="hidden" name="id" />
+                   <spring:bind path="id">
+                    <form:errors path="id" cssStyle="color: #dc3545"/>
+                <form:input type="hidden" path="id" />
+                </spring:bind>
                     <spring:bind path="initialPrice">
                         <div>
                             <spring:message code="lang.price"/><br/>
