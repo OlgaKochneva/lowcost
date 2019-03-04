@@ -19,7 +19,7 @@ import static com.epam.lowcost.util.Endpoints.*;
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class PlaneController {
     private final PlaneService planeService;
-    private  final PlaneValidator planeValidator;
+    private final PlaneValidator planeValidator;
 
     @Autowired
     public PlaneController(PlaneService planeService, PlaneValidator planeValidator) {

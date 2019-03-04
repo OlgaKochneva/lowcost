@@ -99,15 +99,15 @@
                 </tbody>
 
             </table>
-            <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${pageId-1}">
+            <form action="<%=Endpoints.AIRPORT%>/${pageId-1}">
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${page}">
+                <form action="<%=Endpoints.AIRPORT%>/${page}">
                     <input type="submit" class="btn btn-link paginationBtn" value="${page}">
                 </form>
             </c:forEach>
-            <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${pageId+1}">
+            <form action="<%=Endpoints.AIRPORT%>/${pageId+1}">
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
             </form>
         </div>
