@@ -12,6 +12,8 @@ import com.epam.lowcost.services.interfaces.TicketService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,8 +38,13 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public Page<Flight> getAllFlights(Pageable pageable) {
+        return flightRepository.getAllByIsDeletedFalse(pageable);
+    }
+
+    @Override
     public List<Flight> getAllFlights() {
-        return flightRepository.getAllByIsDeletedFalse();
+        return flightRepository.findAll();
     }
 
     @Override
