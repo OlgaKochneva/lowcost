@@ -44,7 +44,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> getAllFlights() {
-        return flightRepository.findAll();
+        return flightRepository.getAllByIsDeletedFalse();
     }
 
     @Override
