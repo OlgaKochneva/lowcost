@@ -14,9 +14,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findAll();
 
-    List<Ticket> findByFlight_IdAndAndIsDeleted(long flightId, boolean isDeleted);
+    List<Ticket> findByFlight_IdAndIsDeleted(long flightId, boolean isDeleted);
 
-    int countAllByFlight_IdAndIsBusinessAndIsDeleted(long flightId, boolean isBusiness, boolean isDeleted);
+    int countAllByFlight_IdAndBusinessAndIsDeleted(long flightId, boolean isBusiness, boolean isDeleted);
 
     Ticket findById(long ticketId);
 

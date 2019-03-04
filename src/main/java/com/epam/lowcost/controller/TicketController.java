@@ -55,9 +55,7 @@ public class TicketController {
     public String addTicket(@ModelAttribute ("ticket") Ticket ticket, ModelMap model) {
         User user = (User) model.get("sessionUser");
         ticket.setUser(user);
-        Flight flight = (Flight) model.get("flight");
         ticketService.addTicket(ticket);
-
         return "redirect:" + TICKETS + SELF;
     }
 
