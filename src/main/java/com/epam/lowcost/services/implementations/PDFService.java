@@ -18,7 +18,7 @@ public class PDFService {
 
     public void createPDF_Ticket(Ticket ticket) throws Exception {
         Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(String.format("Ticket_№%d.pdf",ticket.getId())));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(String.format("src/main/webapp/resources/tickets_pdf/Ticket_№%d.pdf",ticket.getId())));
         document.open();
         Image img = Image.getInstance("ticket_template.jpg");
         img.scaleToFit(500,900);
