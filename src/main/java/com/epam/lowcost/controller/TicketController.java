@@ -37,7 +37,7 @@ public class TicketController {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
                     "pdf sending test",
-                    "here is your ticket m8",String.format("Ticket_%d.pdf",ticketId));
+                    "here is your ticket m8",String.format("Ticket_№%d.pdf",ticketId));
         } catch (Exception e) {
             e.printStackTrace();
         }
