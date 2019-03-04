@@ -68,8 +68,8 @@
         </spring:bind>
 
         <spring:bind path="documentInfo">
-            <spring:message code="lang.document"/>
             <div class="form-group ${status.error ? 'has-error' : ''}">
+                <spring:message code="lang.document"/>
                 <form:input type="text" path="documentInfo" class="form-control input"
                            ></form:input>
                 <form:errors path="documentInfo"></form:errors>
