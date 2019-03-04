@@ -88,6 +88,7 @@ public class UserController {
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
         userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
         userService.updateUser(userToUpdate);
+
         return "redirect:" + USER_SETTINGS;
     }
 

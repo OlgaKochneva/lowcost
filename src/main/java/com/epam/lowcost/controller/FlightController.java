@@ -7,6 +7,7 @@ import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.util.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -40,8 +41,8 @@ public class FlightController {
     }
 
     @RequestMapping(value = ALL, method = RequestMethod.GET)
-    public String getAllFlights(ModelMap model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+    public String getAllFlights(ModelMap model, Pageable pageable) {
+        model.addAttribute("flights", flightService.getAllFlights(pageable));
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
 
