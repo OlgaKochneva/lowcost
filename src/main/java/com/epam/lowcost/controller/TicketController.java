@@ -7,10 +7,17 @@ import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.implementations.PDFService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
@@ -32,16 +39,39 @@ public class TicketController {
 
 
     @GetMapping(value = PDF)
-    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail){
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail) {
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
                     "pdf sending test",
-                    "here is your ticket m8",String.format("Ticket_%d.pdf",ticketId));
+                    "here is your ticket m8", String.format("Ticket_%d.pdf", ticketId));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:" + TICKETS + SELF;
+    }
+
+    @RequestMapping(value = DOWNLOAD, method = RequestMethod.GET)
+    public ResponseEntity<Object> downloadFile(@RequestParam long ticketId) throws IOException {
+        try {
+            pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String filename = String.format("Ticket_%d.pdf", ticketId);
+        File file = new File(filename);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(
+                MediaType.parseMediaType("application/txt")).body(resource);
+
+        return responseEntity;
     }
 
     @GetMapping(value = FLIGHT)

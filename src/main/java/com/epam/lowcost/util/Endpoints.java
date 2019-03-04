@@ -78,5 +78,6 @@ public final class Endpoints {
     public static final String SEARCHPAGE="searchPage";
 
     public static final String PDF = "/pdf" ;
+    public static final String DOWNLOAD = "/download";
 }
 

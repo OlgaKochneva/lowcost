@@ -50,8 +50,13 @@
                     <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
                         <input type="hidden" name="ticketId" value="${ticket.id}">
                         <input type ="hidden" name="userEmail" value="${sessionUser.username}">
-                        <input type="submit" value="Get Pdf to email" class="btn-outline-secondary"/>
+                        <input type="submit" value="Get Ticket to email" class="btn-outline-secondary"/>
                     </form>
+                    <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
+                        <input type="hidden" name="ticketId" value="${ticket.id}">
+                        <input type="submit" value="Download Ticket" class="btn-outline-secondary"/>
+                    </form>
+
 
                 </div>
             </div>
