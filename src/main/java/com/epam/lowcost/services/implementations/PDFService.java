@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class PDFService {
 
     public void createPDF_Ticket(Ticket ticket) throws Exception {
-        PdfWriter writer = new PdfWriter(String.format("Ticket_%d.pdf", ticket.getId()));
+        PdfWriter writer = new PdfWriter(String.format("src/main/webapp/resources/tickets_pdf/Ticket_%d.pdf", ticket.getId()));
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf);
 
