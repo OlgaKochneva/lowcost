@@ -1,6 +1,7 @@
 package com.epam.lowcost.controller;
 
 
+import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
@@ -84,6 +85,7 @@ public class LoginController {
         model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("flight", new Flight());
         return SEARCH_PAGE;
     }
 
