@@ -20,7 +20,7 @@ public class PDFService {
         Document document = new Document();
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(String.format("src/main/webapp/resources/tickets_pdf/Ticket_№%d.pdf",ticket.getId())));
         document.open();
-        Image img = Image.getInstance("ticket_template.jpg");
+        Image img = Image.getInstance("src/main/webapp/resources/static/img/ticket_template.jpg");
         img.scaleToFit(500,900);
         document.add(img);
         PdfContentByte over = writer.getDirectContent();
