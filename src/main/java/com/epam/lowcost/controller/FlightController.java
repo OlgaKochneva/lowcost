@@ -83,6 +83,7 @@ public class FlightController {
     @RequestMapping(value = TICKETS + "/{id}", method = RequestMethod.GET)
     public String getAllTicketsForFlight(@PathVariable Long id, ModelMap modelMap) {
         modelMap.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(id));
+        modelMap.addAttribute("flight", flightService.getById(id));
         return TICKETS_PAGE;
     }
 
