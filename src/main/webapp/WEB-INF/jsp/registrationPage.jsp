@@ -32,7 +32,8 @@
 
         <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="password" class="form-control input" placeholder="Password"></form:input>
+                <form:input type="password" path="password" class="form-control input"
+                            placeholder="Password"></form:input>
                 <form:errors path="password"></form:errors>
             </div>
         </spring:bind>
@@ -45,9 +46,40 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="firstName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="firstName" class="form-control input"
+                            placeholder="First name"></form:input>
+                <form:errors path="firstName"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="lastName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="lastName" class="form-control input"
+                            placeholder="Last name"></form:input>
+                <form:errors path="lastName"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="documentInfo">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="documentInfo" class="form-control input"
+                            placeholder="Document info"></form:input>
+                <form:errors path="documentInfo"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="birthday">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="datetime-local" path="birthday" class="form-control input"
+                            placeholder="birthday"></form:input>
+                <form:errors path="birthday"></form:errors>
+            </div>
+        </spring:bind>
         <button class="btn btn-outline-primary btnSignUp" type="submit">Submit</button>
     </form:form>
-    </div>
+</div>
 
 </div>
 </body>

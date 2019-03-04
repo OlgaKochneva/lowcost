@@ -59,7 +59,7 @@ public class LoginController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return REGISTRATION_PAGE;
+        return "redirect:/";
     }
 
     @GetMapping(LOGIN)
