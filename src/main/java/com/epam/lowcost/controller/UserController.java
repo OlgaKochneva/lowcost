@@ -87,7 +87,7 @@ public class UserController {
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
         userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-        userService.updateUser(userToUpdate);
+        model.addAttribute("sessionUser",userService.updateUser(userToUpdate));
         return "redirect:" + USER_SETTINGS;
     }
 

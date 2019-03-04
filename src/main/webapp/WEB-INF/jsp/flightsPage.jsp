@@ -103,12 +103,17 @@
                     <th scope="col"><spring:message code="lang.arriveAt"/></th>
                     <th scope="col"><spring:message code="lang.price"/></th>
                     <th></th>
-                    <th></th>
+                    <th><div>
+                        <form></form>
+                        <spring:message code="lang.showUsersBy"/> <a
+                            href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
+                            href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+                    </div></th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <c:forEach items="${flights}" var="flight">
+                <c:forEach items="${flights.getContent()}" var="flight">
 
                     <tr>
 
@@ -131,6 +136,7 @@
                             </c:if>
 
                         </td>
+
 
 
                         <td>
@@ -158,17 +164,16 @@
 
                 </tbody>
             </table>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>"/>
-            </form>
-            <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${page}">
-                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
-                </form>
-            </c:forEach>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.ALL%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>"/>
-            </form>
+            <div>
+                <c:if test="${flights.hasPrevious()}"> <a
+                        href="?page=${flights.number-1}&size=${flights.size}"><spring:message
+                        code="lang.previous"/></a></c:if>
+                <c:forEach var="page" begin="1" end="${flights.totalPages}">
+                    <a href="?page=${page-1}&size=${flights.size}">${page}</a>
+                </c:forEach>
+                <c:if test="${flights.hasNext()}"> <a href="?page=${flights.number+1}&size=${flights.size}"><spring:message
+                        code="lang.next"/></a></c:if>
+            </div>
         </div>
     </div>
 </div>
