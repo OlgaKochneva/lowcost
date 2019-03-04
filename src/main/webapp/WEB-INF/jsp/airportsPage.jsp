@@ -67,6 +67,14 @@
                 <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="200"/>--%>
             <%--</form>--%>
         <%--</div>--%>
+        <div  class="col-md-2 numOfUsersBtn">
+
+            <spring:message code="lang.showUsersBy"/><br/>
+            <a href="?size=20&searchTerm=${searchTerm}&searchString=${searchString}">20|</a>
+            <a href="?size=50&searchTerm=${searchTerm}&searchString=${searchString}">50|</a>
+            <a href="?size=200&searchTerm=${searchTerm}&searchString=${searchString}">200</a>
+
+        </div>
     <div class="row">
         <div class="col-md-12  mainContentAirport">
             <table class="table table-striped">
@@ -83,7 +91,7 @@
 
                 </thead>
                 <tbody>
-                <c:forEach items="${airports}" var="airport">
+                <c:forEach items="${airports.getContent()}" var="airport">
                     <tr>
                         <td><c:out value="${airport.code}"/></td>
                         <td><c:out value="${airport.cityEng}"/></td>
@@ -99,18 +107,16 @@
                 </tbody>
 
             </table>
-            <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${pageId-1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
-            </form>
-            <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${page}">
-                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
-                </form>
-            </c:forEach>
-            <form action="<%=Endpoints.AIRPORT + Endpoints.ALL%>/${pageId+1}">
-                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
-            </form>
-        </div>
+            <div>
+                <c:if test="${airports.hasPrevious()}"> <a
+                        href="?page=${airports.number-1}&size=${airports.size}"><spring:message
+                        code="lang.previous"/></a></c:if>
+                <c:forEach var="page" begin="1" end="${airports.totalPages}">
+                    <a href="?page=${page-1}&size=${airports.size}">${page}</a>
+                </c:forEach>
+                <c:if test="${airports.hasNext()}"> <a href="?page=${airports.number+1}&size=${airports.size}"><spring:message
+                        code="lang.next"/></a></c:if>
+            </div>
     </div>
 
 
@@ -121,7 +127,6 @@
                 <option hidden value="${airport.cityEng}"> </option>
             </c:forEach>
         </datalist>
-</div>
 </div>
 </body>
 </html>

@@ -14,8 +14,12 @@ import java.io.File;
 @Component
 public class EmailServiceImpl{
 
+    private final JavaMailSender javaMailSender;
+
     @Autowired
-    public JavaMailSender emailSender;
+    public EmailServiceImpl(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     public void sendSimpleMessage(String to, String subject, String text) {
 
@@ -23,14 +27,14 @@ public class EmailServiceImpl{
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
-        emailSender.send(message);
+        javaMailSender.send(message);
 
     }
 
     public void sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment) throws MessagingException {
 
 
-        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessage message = javaMailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -42,7 +46,7 @@ public class EmailServiceImpl{
                 = new FileSystemResource(new File(pathToAttachment));
         helper.addAttachment("Ticket.pdf",file);
 
-        emailSender.send(message);
+        javaMailSender.send(message);
 
     }
 
