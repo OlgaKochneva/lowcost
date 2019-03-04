@@ -2,12 +2,16 @@ package com.epam.lowcost.services.interfaces;
 
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 public interface FlightService {
+    Page<Flight> getAllFlights(Pageable pageable);
+
     List<Flight> getAllFlights();
 
     Flight getById(Long id);

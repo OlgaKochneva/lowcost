@@ -4,6 +4,7 @@ import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.services.interfaces.PlaneService;
 import com.epam.lowcost.util.PlaneValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,8 @@ public class PlaneController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String allPlanesPage(Model model) {
-        model.addAttribute("planes", planeService.getAllPlanes());
+    public String allPlanesPage(Model model, Pageable pageable) {
+        model.addAttribute("planes", planeService.getAllPlanes(pageable));
         return PLANES_PAGE;
     }
 
