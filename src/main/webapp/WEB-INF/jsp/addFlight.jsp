@@ -30,7 +30,7 @@
                 <spring:bind path="initialPrice">
                     <div>
                         <spring:message code="lang.price"/><br/>
-                        <form:input type="text" class="form-control input" path="initialPrice"/>
+                        <form:input type="number" class="form-control input" path="initialPrice"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="plane">

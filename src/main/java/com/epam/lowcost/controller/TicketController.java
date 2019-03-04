@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
