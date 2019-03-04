@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -30,41 +31,58 @@
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH + Endpoints.ADMIN%>" method="get">
-                <div class="leftBlockSerch">
+            <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH +Endpoints.ADMIN%>" modelAttribute="flight" method="get">
+            <div class="leftBlockSerch">
+
+                <spring:bind path="departureDate">
                     <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
-                    <input type="date" id="inpSerc" required name="departureDateFrom" class="form-control searchInput"/>
-                    <br/>
+                    <form:input type="datetime-local" id="inpSerc" path="departureDate" class="form-control searchInput"/> <br/>
+
+                </spring:bind>
+
+                <spring:bind path="arrivalDate">
                     <label for="inpSerc2"><spring:message code="lang.departureDateTo"/>: </label>
-                    <input type="date" id="inpSerc2" name="departureDateTo" class="form-control searchInput"/><br/>
-                </div>
-                <div class="leftBlockSerchRight">
+                    <form:input type="datetime-local" id="inpSerc2" path="arrivalDate" class="form-control searchInput"/><br/>
+
+                </spring:bind>
+            </div>
+            <div class="leftBlockSerchRight">
+                <spring:bind path="departureAirport">
                     <label for="inpSerc3"><spring:message code="lang.departureAirport"/>: </label>
-                    <input type="text" id="inpSerc3" required list="airport" name="departureAirport"
-                           class="form-control searchInput"/> <br/>
+                    <form:input type="text" id="inpSerc3" list="airport" path="departureAirport" class="form-control searchInput"/>
+                    <br/>
+
+                </spring:bind>
+                <spring:bind path="arrivalAirport">
                     <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
-                    <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport"
-                           class="form-control searchInput"/> <br/>
-                </div>
+                    <form:input type="text" id="inpSerc4"  list="airport" path="arrivalAirport" class="form-control searchInput"/> <br/>
+
+                </spring:bind>
+            </div>
 
         </div>
         <div class="col-md-4">
-            <input type="submit" value="<spring:message code="lang.search"/>" class="btn btn-outline-warning btnSeach"/>
-
-            </form>
+            <button type="submit" value="" class="btn btn-outline-warning btnSeach"><spring:message code="lang.search"/></button>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" method="get">
                     <input type="submit" value="<spring:message code="lang.addNewFlight"/>"
                            class="flightAddBtn btn btn-outline-success"/>
                 </form>
             </sec:authorize>
+
         </div>
+
+
     </div>
 </div>
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
-
+            <p style="color: #D35D47"><form:errors path="departureDate" /></p>
+            <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
+            <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
+            <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+            </form:form>
         </div>
         <div class="col-md-2 numOfUsers">
             <%--<form></form>--%>
@@ -113,15 +131,15 @@
                     <tr>
 
 
-                        <td><c:out value="${flight.departureAirport.cityEng}"/></td>
-                        <td><c:out value="${flight.arrivalAirport.cityEng}"/></td>
+                        <td><c:out value="${flight.departureAirport.cityEng} (${flight.departureAirport.code})"/></td>
+                        <td><c:out value="${flight.arrivalAirport.cityEng} (${flight.arrivalAirport.code})"/></td>
                         <td><c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
                         <td><c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
                         <td><c:out value="${flight.initialPrice}"/></td>
                         <td><c:if test="${flight.departureDate gt currentTime}">
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
 
-                                <p style="color:#28a745" class="inProgress" ><spring:message code="lang.uncomplete"/></p>
+                                <p style="color:#263852" class="inProgress" ><spring:message code="lang.uncomplete"/></p>
                                 <form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">
                                     <input type="submit" value="<spring:message code="lang.update"/>"
                                            class="btn btn-outline-primary modifyFlight"/>
@@ -152,6 +170,7 @@
 
 
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
+
                                 <form action="<%=Endpoints.FLIGHTS + Endpoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${flight.id}"/>
                                     <input type="submit" value="<spring:message code="lang.delete"/>"
