@@ -36,7 +36,7 @@
                 <spring:bind path="plane">
                     <div>
                         <spring:message code="lang.planeId"/><br/>
-                        <form:input type="text" class="form-control input" path="plane"/>
+                        <form:input list="planes" class="form-control input" path="plane"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="departureDate">
@@ -96,6 +96,12 @@
         <option value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
     </c:forEach>
 </datalist>
+<datalist id="planes">
+    <c:forEach items="${planes}" var="plane">
+        <option type="hidden" value="${plane.id}">${plane.model}</option>
+    </c:forEach>
+</datalist>
+
 
 </body>
 </html>
