@@ -33,8 +33,8 @@
         <div class="col-md-3 findAirportBtn">
         <spring:message code="lang.findAirportByCity"/>
         <form action="<%=Endpoints.AIRPORT%>" method="get">
-            <input class="form-control input codeInputAirports" required type="text" name="city"/>
-            <input type="submit" class="btn btn-outline-primary okBtnAirports" name="OK"/>
+            <input class="form-control input codeInputAirports" type="text" name="city"/>
+            <button type="submit" class="btn btn-outline-primary okBtnAirports">OK</button>
         </form>
         </div>
 
