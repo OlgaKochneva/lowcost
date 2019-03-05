@@ -6,9 +6,7 @@ import com.epam.lowcost.repositories.UserRepository;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -86,19 +84,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String blockUser(long userId) {
+    public User blockUser(long userId) {
         User userToBlock = userRepository.findById(userId);
         userToBlock.setActive(false);
-        userRepository.save(userToBlock);
-        return "User blocked successfully";
+        return userRepository.save(userToBlock);
     }
 
     @Override
-    public String unblockUser(long userId) {
+    public User unblockUser(long userId) {
         User userToBlock = userRepository.findById(userId);
         userToBlock.setActive(true);
-        userRepository.save(userToBlock);
-        return "User unblocked successfully";
+        return userRepository.save(userToBlock);
     }
 
 }
