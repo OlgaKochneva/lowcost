@@ -11,13 +11,17 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
 
 @Component
 public class PDFService {
 
     public void createPDF_Ticket(Ticket ticket) throws Exception {
         Document document = new Document();
+        File path = new File("src/main/webapp/resources/tickets_pdf");
+        Files.createDirectories(path.toPath());
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(String.format("src/main/webapp/resources/tickets_pdf/Ticket_№%d.pdf",ticket.getId())));
         document.open();
         Image img = Image.getInstance("src/main/webapp/resources/static/img/ticket_template.jpg");
