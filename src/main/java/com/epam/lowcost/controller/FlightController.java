@@ -79,12 +79,6 @@ public class FlightController {
         return BUY;
     }
 
-
-    @GetMapping(value = RETURN)
-    public String goToSearchPage() {
-        return "redirect:" + FLIGHTS + FLIGHT;
-    }
-
     @RequestMapping(value = ADD, method = RequestMethod.GET)
     public String addNewFlight(Model model) {
         model.addAttribute("flight", new Flight());
