@@ -110,7 +110,7 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
         List<Flight> flights = getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
-        flights.forEach(f -> updateFlightPrice(f));
+        flights.forEach(f -> f.setInitialPrice(getUpdatedFlightPrice(f)));
         flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
         flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
         return flights;
@@ -132,13 +132,14 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlightsWithUpdatedPrice() {
 
         List<Flight> flights = getAllFlights();
-        flights.forEach(this::updateFlightPrice);
+        flights.forEach(f -> f.setInitialPrice(getUpdatedFlightPrice(f)));
         flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
         flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
         return flights;
     }
 
-    private void updateFlightPrice(Flight flight) {
+    @Override
+    public long getUpdatedFlightPrice(Flight flight){
         LocalDateTime dateAfter = flight.getDepartureDate();
         LocalDateTime dateBefore = LocalDateTime.now();
         long daysBetween = DAYS.between(dateBefore, dateAfter);
@@ -158,9 +159,8 @@ public class FlightServiceImpl implements FlightService {
             decreaseEconomyPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForEconomyPlaces);
         }
 
-        flight.setInitialPrice(decreaseBusinessPlacesIncreasePrice +
-                decreaseDaysBetweenIncreasePrice + decreaseEconomyPlacesIncreasePrice);
-
+        return decreaseBusinessPlacesIncreasePrice +
+                decreaseDaysBetweenIncreasePrice + decreaseEconomyPlacesIncreasePrice;
     }
 
     private int getNumberOfFreeBusinessPlaces(Flight flight) {
@@ -172,7 +172,7 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public Flight getFlightByIdWithUpdatedPrice(Long id) {
         Flight flight = getById(id);
-        updateFlightPrice(flight);
+        flight.setInitialPrice(getUpdatedFlightPrice(flight));
         flight.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(flight));
         flight.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(flight));
         return flight;
