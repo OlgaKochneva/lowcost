@@ -1,12 +1,16 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.model.Plane;
+import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
+import com.epam.lowcost.services.interfaces.PlaneService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.util.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,11 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
+@SessionAttributes({"sessionUser"})
 @RequestMapping(value = FLIGHTS)
 public class FlightController {
 
@@ -27,26 +33,31 @@ public class FlightController {
     private final AirportService airportService;
     private final TicketService ticketService;
     private final FlightValidator flightValidator;
+    private final PlaneService planeService;
 
     @Autowired
     public FlightController(FlightService flightService, AirportService airportService,
-                            FlightValidator flightValidator, TicketService ticketService) {
+                            FlightValidator flightValidator, TicketService ticketService,
+                            PlaneService planeService) {
         this.flightService = flightService;
         this.airportService = airportService;
         this.flightValidator = flightValidator;
         this.ticketService = ticketService;
+        this.planeService = planeService;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = ALL, method = RequestMethod.GET)
     public String getAllFlights(ModelMap model, Pageable pageable) {
         model.addAttribute("flights", flightService.getAllFlights(pageable));
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
-
+        model.addAttribute("flight", new Flight());
         return FLIGHTSPAGE;
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String findFlightById(@PathVariable Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
@@ -55,43 +66,51 @@ public class FlightController {
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = UPDATE)
-    public String updateFlight(@ModelAttribute("flight") Flight flight) {
+    public String updateFlight(@ModelAttribute("flight") Flight flight, BindingResult bindingResult, Model model) {
+        flightValidator.validate(flight, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("airports", airportService.getAllAirports());
+            return FLIGHTSETTINGS;
+        }
         flightService.updateFlight(flight);
         return "redirect:" + FLIGHTS + ALL;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id) {
         flightService.deleteFlight(id);
         return "redirect:" + FLIGHTS + ALL;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = TICKETS + "/{id}", method = RequestMethod.GET)
     public String getAllTicketsForFlight(@PathVariable Long id, ModelMap modelMap) {
         modelMap.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(id));
+        modelMap.addAttribute("flight", flightService.getById(id));
         return TICKETS_PAGE;
     }
 
-    @GetMapping(value = NEW_TICKET + "/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @RequestMapping(value = NEW_TICKET + "/{id}", method = RequestMethod.GET)
     public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
         model.addAttribute("flight", flightService.getFlightByIdWithUpdatedPrice(id));
+        model.addAttribute("ticket", new Ticket());
         return BUY;
     }
 
-
-    @GetMapping(value = RETURN)
-    public String goToSearchPage() {
-        return "redirect:" + FLIGHTS + FLIGHT;
-    }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = ADD, method = RequestMethod.GET)
     public String addNewFlight(Model model) {
         model.addAttribute("flight", new Flight());
         model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("planes", planeService.getAllPlanes());
         return ADDFLIGHT;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = ADD, method = RequestMethod.POST)
     public String addNewFlight(@ModelAttribute("flight") Flight flight, BindingResult bindingResult, Model model) {
         flightValidator.validate(flight, bindingResult);
@@ -103,49 +122,63 @@ public class FlightController {
         return "redirect:" + FLIGHTS + ALL;
     }
 
-
     @RequestMapping(value = FLIGHT, method = RequestMethod.GET)
-    public String searchForFlight(ModelMap model) {
-        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
+    public String searchForFlight(ModelMap model, Pageable pageable) {
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());
+        model.addAttribute("flight", new Flight());
         return SEARCHPAGE;
     }
 
 
-    private void findFlightByFromToDate(@RequestParam Map<String, String> params, Model model, boolean isAdmin) {
-        LocalDateTime departureDateTo;
-        if (params.get("departureDateTo").equals(""))
-            departureDateTo = LocalDate.parse(params.get("departureDateFrom")).atStartOfDay().plusYears(1).plusDays(1);
-        else departureDateTo = LocalDate.parse(params.get("departureDateTo")).atStartOfDay().plusDays(1);
+    private BindingResult findFlightByFromToDate(Flight flight, Model model, boolean isAdmin,
+                                                 BindingResult bindingResult, Pageable pageable) {
+        if (flight.getArrivalDate() == null) {
+            flight.setArrivalDate(flight.getDepartureDate().plusYears(1).plusDays(1));
+        } else {
+            flight.setArrivalDate(flight.getDepartureDate().plusDays(1));
+        }
+        flightValidator.validate(flight, bindingResult);
+        if (bindingResult.hasErrors())
+            return bindingResult;
         if (isAdmin) {
             model.addAttribute("flights", flightService.getByFromToDate
-                    (airportService.getAirportByCode(params.get("departureAirport")),
-                            airportService.getAirportByCode(params.get("arrivalAirport")),
-                            LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
-                            departureDateTo));
+                    (flight.getDepartureAirport(), flight.getArrivalAirport(),
+                            flight.getDepartureDate(), flight.getArrivalDate(), pageable));
 
         } else {
             model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
-                    (airportService.getAirportByCode(params.get("departureAirport")),
-                            airportService.getAirportByCode(params.get("arrivalAirport")),
-                            LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
-                            departureDateTo));
+                    (flight.getDepartureAirport(), flight.getArrivalAirport(),
+                            flight.getDepartureDate(), flight.getArrivalDate(),pageable));
+        }
+        return bindingResult;
+    }
+
+    @RequestMapping(value = SEARCH, method = RequestMethod.GET )
+    public String findFlightByFromToDateUser(@ModelAttribute("flight") Flight flight, Model model,
+                                             BindingResult bindingResult, Pageable pageable) {
+        bindingResult = findFlightByFromToDate(flight, model, false, bindingResult, pageable);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
+
         }
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());
-    }
-
-    @RequestMapping(value = SEARCH, method = RequestMethod.GET)
-    public String findFlightByFromToDateUser(@RequestParam Map<String, String> params, Model model) {
-        findFlightByFromToDate(params, model, false);
         return SEARCHPAGE;
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = SEARCH + ADMIN, method = RequestMethod.GET)
-    public String findFlightByFromToDateAdmin(@RequestParam Map<String, String> params, Model model) {
-        findFlightByFromToDate(params, model, true);
+    public String findFlightByFromToDateAdmin(@ModelAttribute("flight") Flight flight, Model model,
+                                              BindingResult bindingResult, Pageable pageable) {
+        bindingResult = findFlightByFromToDate(flight, model, true, bindingResult, pageable);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("flights", flightService.getAllFlights(pageable));
+        }
+        model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("currentTime", LocalDateTime.now());
         return FLIGHTSPAGE;
     }
 

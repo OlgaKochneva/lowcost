@@ -7,17 +7,10 @@ import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.implementations.PDFService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
@@ -39,37 +32,16 @@ public class TicketController {
 
 
     @GetMapping(value = PDF)
-    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail) {
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail){
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
-                    "pdf sending test",
-                    "here is your ticket m8", String.format("src/main/webapp/resources/tickets_pdf/Ticket_%d.pdf", ticketId));
+                    String.format("Ticket for order №%s",ticketId),
+                    String.format("Ticket for order №%s in attachments.",ticketId),String.format("src/main/webapp/resources/tickets_pdf/Ticket_№%d.pdf",ticketId));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:" + TICKETS + SELF;
-    }
-
-    @RequestMapping(value = DOWNLOAD, method = RequestMethod.GET)
-    public ResponseEntity<Object> downloadFile(@RequestParam long ticketId) throws IOException {
-        try {
-            pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String filename = String.format("src/main/webapp/resources/tickets_pdf/Ticket_%d.pdf", ticketId);
-        File file = new File(filename);
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-
-        return ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(
-                MediaType.parseMediaType("application/txt")).body(resource);
     }
 
     @GetMapping(value = FLIGHT)
@@ -80,21 +52,10 @@ public class TicketController {
 
 
     @PostMapping(value = ADD)
-    public String addTicket(@RequestParam Map<String, String> params, ModelMap model) {
-        Flight flight = Flight.builder()
-                .id(Long.parseLong(params.get("flightId")))
-                .build();
-
-        User user = (User) model.get("sessionUser");// id сессионного пользователя
-        model.addAttribute("ticket", ticketService.addTicket(
-                Ticket.builder()
-                        .user(user)
-                        .flight(flight)
-                        .hasLuggage(Boolean.parseBoolean(params.get("hasLuggage")))
-                        .placePriority(Boolean.parseBoolean(params.get("placePriority")))
-                        .isBusiness(Boolean.parseBoolean(params.get("isBusiness")))
-                        .build()));
-
+    public String addTicket(@ModelAttribute ("ticket") Ticket ticket, ModelMap model) {
+        User user = (User) model.get("sessionUser");
+        ticket.setUser(user);
+        ticketService.addTicket(ticket);
         return "redirect:" + TICKETS + SELF;
     }
 

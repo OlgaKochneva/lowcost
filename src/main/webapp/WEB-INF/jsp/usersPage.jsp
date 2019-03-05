@@ -90,7 +90,7 @@
                                         <form action="<%=BLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.blockUser"/>"
-                                                   class="btn btn-danger deletePlaneBtn"/>
+                                                   class="btn btn-outline-danger deletePlaneBtn"/>
                                         </form>
 
                                     </c:if>
@@ -98,7 +98,7 @@
                                         <form action="<%=UNBLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.unblockUser"/>"
-                                                   class="btn btn-success deletePlaneBtn"/>
+                                                   class="btn btn-outline-success deletePlaneBtn"/>
                                         </form>
                                     </c:if>
                                 </sec:authorize>

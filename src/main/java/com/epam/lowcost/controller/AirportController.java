@@ -27,7 +27,7 @@ public class AirportController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAirportsByCity(@RequestParam String city, ModelMap modelMap, Pageable pageable) {
+    public String getAirportsByCity(@RequestParam(required = false) String city, ModelMap modelMap, Pageable pageable) {
         if (city != null && !city.isEmpty()) {
             modelMap.addAttribute("airports", airportService.findAllByCity(city, pageable));
         } else {
