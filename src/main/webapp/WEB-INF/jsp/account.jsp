@@ -34,7 +34,7 @@
                         value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
                     <spring:message code="lang.departureAt"/>: <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
                     <spring:message code="lang.arriveAt"/>: <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                    <spring:message code="lang.price"/>: <c:out value="${ticket.price}"/> y.e<br/>
+                    <spring:message code="lang.price"/>: <c:out value="${ticket.price}"/> <spring:message code="lang.currency"/> <br/>
                     <div class="buttonGroupCard">
 
 
@@ -76,7 +76,7 @@
                             <c:if test="${!ticket.paid}">
                                 <form action="<%=Endpoints.TICKETS+Endpoints.PAY%>" method="post">
                                     <input type="hidden", name="id", value="${ticket.id}">
-                                    <input type="submit" value="<spring:message code="lang.pay"/>" class="btn btn-outline-success btPay "onclick=" ActionButton2(event,${ticket.id},'<spring:message code="lang.confirmPayment" /> ${ticket.price} y.e. ?')" id="l${ticket.id}" data-click="false"/>
+                                    <input type="submit" value="<spring:message code="lang.pay"/>" class="btn btn-outline-success btPay "onclick=" ActionButton2(event,${ticket.id},'<spring:message code="lang.confirmPayment" /> ${ticket.price} <spring:message code="lang.currency"/> ?')" id="l${ticket.id}" data-click="false"/>
                                 </form>
                             </c:if>
 

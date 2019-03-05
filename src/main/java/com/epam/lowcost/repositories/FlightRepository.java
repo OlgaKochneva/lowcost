@@ -30,6 +30,10 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
                                                                                   Pageable pageable);
 
 
+    List<Flight> getAllByPlaneId(long id);
+
+
+
 
 
 

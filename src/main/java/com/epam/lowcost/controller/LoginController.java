@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
+import org.springframework.data.domain.Pageable;
 import java.util.ResourceBundle;
 import java.time.LocalDateTime;
 import static com.epam.lowcost.util.Endpoints.*;
@@ -79,10 +80,10 @@ public class LoginController {
 
 
     @GetMapping("/")
-    public String welcome(Model model) {
+    public String welcome(Model model, Pageable pageable) {
 
         model.addAttribute("sessionUser", userService.getSessionUser());
-        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("flight", new Flight());
