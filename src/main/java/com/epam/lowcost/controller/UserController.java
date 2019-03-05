@@ -103,8 +103,8 @@ public class UserController {
             return "redirect:" + USERS;
         }
         model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
-        return "redirect:" + USER_SETTINGS;
-    }
+        return "redirect:" + USER + SETTINGS;
+}
 
     @RequestMapping(value = CHANGE_PASSWORD)
     public String changePassword(@RequestParam Map<String, String> params, Model model) {
@@ -112,15 +112,15 @@ public class UserController {
 
         if (!bCryptPasswordEncoder.matches(params.get("oldPassword"), userToUpdate.getPassword())) {
             model.addAttribute("message", "Wrong password!");
-            return "redirect:" + USER_SETTINGS;
+            return "redirect:" + USER + SETTINGS;
         }
         if (!params.get("newPassword").equals(params.get("newPassword2"))) {
             model.addAttribute("message", "Passwords do not match!");
-            return "redirect:" + USER_SETTINGS;
+            return "redirect:" + USER + SETTINGS;
         }
         userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("newPassword")));
         userService.updateUser(userToUpdate);
-        return "redirect:" + USER_SETTINGS;
+        return "redirect:" + USER + SETTINGS;
     }
 
 }

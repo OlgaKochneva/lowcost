@@ -88,7 +88,7 @@ public class FlightController {
         return TICKETS_PAGE;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    /*@PreAuthorize("hasAuthority('ROLE_ADMIN')")*/
     @RequestMapping(value = NEW_TICKET + "/{id}", method = RequestMethod.GET)
     public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
         model.addAttribute("sessionUser",userService.getSessionUser());
@@ -132,9 +132,9 @@ public class FlightController {
                                                  BindingResult bindingResult, Pageable pageable) {
         if (flight.getArrivalDate() == null) {
             flight.setArrivalDate(flight.getDepartureDate().plusYears(1).plusDays(1));
-        } else {
+        } /*else {
             flight.setArrivalDate(flight.getDepartureDate().plusDays(1));
-        }
+        }*/
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors())
             return bindingResult;
