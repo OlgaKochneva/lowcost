@@ -18,7 +18,7 @@
 
     </div>
     <div align="right" class="language">
-        <a href="<%=Endpoints.USER_SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+        <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
 
         <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
             <spring:message code="lang.logIn"/>

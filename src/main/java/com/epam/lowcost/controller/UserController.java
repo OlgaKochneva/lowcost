@@ -70,7 +70,7 @@ public class UserController {
         return "redirect:" + USERS;
     }
 
-    @RequestMapping(value = USER_SETTINGS, method = RequestMethod.GET)
+    @RequestMapping(value = USER + SETTINGS, method = RequestMethod.GET)
     public String settings(ModelMap model) {
 
         model.addAttribute("sessionUser", userService.getSessionUser());

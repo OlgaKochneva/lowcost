@@ -33,6 +33,13 @@ public class FlightValidator implements Validator {
         Flight flight = (Flight) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "departureAirport", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "arrivalAirport", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "departureDate", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "arrivalDate", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "plane", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "initialPrice", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "placePriorityPrice", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "luggagePrice", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "businessPrice", "NotEmpty");
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())){
             errors.rejectValue("departureDate", "Date.incorrect.pastNow");
         }
@@ -40,7 +47,7 @@ public class FlightValidator implements Validator {
         if (flight.getDepartureDate().isAfter(flight.getArrivalDate())){
             errors.rejectValue("arrivalDate", "Date.incorrect");
         }
-        if (flight.getDepartureAirport()!=null && flight.getDepartureAirport().equals(flight.getArrivalAirport())){
+        if (flight.getDepartureAirport()!=null && flight.getArrivalAirport()!=null&& flight.getDepartureAirport().equals(flight.getArrivalAirport())){
             errors.rejectValue("arrivalAirport", "Airport.incorrect.arrivalAirport");
         }
 
