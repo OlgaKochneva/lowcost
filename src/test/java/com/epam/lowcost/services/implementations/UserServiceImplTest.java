@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,8 @@ import static org.mockito.Mockito.when;
 public class UserServiceImplTest {
     @Mock
     UserRepository userRepository;
+    @Mock
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @InjectMocks
     UserServiceImpl userService;
@@ -73,13 +76,16 @@ public class UserServiceImplTest {
 
     @Test
     public void blockUser() {
-        User actualUser = new User();
+        User actualUser = new User(){{
+            setActive(true);
+        }};
         User expectedUser = new User() {{
             setActive(false);
         }};
         when(userRepository.findById((long) 1)).thenReturn(actualUser);
         when(userRepository.save(actualUser)).thenReturn(actualUser);
         userService.blockUser(1);
+        verify(userRepository).save(actualUser);
         assertEquals(expectedUser, actualUser);
     }
 
@@ -94,6 +100,7 @@ public class UserServiceImplTest {
         when(userRepository.findById((long) 1)).thenReturn(actualUser);
         when(userRepository.save(actualUser)).thenReturn(actualUser);
         userService.unblockUser(1);
+        verify(userRepository).save(actualUser);
         assertEquals(expectedUser, actualUser);
     }
 }
