@@ -93,6 +93,7 @@
                 <c:if test="${airports.hasNext()}"> <a href="?page=${airports.number+1}&size=${airports.size}"><spring:message
                         code="lang.next"/></a></c:if>
             </div>
+            </div>
     </div>
 
 
@@ -100,7 +101,7 @@
     ${airport}<br/> <h4>${message}</h4>
         <datalist id="cities">
             <c:forEach items="${airports}" var="airport">
-                <option hidden value="${airport.cityEng}"> </option>
+                <option  value="${airport.cityEng}"> </option>
             </c:forEach>
         </datalist>
 </div>

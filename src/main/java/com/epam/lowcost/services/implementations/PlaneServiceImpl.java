@@ -25,6 +25,11 @@ public class PlaneServiceImpl implements PlaneService {
     }
 
     @Override
+    public List<Plane> getAllPlanes() {
+        return planeRepository.getAllByIsDeletedFalse();
+    }
+
+    @Override
     public Plane getById(long planeId) {
         return planeRepository.getById(planeId);
     }

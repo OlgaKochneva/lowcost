@@ -35,8 +35,9 @@
                 </spring:bind>
                 <spring:bind path="plane">
                     <div>
-                        <spring:message code="lang.planeId"/><br/>
-                        <form:input type="text" class="form-control input" path="plane"/>
+                        <spring:message code="lang.plane"/><br/>
+                        <form:input list="planes" id="planeList" class="form-control input" path="plane"/>
+                        <form:errors path="plane"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="departureDate">
@@ -86,7 +87,7 @@
                         <form:input type="text" class="form-control input" path="luggagePrice"/>
                     </div>
                 </spring:bind>
-                <input type="submit" class="btn btn-outline-success addFlightBtn" value="OK"/>
+                <input type="submit" id="submit" class="btn btn-outline-success addFlightBtn" value="OK"/>
             </form:form>
         </div>
     </div>
@@ -96,6 +97,26 @@
         <option value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
     </c:forEach>
 </datalist>
+<datalist id="planes">
+    <c:forEach items="${planes}" var="plane">
+        <option data-value="${plane.id}" value="${plane.model}"/>
+    </c:forEach>
+</datalist>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#submit').click(function()
+        {
+            var value = $('#planeList').val();
+            // alert($('#planes [value="' + value + '"]').data('value'));
+            $('#planeList').val($('#planes [value="' + value + '"]').data('value'));
+
+        });
+    });
+</script>
 
 </body>
 </html>

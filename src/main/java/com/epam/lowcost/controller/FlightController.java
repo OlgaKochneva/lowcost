@@ -1,9 +1,11 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
+import com.epam.lowcost.services.interfaces.PlaneService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.util.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +33,17 @@ public class FlightController {
     private final AirportService airportService;
     private final TicketService ticketService;
     private final FlightValidator flightValidator;
+    private final PlaneService planeService;
 
     @Autowired
     public FlightController(FlightService flightService, AirportService airportService,
-                            FlightValidator flightValidator, TicketService ticketService) {
+                            FlightValidator flightValidator, TicketService ticketService,
+                            PlaneService planeService) {
         this.flightService = flightService;
         this.airportService = airportService;
         this.flightValidator = flightValidator;
         this.ticketService = ticketService;
+        this.planeService = planeService;
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -84,6 +89,7 @@ public class FlightController {
     @RequestMapping(value = TICKETS + "/{id}", method = RequestMethod.GET)
     public String getAllTicketsForFlight(@PathVariable Long id, ModelMap modelMap) {
         modelMap.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(id));
+        modelMap.addAttribute("flight", flightService.getById(id));
         return TICKETS_PAGE;
     }
 
@@ -100,6 +106,7 @@ public class FlightController {
     public String addNewFlight(Model model) {
         model.addAttribute("flight", new Flight());
         model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("planes", planeService.getAllPlanes());
         return ADDFLIGHT;
     }
 
@@ -125,33 +132,35 @@ public class FlightController {
     }
 
 
-    private BindingResult findFlightByFromToDate(Flight flight, Model model, boolean isAdmin, BindingResult bindingResult) {
-        if (flight.getArrivalDate()==null) {
+    private BindingResult findFlightByFromToDate(Flight flight, Model model, boolean isAdmin,
+                                                 BindingResult bindingResult, Pageable pageable) {
+        if (flight.getArrivalDate() == null) {
             flight.setArrivalDate(flight.getDepartureDate().plusYears(1).plusDays(1));
         } else {
             flight.setArrivalDate(flight.getDepartureDate().plusDays(1));
         }
-        flightValidator.validate(flight,bindingResult);
+        flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors())
             return bindingResult;
         if (isAdmin) {
             model.addAttribute("flights", flightService.getByFromToDate
                     (flight.getDepartureAirport(), flight.getArrivalAirport(),
-                            flight.getDepartureDate(), flight.getArrivalDate()));
+                            flight.getDepartureDate(), flight.getArrivalDate(), pageable));
 
         } else {
             model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
                     (flight.getDepartureAirport(), flight.getArrivalAirport(),
-                            flight.getDepartureDate(), flight.getArrivalDate()));
+                            flight.getDepartureDate(), flight.getArrivalDate(),pageable));
         }
         return bindingResult;
     }
 
-    @RequestMapping(value = SEARCH, method = RequestMethod.GET)
-    public String findFlightByFromToDateUser(@ModelAttribute ("flight") Flight flight,  Model model, BindingResult bindingResult) {
-        bindingResult = findFlightByFromToDate(flight, model, false, bindingResult);
-        if (bindingResult.hasErrors()){
-            model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
+    @RequestMapping(value = SEARCH, method = RequestMethod.GET )
+    public String findFlightByFromToDateUser(@ModelAttribute("flight") Flight flight, Model model,
+                                             BindingResult bindingResult, Pageable pageable) {
+        bindingResult = findFlightByFromToDate(flight, model, false, bindingResult, pageable);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
 
         }
         model.addAttribute("airports", airportService.getAllAirports());
@@ -162,11 +171,11 @@ public class FlightController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = SEARCH + ADMIN, method = RequestMethod.GET)
-    public String findFlightByFromToDateAdmin(@ModelAttribute ("flight") Flight flight, Model model, BindingResult bindingResult) {
-        bindingResult = findFlightByFromToDate(flight, model, true, bindingResult);
-        if (bindingResult.hasErrors()){
-            model.addAttribute("flights", flightService.getAllFlights());
-
+    public String findFlightByFromToDateAdmin(@ModelAttribute("flight") Flight flight, Model model,
+                                              BindingResult bindingResult, Pageable pageable) {
+        bindingResult = findFlightByFromToDate(flight, model, true, bindingResult, pageable);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("flights", flightService.getAllFlights(pageable));
         }
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());
