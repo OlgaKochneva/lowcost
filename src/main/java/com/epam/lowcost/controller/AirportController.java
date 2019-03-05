@@ -33,6 +33,7 @@ public class AirportController {
         } else {
             modelMap.addAttribute("airports", airportService.getAllAirports(pageable));
         }
+        modelMap.addAttribute("cities", airportService.getAllAirports());
         return AIRPORTSPAGE;
     }
 }
