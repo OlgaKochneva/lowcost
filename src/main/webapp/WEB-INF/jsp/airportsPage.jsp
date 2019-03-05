@@ -43,30 +43,6 @@
         <div class="col-md-9">
 
         </div>
-        <%--<div class="col-md-3 numOfUsers">--%>
-            <%--<form></form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="10"/>--%>
-
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="50"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="50"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="100"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="100"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="200"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="200"/>--%>
-            <%--</form>--%>
-        <%--</div>--%>
         <div  class="col-md-2 numOfUsersBtn">
 
             <spring:message code="lang.showUsersBy"/><br/>
