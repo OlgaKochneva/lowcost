@@ -46,46 +46,118 @@
     <div class="row ">
         <div class="col-md-12 mainContentBuy">
             <form:form action="<%=Endpoints.TICKETS + Endpoints.ADD%>" modelAttribute="ticket" method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.firstName"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="firstName">${sessionUser.firstName}</output>
+                    </div>
+                </div>
 
-                <strong><spring:message code="lang.firstName"/>:</strong>
-                <output name="firstName">${sessionUser.firstName}</output>
-                <br/>
-                <strong> <spring:message code="lang.lastName"/>:</strong>
-                <output name="lastName">${sessionUser.lastName}</output>
-                <br/>
-                <strong><spring:message code="lang.document"/>:</strong>
-                <output name="Passport">${sessionUser.documentInfo}</output>
-                <br/>
-                <strong><spring:message code="lang.birthday"/>:</strong>
-                <output name="Birthdate">${sessionUser.birthday}</output>
-                <br/>
-                <strong><spring:message code="lang.departureAirport"/>:</strong>
-                <output name="from">${flight.departureAirport.cityEng}</output>
-                <br/>
-                <strong><spring:message code="lang.arrivalAirport"/>:</strong>
-                <output name="arrivaAirport">${flight.arrivalAirport.cityEng}</output>
-                <br/>
-                <strong><spring:message code="lang.departureAt"/>:</strong>
-                <output name="departureDate">${flight.departureDate.toString().replaceAll('T',' ')}</output>
-                <br/>
-                <strong><spring:message code="lang.arriveAt"/>:</strong>
-                <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
-                <br/>
-                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="business" value="true" name="business"
-                                                                                  onclick="updatePrice()"/>
-                + <c:out value="${flight.businessPrice}"/> <br/>
-                <strong><spring:message code="lang.hasLuggage"/>:</strong> <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
-                                                                                  onclick="updatePrice()"/>+ <c:out
-                    value="${flight.luggagePrice}"/><br/>
-                <strong><spring:message code="lang.placePriority"/>:</strong> <input type="checkbox" id="placePriority" name="placePriority"
-                                                                                     value="true"
-                                                                                     onclick="updatePrice()"/> + <c:out
-                    value="${flight.placePriorityPrice}"/><br/>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong> <spring:message code="lang.lastName"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="lastName">${sessionUser.lastName}</output>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.document"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="Passport">${sessionUser.documentInfo}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.birthday"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="Birthdate">${sessionUser.birthday}</output>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.departureAirport"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="from">${flight.departureAirport.cityEng}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.arrivalAirport"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="arrivalAirport">${flight.arrivalAirport.cityEng}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.departureAt"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="departureDate">${flight.departureDate.toString().replaceAll('T',' ')}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.arriveAt"/>:</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.isBusiness"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" id="business" value="true" name="business"
+                               onclick="updatePrice()"/>
+                        + <c:out value="${flight.businessPrice}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.hasLuggage"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
+                               onclick="updatePrice()"/>+ <c:out
+                            value="${flight.luggagePrice}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.placePriority"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" id="placePriority" name="placePriority"
+                               value="true"
+                               onclick="updatePrice()"/> + <c:out
+                            value="${flight.placePriorityPrice}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.total"/></strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output id="price">${flight.initialPrice}</output>
+                    </div>
+                </div>
+
                 <input type="hidden" name="flight" value="${flight.id}"/>
-                <strong><spring:message code="lang.total"/></strong> <output id="price">${flight.initialPrice}</output>
+
                 </br> <input type="submit" value="<spring:message code="lang.book"/>" class="buyButtonBuyPage btn btn-outline-success"/>
             </form:form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.RETURN%>" method="get">
+            <form action="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>" method="get">
                 <input type="submit" value="<spring:message code="lang.cancel"/>" class="cancellButtonBuyPage2 btn btn-outline-danger"/>
             </form>
         </div>
