@@ -24,7 +24,7 @@
         <form method="POST" action="${contextPath}/login" class="form-signin">
             <p class="message">${message}</p>
             <div>
-                <span>${error}</span>
+                <p style="color: #dc3545"> <span>${error}</span></p>
                 <input name="username" type="text" class="form-control input" placeholder="Username"
                        autofocus="true"/>
                 <br/>
