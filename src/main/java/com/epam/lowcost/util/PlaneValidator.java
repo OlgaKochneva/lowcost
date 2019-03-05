@@ -28,6 +28,12 @@ public class PlaneValidator implements Validator{
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "model", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "businessPlacesNumber", "NotEmpty");
+        if (plane.getBusinessPlacesNumber() < 0) {
+            errors.rejectValue("businessPlacesNumber", "Size.planeForm.Number");
+        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "economPlacesNumber", "NotEmpty");
+        if (plane.getEconomPlacesNumber() < 0) {
+            errors.rejectValue("economPlacesNumber", "Size.planeForm.Number");
+        }
     }
 }
