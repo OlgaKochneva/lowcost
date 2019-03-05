@@ -127,6 +127,7 @@
                     <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
                     <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"><spring:message code="lang.arriveAt"/></th>
+                    <th scope="col"><spring:message code="lang.plane"/> </th>
                     <th scope="col"><spring:message code="lang.price"/></th>
                     <th></th>
                     <th><div>
@@ -146,6 +147,7 @@
                         <td><c:out value="${flight.arrivalAirport.cityEng} (${flight.arrivalAirport.code})"/></td>
                         <td><c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
                         <td><c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
+                        <td><c:out value="${flight.plane.model}"/></td>
                         <td><c:out value="${flight.initialPrice}"/></td>
                         <td><c:if test="${flight.departureDate gt currentTime}">
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
