@@ -36,6 +36,7 @@ public class AirportServiceImpl implements AirportService {
     public Page<Airport> findAllByCity(String city, Pageable pageable) {
         city = city.toLowerCase();
         city = city.substring(0, 1).toUpperCase().concat(city.substring(1, city.length()));
+        if (airportRepository.findAllByCityEng(city,pageable).getTotalElements()==0) return airportRepository.findAllByCityRus(city, pageable);
         return airportRepository.findAllByCityEng(city, pageable);
     }
 

@@ -18,4 +18,6 @@ public interface AirportRepository extends JpaRepository<Airport, String> {
     Airport findAirportByCode(String code);
 
     Page<Airport> findAllByCityEng(String city, Pageable pageable);
+
+    Page<Airport> findAllByCityRus(String city, Pageable pageable);
 }

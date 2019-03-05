@@ -100,8 +100,9 @@
     <br/>
     ${airport}<br/> <h4>${message}</h4>
         <datalist id="cities">
-            <c:forEach items="${airports.getContent()}" var="airport">
+            <c:forEach items="${cities}" var="airport">
                 <option  value="${airport.cityEng}"> </option>
+                <option value="${airport.cityRus}"> </option>
             </c:forEach>
         </datalist>
 </div>
