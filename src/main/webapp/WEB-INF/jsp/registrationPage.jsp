@@ -18,10 +18,11 @@
 
 <body>
 
-<div class="container">
-
+<div class="wrapper">
+    <p align="right" class="language"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></p>
+    <div class="main_block">
     <form:form action="<%=Endpoints.REGISTRATION%>" method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
+        <h5><spring:message code="lang.fillForm"/></h5>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control input" placeholder="Username"
@@ -45,7 +46,7 @@
             </div>
         </spring:bind>
 
-        <button class="btn btn-outline-primary btnSignUp" type="submit">Submit</button>
+        <input type="submit" value="<spring:message code="lang.signIn"/>" class="btn btn-outline-primary btnSignUp"/>
     </form:form>
     </div>
 
