@@ -89,7 +89,7 @@ public class UserController {
         userToUpdate.setFirstName(params.get("firstName"));
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
-        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
+        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
         if ("admin".equals(params.get("fromAdmin"))) {
             if (userToUpdate.getPassword().equals(params.get("password"))) {
                 userToUpdate.setPassword(params.get("password"));
