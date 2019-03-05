@@ -34,7 +34,7 @@
         <spring:message code="lang.findAirportByCity"/>
         <form action="<%=Endpoints.AIRPORT%>" method="get">
             <input class="form-control input codeInputAirports" list="cities" required type="text" name="city"/>
-            <input type="submit" class="btn btn-outline-primary okBtnAirports" name="OK"/>
+            <input type="submit" class="btn btn-outline-primary okBtnAirports" value="<spring:message code="lang.find"/> "/>
         </form>
         </div>
 
