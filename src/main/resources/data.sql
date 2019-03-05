@@ -1,15 +1,15 @@
 insert into users(id, username, password, active, first_name, last_name, document_info, birthday)
-values (1, 'EMAIL@MAIL.COM', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'admin', 'admin',
-        '1221', '2000-06-05'),
-       (2, 'ExampleEmail23@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user2',
-        'Vasiliev', '1221 passport', '2000-06-05'),
-       (3, 'ExampleEmail3@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user3',
-        'Petrov', '1221 passport', '2000-06-05'),
-       (4, 'ExampleEmail4@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user4',
-        'Petrov', '1221 document', '2000-06-05'),
-       (5, 'ExampleEmail5@google.com', '$2a$10$DAnRinR/KVtqdrpBcHij1.16yzudyu4Lr1IJrq/J69f.MxfoctIZq', true, 'user5',
-        'Sidorov', '1221 something', '2000-06-05'),
-       (6, 'ExampleEmail6@google.com', 'userpassword', true, 'user6', 'user', '1221', '2000-06-05');
+values (1, 'Anastasia_Berlina@gmail.com', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'Анастасия', 'Берлина',
+        '7518 006535', '1997-07-29'),
+       (2, 'Olga_Kochneva@gmail.com', '$2a$10$35PhmXqd9dzKQflpZm08K.or4M1IZy.ewD90uUAPoRbOV6a6RfkJy', true, 'Olga',
+        'Kochneva', '7436 123456', '1993-06-12'),
+       (3, 'Ilya_Stepanov@gmail.com', '$2a$10$MY/KIaFOchY33x0quQWV/uED7i.tsVa4khUj3JeavKX5WHvk.eLq2', true, 'Илья',
+        'Степанов', '7212 123999', '1997-12-25'),
+       (4, 'Azamat_Khamzin@gmail.com', '$2a$10$aJ69MT4p1dSvV339.bwCs.bT/jC0Ve7kg7E13lGziluSr8wQhgCCK', true, 'Azamat',
+        'Khamzin', '6754 342199', '1996-06-05'),
+       (5, 'Igor_Vakhonin@gmail.com', '$2a$10$ksJbWAasgB9YzRtuCd7Zwu4obYLYBdGg6DStVYenby0BsfLG5zlFy', true, 'Игорь',
+        'Вахонин', '8453 090054', '1992-01-28'),
+       (6, 'Eugene_Kornaushenkov@gmail.com', '$2a$10$sGhRYzkkv/R.GLYkRMni1u7AwlOBMobjYiW6IINGMOEmy/GzT23BG', true, 'Евгений', 'Корнаушенков', '1221', '1989-04-15');
 
 insert into user_role (user_id, roles)
 values (1, 'ROLE_ADMIN'),
@@ -29,9 +29,11 @@ values (1, 'ROLE_ADMIN'),
 -- INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, is_Deleted)VALUES ('ExampleEmail6@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22', false, 'Thomas6', 'Testyman6', '№1234 bestpassport ever', '2000-06-05 00:00:00', false),
 -- CREATE TABLE PLANES(id LONG AUTO_INCREMENT NOT NULL, model VARCHAR(255), business_Places_Number NUMBER, econom_Places_Number NUMBER, is_Deleted BOOL, PRIMARY KEY (id)),
 INSERT INTO PLANES (id, model, business_Places_Number, econom_Places_Number, is_Deleted)
-VALUES (1, 'Airbus A380', 25, 500, false),
-       (2, 'Boeing 777x', 30, 370, false),
-       (3, 'Boeinig 747-8', 100, 900, false);
+VALUES (1, 'Airbus A380', 25, 100, false),
+       (2, 'Boeing 777x', 10, 80, false),
+       (3, 'Boeinig 747-8', 30, 120, false),
+       (4, 'Sukhoi SuperJet 100', 12, 45, false),
+       (5, 'Airbus А330-200', 16, 90, false);
 -- CREATE TABLE AIRPORTS(code VARCHAR(255), name_Eng VARCHAR(255), name_Rus VARCHAR(255), city_Eng VARCHAR(255), city_Rus VARCHAR(255), country_Eng VARCHAR(255), country_Rus VARCHAR(255), PRIMARY KEY(code)),
 INSERT INTO AIRPORTS (code, name_Eng, name_Rus, city_Eng, city_Rus, country_Eng, country_Rus)
 VALUES ('AAA', 'Anaa', 'Анаа', 'Anaa', 'Анаа', 'French Polynesia', 'Французская Полинезия'),
@@ -3484,10 +3486,13 @@ VALUES ('AAA', 'Anaa', 'Анаа', 'Anaa', 'Анаа', 'French Polynesia', 'Фр
 -- CREATE TABLE FLIGHTS(id LONG AUTO_INCREMENT NOT NULL, planeId LONG NOT NULL, initial_Price LONG, departure_Airport VARCHAR (255), arrival_Airport VARCHAR (255), departure_Date DATETIME, arrival_Date DATETIME, is_Deleted BOOL, luggage_Price LONG, place_Priority_Price LONG,business_Price LONG,  PRIMARY KEY(id), FOREIGN KEY (planeId) REFERENCES PLANES ON UPDATE CASCADE, FOREIGN KEY(departure_Airport) REFERENCES AIRPORTS(code) ON UPDATE CASCADE, FOREIGN KEY(arrival_Airport) REFERENCES AIRPORTS (code) ON UPDATE CASCADE),
 INSERT INTO FLIGHTS(id, initial_Price, plane_Id, is_Deleted, departure_Date, arrival_Date, place_Priority_Price,
                     business_Price, luggage_Price, departure_Airport, arrival_Airport)
-VALUES (1, '500', '1', FALSE, '2019-03-21 11:00:00', '2019-03-21 13:00:00', '1000', '5000', '1500', 'LED', 'VKO'),
-       (2, '1200', '2', FALSE, '2019-03-15 05:45:00', '2019-03-15 08:10:00', '800', '10000', '1900', 'CEK', 'DME'),
-       (3, '1500', '2', FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00', '600', '15000', '1800', 'SVX', 'SVO'),
-       (4, '2000', '3', FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00', '450', '8700', '900', 'DME', 'MQF');
+VALUES (1, '5000', '1', FALSE, '2019-03-21 11:00:00', '2019-03-21 13:00:00', '1000', '5000', '1500', 'LED', 'CIR'),
+       (2, '12000', '2', FALSE, '2019-03-15 05:45:00', '2019-03-15 08:10:00', '800', '10000', '1900', 'VKO', 'HEM'),
+       (3, '15000', '2', FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00', '600', '15000', '1800', 'SVX', 'SVO'),
+       (4, '20000', '3', FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00', '450', '8700', '900', 'DME', 'DXB'),
+       (5, '1400', '4', FALSE, '2019-03-06 20:45:00','2019-03-06 23:45:00', '1000', '2000', '500', 'CEK', 'LED' ),
+       (6, '20000', '5', FALSE, '2019-06-06 12:30:00','2019-06-06 15:45:00','100','2500', '1300','LED', 'PCB'),
+       (7, '34500', '4', FALSE, '2019-07-29 15:00:00','2019-07-29 19:45:00','800','28900', '1800','SVO','BAJ');
 -- CREATE TABLE TICKETS(id LONG AUTO_INCREMENT NOT NULL, user_Id LONG NOT NULL, flight_Id LONG NOT NULL, is_Business BOOL, has_Luggage BOOL, place_Priority BOOL, purchase_Date DATETIME, price LONG, is_Deleted BOOL, PRIMARY KEY (id), FOREIGN KEY (user_Id) REFERENCES USERS(id) ON UPDATE CASCADE, FOREIGN KEY (flight_Id) REFERENCES FLIGHTS(id) ON UPDATE CASCADE),
 INSERT INTO TICKETS(id, user_Id, flight_Id, business, has_Luggage, place_Priority, purchase_Date, price, paid, is_Deleted)
 VALUES (1, 1, 1, TRUE, TRUE, TRUE, '2019-01-01 11:00:00', 8050, true,false),
