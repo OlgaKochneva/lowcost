@@ -20,6 +20,8 @@
                     <%--code="lang.buyMoreTickets"/></a>--%>
         </div>
     </div>
+    <c:if test="${message.equals('sent')}"><spring:message code="lang.emailSent"/> </c:if><br/>
+
     <div class="row OneRow">
 
 

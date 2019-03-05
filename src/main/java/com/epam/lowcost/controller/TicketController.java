@@ -1,6 +1,5 @@
 package com.epam.lowcost.controller;
 
-import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.implementations.EmailServiceImpl;
@@ -13,13 +12,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -43,7 +42,7 @@ public class TicketController {
 
 
     @GetMapping(value = PDF)
-    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail){
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail, Model model){
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
@@ -52,7 +51,12 @@ public class TicketController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:" + TICKETS + SELF;
+        model.addAttribute("message","sent");
+        User user = userService.getSessionUser();
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
+        model.addAttribute("sessionUser",user);
+
+        return ACCOUNT;
     }
 
     @RequestMapping(value = DOWNLOAD, method = RequestMethod.GET)
