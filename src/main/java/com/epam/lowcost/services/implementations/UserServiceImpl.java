@@ -62,19 +62,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String blockUser(long userId) {
+    public User blockUser(long userId) {
         User userToBlock = userRepository.findById(userId);
         userToBlock.setActive(false);
-        userRepository.save(userToBlock);
-        return "User blocked successfully";
+        return userRepository.save(userToBlock);
     }
 
     @Override
-    public String unblockUser(long userId) {
+    public User unblockUser(long userId) {
         User userToBlock = userRepository.findById(userId);
         userToBlock.setActive(true);
-        userRepository.save(userToBlock);
-        return "User unblocked successfully";
+        return userRepository.save(userToBlock);
     }
 
 }
