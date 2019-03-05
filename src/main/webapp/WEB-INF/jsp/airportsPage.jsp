@@ -33,8 +33,8 @@
         <div class="col-md-3 findAirportBtn">
         <spring:message code="lang.findAirportByCity"/>
         <form action="<%=Endpoints.AIRPORT%>" method="get">
-            <input class="form-control input codeInputAirports" type="text" name="city"/>
-            <button type="submit" class="btn btn-outline-primary okBtnAirports">OK</button>
+            <input class="form-control input codeInputAirports" list="cities" required type="text" name="city"/>
+            <input type="submit" class="btn btn-outline-primary okBtnAirports" name="OK"/>
         </form>
         </div>
 
@@ -43,30 +43,6 @@
         <div class="col-md-9">
 
         </div>
-        <%--<div class="col-md-3 numOfUsers">--%>
-            <%--<form></form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="10"/>--%>
-
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="50"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="50"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="100"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="100"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.AIRPORT + Endpoints.PAGE%>" method="get">--%>
-                <%--<input type="hidden" name="number" value="200"/>--%>
-                <%--<input type="hidden" name="fromPage" value="<%=Endpoints.AIRPORT + Endpoints.ALL%>"/>--%>
-                <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="200"/>--%>
-            <%--</form>--%>
-        <%--</div>--%>
         <div  class="col-md-2 numOfUsersBtn">
 
             <spring:message code="lang.showUsersBy"/><br/>
@@ -117,12 +93,17 @@
                 <c:if test="${airports.hasNext()}"> <a href="?page=${airports.number+1}&size=${airports.size}"><spring:message
                         code="lang.next"/></a></c:if>
             </div>
+            </div>
     </div>
 
 
     <br/>
     ${airport}<br/> <h4>${message}</h4>
-
+        <datalist id="cities">
+            <c:forEach items="${airports}" var="airport">
+                <option  value="${airport.cityEng}"> </option>
+            </c:forEach>
+        </datalist>
 </div>
 </body>
 </html>

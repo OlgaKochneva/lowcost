@@ -5,6 +5,7 @@ import com.epam.lowcost.services.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import java.time.LocalDate;
@@ -30,6 +31,8 @@ public class FlightValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Flight flight = (Flight) target;
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "departureAirport", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "arrivalAirport", "NotEmpty");
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())){
             errors.rejectValue("departureDate", "Date.incorrect.pastNow");
         }
@@ -37,9 +40,11 @@ public class FlightValidator implements Validator {
         if (flight.getDepartureDate().isAfter(flight.getArrivalDate())){
             errors.rejectValue("arrivalDate", "Date.incorrect");
         }
-        if (flight.getDepartureAirport().equals(flight.getArrivalAirport())){
+        if (flight.getDepartureAirport()!=null && flight.getDepartureAirport().equals(flight.getArrivalAirport())){
             errors.rejectValue("arrivalAirport", "Airport.incorrect.arrivalAirport");
         }
+
+
 
 
     }

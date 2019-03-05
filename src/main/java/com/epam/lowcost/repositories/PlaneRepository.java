@@ -12,4 +12,5 @@ import java.util.List;
 public interface PlaneRepository extends JpaRepository<Plane, Long> {
     Plane getById(Long planeId);
     Page<Plane> getAllByIsDeletedFalse(Pageable pageable);
+    List<Plane> getAllByIsDeletedFalse();
 }

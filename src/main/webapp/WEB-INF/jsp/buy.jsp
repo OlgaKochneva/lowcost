@@ -1,6 +1,7 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -24,7 +25,7 @@
     function updatePrice() {
         var price, isBusiness, hasLuggage, placePriority;
         price = parseInt(${flight.initialPrice});
-        isBusiness = document.getElementById("isBusiness");
+        isBusiness = document.getElementById("business");
         hasLuggage = document.getElementById("hasLuggage");
         placePriority = document.getElementById("placePriority");
         if (isBusiness.checked == true) {
@@ -44,39 +45,39 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-12 mainContentBuy">
-            <form action="<%=Endpoints.TICKETS + Endpoints.ADD%>" method="post">
+            <form:form action="<%=Endpoints.TICKETS + Endpoints.ADD%>" modelAttribute="ticket" method="post">
 
                <strong><spring:message code="lang.firstName"/>:</strong>
                 <output name="firstName">${sessionUser.firstName}</output>
                 <br/>
-                <strong> <spring:message code="lang.lastName"/></strong>
+                <strong> <spring:message code="lang.lastName"/>:</strong>
                 <output name="lastName">${sessionUser.lastName}</output>
                 <br/>
-                <spring:message code="lang.document"/>
+                <strong><spring:message code="lang.document"/>:</strong>
                 <output name="Passport">${sessionUser.documentInfo}</output>
                 <br/>
-                <spring:message code="lang.birthday"/>
+                <strong><spring:message code="lang.birthday"/>:</strong>
                 <output name="Birthdate">${sessionUser.birthday}</output>
                 <br/>
-                <spring:message code="lang.departureAirport"/>
+                <strong><spring:message code="lang.departureAirport"/>:</strong>
                 <output name="from">${flight.departureAirport.cityEng}</output>
                 <br/>
-                <spring:message code="lang.arrivalAirport"/>
+                <strong><spring:message code="lang.arrivalAirport"/>:</strong>
                 <output name="arrivaAirport">${flight.arrivalAirport.cityEng}</output>
                 <br/>
-                <spring:message code="lang.departureAt"/>
-                <output name="departureDate">${flight.departureDate}</output>
+                <strong><spring:message code="lang.departureAt"/>:</strong>
+                <output name="departureDate">${flight.departureDate.toString().replaceAll('T',' ')}</output>
                 <br/>
-                <spring:message code="lang.arriveAt"/>
-                <output name="arrivalDate">${flight.arrivalDate}</output>
+                <strong><spring:message code="lang.arriveAt"/>:</strong>
+                <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
                 <br/>
-                <spring:message code="lang.isBusiness"/>: <input type="checkbox" id="isBusiness" value="true" name="isBusiness"
+                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="business" value="true" name="business"
                                                                  onclick="updatePrice()"/>
                 + <c:out value="${flight.businessPrice}"/> <br/>
-                <spring:message code="lang.hasLuggage"/>: <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
+                <strong><spring:message code="lang.hasLuggage"/>:</strong> <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
                                                                  onclick="updatePrice()"/>+ <c:out
                     value="${flight.placePriorityPrice}"/><br/>
-                <spring:message code="lang.placePriority"/>: <input type="checkbox" id="placePriority" name="placePriority"
+                <strong><spring:message code="lang.placePriority"/>:</strong> <input type="checkbox" id="placePriority" name="placePriority"
                                                                     value="true"
                                                                     onclick="updatePrice()"/> + <c:out
                     value="${flight.luggagePrice}"/><br/>
@@ -84,9 +85,7 @@
                 <spring:message code="lang.total"/> <output id="price">${flight.initialPrice}</output>
                 </br> <input type="submit" value="<spring:message code="lang.buy"/>" class="buyButtonBuyPage btn btn-outline-success"/>
             </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.RETURN%>" method="get">
-                <input type="submit" value="<spring:message code="lang.cancel"/>" class="cancellButtonBuyPage2 btn btn-outline-danger"/>
-            </form>
+            <a href="/" class="btn btn-outline-primary okBtnAirports"><spring:message code="lang.cancel"/></a>
         </div>
     </div>
 </div>

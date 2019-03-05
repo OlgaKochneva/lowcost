@@ -21,7 +21,6 @@ import java.util.Map;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @SessionAttributes({"sessionUser", "searchTerm", "searchString"})
 public class UserController {
 
@@ -36,6 +35,7 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = USERS)
     public String showUsers(ModelMap model, Pageable pageable) {
         String searchTerm = (String) model.getOrDefault("searchTerm", "all");
@@ -44,6 +44,7 @@ public class UserController {
         return USERS_PAGE;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = SEARCH, method = RequestMethod.POST)
     public String setSearchConditions(@RequestParam(value = "searchTerm") String searchTerm,
                                       @RequestParam(value = "searchString") String searchString,
@@ -55,6 +56,7 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
     public String blockUser(@RequestParam long id, Model model, Principal principal) {
         if (principal.getName().equals(userService.getById(id).getUsername())) {
@@ -64,6 +66,7 @@ public class UserController {
         return "redirect:" + USERS;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = UNBLOCK_USER, method = RequestMethod.POST)
     public String unblockUser(@RequestParam long id, ModelMap model) {
         userService.unblockUser(id);
@@ -86,8 +89,9 @@ public class UserController {
         userToUpdate.setFirstName(params.get("firstName"));
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
-        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-        model.addAttribute("sessionUser",userService.updateUser(userToUpdate));
+        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
+        userService.updateUser(userToUpdate);
+
         return "redirect:" + USER_SETTINGS;
     }
 

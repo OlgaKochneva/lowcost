@@ -23,6 +23,15 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
                                                                                   Airport arrivalAirport,
                                                                                   LocalDateTime departureDateFrom,
                                                                                   LocalDateTime departureDateTo);
+    Page<Flight> getAllByDepartureAirportAndArrivalAirportAndDepartureDateBetween(Airport departureAirport,
+                                                                                  Airport arrivalAirport,
+                                                                                  LocalDateTime departureDateFrom,
+                                                                                  LocalDateTime departureDateTo,
+                                                                                  Pageable pageable);
+
+
+    List<Flight> getAllByPlaneId(long id);
+
 
 
 

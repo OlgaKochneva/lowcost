@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
 
@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String documentInfo;
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
