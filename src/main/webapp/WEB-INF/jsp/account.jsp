@@ -16,13 +16,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 GroupSearch">
-            <%--<a href="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"><spring:message--%>
-                    <%--code="lang.buyMoreTickets"/></a>--%>
         </div>
     </div>
     <div class="row OneRow">
-
-
         <c:forEach items="${currentUserTickets}" var="ticket">
             <div class="col-md-6 OneTicket">
                 <c:if test="${ticket.paid}">
@@ -48,7 +44,15 @@
                         <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-danger buttonFloatLeft" onclick=" ActionButton(event,${ticket.id},'<spring:message code="lang.confirmCancel" />')" id="${ticket.id}" data-click="false"/>
 
                     </form>
-                        <br/> <br/>
+                        <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
+                            <input type="hidden" name="ticketId" value="${ticket.id}">
+                            <input type ="hidden" name="userEmail" value="${sessionUser.username}">
+                            <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.toEmail"/>" class="bbtn btn-light btnToEmail"/>
+                        </form>
+                        <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
+                            <input type="hidden" name="ticketId" value="${ticket.id}">
+                            <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.download"/>" class="btn btn-light btnDownLoad"/>
+                        </form>
                     </div>
                 </div>
                 </c:if>
@@ -79,20 +83,19 @@
                                     <input type="submit" value="<spring:message code="lang.pay"/>" class="btn btn-outline-success btPay "onclick=" ActionButton2(event,${ticket.id},'<spring:message code="lang.confirmPayment" /> ${ticket.price} <spring:message code="lang.currency"/> ?')" id="l${ticket.id}" data-click="false"/>
                                 </form>
                             </c:if>
-
-
+                                <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
+                                    <input type="hidden" name="ticketId" value="${ticket.id}">
+                                    <input type ="hidden" name="userEmail" value="${sessionUser.username}">
+                                    <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.toEmail"/>" class="btn btn-light btnToEmail"/>
+                                </form>
+                                <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
+                                    <input type="hidden" name="ticketId" value="${ticket.id}">
+                                    <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.download"/>" class="btn btn-light btnDownLoad"/>
+                                </form>
                         </div>
                     </div>
                 </c:if>
-                <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
-                    <input type="hidden" name="ticketId" value="${ticket.id}">
-                    <input type ="hidden" name="userEmail" value="${sessionUser.username}">
-                    <input type="submit" value="Get Pdf to email" class="btn-outline-secondary"/>
-                </form>
-                <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
-                    <input type="hidden" name="ticketId" value="${ticket.id}">
-                    <input type="submit" value="Download Ticket" class="btn-outline-secondary"/>
-                </form>
+
 
             </div>
         </c:forEach>

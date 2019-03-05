@@ -173,9 +173,9 @@ body {
     margin-top: 10px;
 
 }
-/*.cancelTicket{*/
-    /*float: left;*/
-/*}*/
+.cancelTicket{
+    float: left;
+}
 /*--------------SeatchPage--------------------------*/
 .SeachTicketSearch {
     font-size: 24px;
@@ -420,5 +420,15 @@ body {
     align: right;
 }
 .btPay{
+    margin-right: 10px;
     margin-bottom: -6px;
+    float: left;
+}
+.btnToEmail{
+    margin-right: 10px;
+    float: left;
+
+}
+.btnDownLoad{
+
 }
