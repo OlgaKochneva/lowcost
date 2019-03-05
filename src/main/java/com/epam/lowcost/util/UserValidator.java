@@ -9,6 +9,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDateTime;
+
 @Component
 public class UserValidator implements Validator {
     private final UserService userService;
@@ -42,6 +44,13 @@ public class UserValidator implements Validator {
 
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documentInfo", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthday", "NotEmpty");
+        if (user.getBirthday().isAfter(LocalDateTime.now())) {
+            errors.rejectValue("birthday","Date.incorrect.future");
         }
     }
 }
