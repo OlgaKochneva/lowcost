@@ -34,17 +34,12 @@
                         value="${ticket.flight.departureAirport.cityEng}"/><br/>
                     <spring:message code="lang.arrivalAirport"/> <c:out
                         value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
-                    <spring:message code="lang.departureAt"/> <c:out value="${ticket.flight.departureDatetoString().replaceAll( 'T', ' ')}"/><br/>
+                    <spring:message code="lang.departureAt"/> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
                     <spring:message code="lang.arriveAt"/> <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
                     <spring:message code="lang.price"/> <c:out value="${ticket.price}"/><br/>
                     <div class="buttonGroupCard">
 
                     </div>
-                    <input type="button"
-                           onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport.cityEng} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport.cityEng} At ${ticket.flight.arrivalDate}')"
-                           value="<spring:message code="lang.details"/>"
-                           class="btn btn-outline-primary buttonFloatLeft"/>
-
                     <form action="<%=Endpoints.TICKETS + Endpoints.CANCEL%>" method="post">
                         <input type="hidden" name="id" value="${ticket.id}"/>
                         <input type="submit" value="<spring:message code="lang.cancel"/>" class="btn btn-outline-info"/>

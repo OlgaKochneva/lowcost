@@ -30,6 +30,7 @@
 
     <h5>${message}</h5>
 
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
@@ -38,11 +39,19 @@
                     <th scope="col"><spring:message code="lang.model"/></th>
                     <th scope="col"><spring:message code="lang.numBusiness"/></th>
                     <th scope="col"><spring:message code="lang.numEconom"/></th>
+                    <th scope="col">
+                        <div>
+
+                            <spring:message code="lang.showUsersBy"/><a
+                                href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
+                                href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+                        </div>
+                    </th>
                 </tr>
 
                 </thead>
                 <tbody>
-                <c:forEach items="${planes}" var="plane">
+                <c:forEach items="${planes.getContent()}" var="plane">
                     <tr>
 
                         <td><c:out value="${plane.model}"/></td>
@@ -51,8 +60,9 @@
 
 
                         <td>
-                            <a href="<%=Endpoints.PLANE%>/${plane.id}" class="btn btn-outline-primary updatePlaneBtn"> <spring:message
-                                    code="lang.update"/></a>
+                            <a href="<%=Endpoints.PLANE%>/${plane.id}" class="btn btn-outline-primary updatePlaneBtn">
+                                <spring:message
+                                        code="lang.update"/></a>
 
                             <form action="<%=Endpoints.PLANE + Endpoints.DELETE%>" method="post">
                                 <input type="hidden" name="planeId" value="${plane.id}"/>
@@ -65,6 +75,16 @@
                 </tbody>
 
             </table>
+            <div>
+                <c:if test="${planes.hasPrevious()}"> <a
+                        href="?page=${planes.number-1}&size=${planes.size}"><spring:message
+                        code="lang.previous"/></a></c:if>
+                <c:forEach var="page" begin="1" end="${planes.totalPages}">
+                    <a href="?page=${page-1}&size=${planes.size}">${page}</a>
+                </c:forEach>
+                <c:if test="${planes.hasNext()}"> <a href="?page=${planes.number+1}&size=${planes.size}"><spring:message
+                        code="lang.next"/></a></c:if>
+            </div>
 
         </div>
     </div>

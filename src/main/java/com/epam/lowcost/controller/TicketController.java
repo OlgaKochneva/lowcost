@@ -52,20 +52,11 @@ public class TicketController {
 
 
     @PostMapping(value = ADD)
-    public String addTicket(@RequestParam Map<String, String> params, ModelMap model) {
-        Flight flight = Flight.builder()
-                .id(Long.parseLong(params.get("flightId")))
-                .build();
-
-        User user = (User) model.get("sessionUser");// id сессионного пользователя
-        model.addAttribute("ticket", ticketService.addTicket(
-                Ticket.builder()
-                        .user(user)
-                        .flight(flight)
-                        .hasLuggage(Boolean.parseBoolean(params.get("hasLuggage")))
-                        .placePriority(Boolean.parseBoolean(params.get("placePriority")))
-                        .isBusiness(Boolean.parseBoolean(params.get("isBusiness")))
-                        .build()));
+    public String addTicket(@ModelAttribute ("ticket") Ticket ticket, ModelMap model) {
+        User user = (User) model.get("sessionUser");
+        ticket.setUser(user);
+        Flight flight = (Flight) model.get("flight");
+        ticketService.addTicket(ticket);
 
         return "redirect:" + TICKETS + SELF;
     }

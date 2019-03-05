@@ -16,6 +16,11 @@
 <div class="row mainContentAdd">
 
     <h4><spring:message code="lang.allTickets"/><br/></h4>
+    <c:out value="${ticket.flight.departureAirport.cityEng}"/>
+    <c:out value="${ticket.flight.arrivalAirport.cityEng}"/>
+    <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/>
+    <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/>
+
     <div class="col-md-12 ticketsTable">
 
 
@@ -23,45 +28,30 @@
             <thead>
             <tr>
                 <th scope="col"><spring:message code="lang.firstName"/></th>
-                <th scope="col"><spring:message code="lang.email"/></th>
-                <th scope="col"><spring:message code="lang.departureAirport"/></th>
-                <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
-                <th scope="col"><spring:message code="lang.departureAt"/></th>
-                <th scope="col"><spring:message code="lang.arriveAt"/></th>
-                <th scope="col"><spring:message code="lang.price"/></th>
-                <th></th>
+                <th scope="col"><spring:message code="lang.lastName"/></th>
+                <th scope="col"><spring:message code="lang.document"/></th>
+                <th scope="col"><spring:message code="lang.birthday"/></th>
+                <th scope="col"><spring:message code="lang.placePriority"/></th>
+                <th scope="col"><spring:message code="lang.isBusiness"/></th>
+                <th scope="col"><spring:message code="lang.hasLuggage"/></th>
+                <th scope="col"><spring:message code="lang.price"/> </th>
+                <th scope="col"><spring:message code="lang.status"/> </th>
             </tr>
 
             </thead>
             <tbody>
             <c:forEach items="${tickets}" var="ticket">
                 <tr>
-                    <%--<td><c:out value="${ticket.user.firstName}"/></td>--%>
-                    <%--<td><c:out value="${ticket.user.email}"/></td>--%>
-                        <td></td>
-                        <td></td>
-                    <td><c:out value="${ticket.flight.departureAirport.cityEng}"/></td>
-                    <td><c:out value="${ticket.flight.arrivalAirport.cityEng}"/></td>
-                    <td><c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
-                    <td><c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
+                    <td><c:out value="${ticket.user.firstName}"/></td>
+                    <td><c:out value="${ticket.user.lastName}"/></td>
+                    <td><c:out value="${ticket.user.documentInfo}"/></td>
+                    <td><c:out value="${ticket.user.birthday.toString()}"/></td>
+                    <td><c:if test="${ticket.placePriority}"><p align="center"><spring:message code="lang.yes"/></p>  </c:if></td>
+                    <td><c:if test="${ticket.business}"><p align="center"> <spring:message code="lang.yes"/></p> </c:if></td>
+                    <td><c:if test="${ticket.hasLuggage}"><p align="center"> <spring:message code="lang.yes"/></p> </c:if></td>
                     <td><c:out value="${ticket.price}"/></td>
-                    <%--<td>--%>
-                        <%--<c:if test="${sessionUser.isAdmin()}">--%>
-                            <%--<form action="<%=EndPoints.TICKETS%>" method="get">--%>
-                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
-                                <%--<input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updateTicket"/>--%>
-                            <%--</form>--%>
-                            <%--<form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">--%>
-                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
-                                <%--<input type="submit" value="<spring:message code="lang.deleteTicket"/>" class="btn btn-outline-danger deleteTicket"/>--%>
-                            <%--</form>--%>
-
-
-
-                        <%--</c:if>--%>
-
-                    <%--</td>--%>
-
+                    <td><c:if test="${ticket.paid}"><spring:message code="lang.paid"/> </c:if>
+                        <c:if test="${!ticket.paid}"><p style="color: #dc3545"> <spring:message code="lang.unpaid"/> </c:if> </p></td>
 
                 </tr>
             </c:forEach>
