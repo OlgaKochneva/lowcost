@@ -103,16 +103,6 @@ public class FlightController {
         return "redirect:" + FLIGHTS + ALL;
     }
 
-
-    @RequestMapping(value = FLIGHT, method = RequestMethod.GET)
-    public String searchForFlight(ModelMap model) {
-        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
-        model.addAttribute("airports", airportService.getAllAirports());
-        model.addAttribute("currentTime", LocalDateTime.now());
-        return SEARCHPAGE;
-    }
-
-
     private void findFlightByFromToDate(@RequestParam Map<String, String> params, Model model, boolean isAdmin) {
         LocalDateTime departureDateTo;
         if (params.get("departureDateTo").equals(""))
