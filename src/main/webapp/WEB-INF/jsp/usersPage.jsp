@@ -84,13 +84,18 @@
 
                         <td>
 
+
                             <c:if test="${sessionUser.id != user.id}">
+                                <a href="<%=Endpoints.USER%>/${user.id}" class="btn btn-outline-primary updateBtn">
+                                    <spring:message
+                                            code="lang.update"/></a>
+
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                                     <c:if test="${user.active}">
                                         <form action="<%=BLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.blockUser"/>"
-                                                   class="btn btn-danger deletePlaneBtn"/>
+                                                   class="btn btn-outline-danger deletePlaneBtn"/>
                                         </form>
 
                                     </c:if>
@@ -98,7 +103,7 @@
                                         <form action="<%=UNBLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.unblockUser"/>"
-                                                   class="btn btn-success deletePlaneBtn"/>
+                                                   class="btn btn-outline-success deletePlaneBtn"/>
                                         </form>
                                     </c:if>
                                 </sec:authorize>

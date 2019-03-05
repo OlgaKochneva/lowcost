@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -21,7 +18,6 @@ import java.util.Map;
 import static com.epam.lowcost.util.Endpoints.*;
 
 @Controller
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @SessionAttributes({"sessionUser", "searchTerm", "searchString"})
 public class UserController {
 
@@ -36,6 +32,7 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = USERS)
     public String showUsers(ModelMap model, Pageable pageable) {
         String searchTerm = (String) model.getOrDefault("searchTerm", "all");
@@ -44,6 +41,7 @@ public class UserController {
         return USERS_PAGE;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = SEARCH, method = RequestMethod.POST)
     public String setSearchConditions(@RequestParam(value = "searchTerm") String searchTerm,
                                       @RequestParam(value = "searchString") String searchString,
@@ -55,6 +53,7 @@ public class UserController {
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = BLOCK_USER, method = RequestMethod.POST)
     public String blockUser(@RequestParam long id, Model model, Principal principal) {
         if (principal.getName().equals(userService.getById(id).getUsername())) {
@@ -64,6 +63,7 @@ public class UserController {
         return "redirect:" + USERS;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = UNBLOCK_USER, method = RequestMethod.POST)
     public String unblockUser(@RequestParam long id, ModelMap model) {
         userService.unblockUser(id);
@@ -78,6 +78,12 @@ public class UserController {
         return SETTINGS_PAGE;
     }
 
+    @RequestMapping(value = USER + "/{user}", method = RequestMethod.GET)
+    public String updatePlanePage(@PathVariable User user, Model model) {
+        model.addAttribute("user", user);
+        return "userSettings";
+    }
+
     @RequestMapping(value = UPDATE_USER)
     public String updateUser(@RequestParam Map<String, String> params, ModelMap model) {
 
@@ -86,8 +92,17 @@ public class UserController {
         userToUpdate.setFirstName(params.get("firstName"));
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
-        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-        userService.updateUser(userToUpdate);
+        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
+        if ("admin".equals(params.get("fromAdmin"))) {
+            if (userToUpdate.getPassword().equals(params.get("password"))) {
+                userToUpdate.setPassword(params.get("password"));
+            } else {
+                userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+            }
+            userService.updateUser(userToUpdate);
+            return "redirect:" + USERS;
+        }
+        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
         return "redirect:" + USER_SETTINGS;
     }
 

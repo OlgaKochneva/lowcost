@@ -1,6 +1,5 @@
-<%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,19 +20,22 @@
 
     <br/>
     <div class="main_block">
+        <p class="greeting"><spring:message code="lang.loginIntroduction"/></p>
         <form method="POST" action="${contextPath}/login" class="form-signin">
-            <h2 class="form-heading">Log in</h2>
-
+            <p class="message">${message}</p>
             <div>
                 <span>${error}</span>
-                <span>${message}</span>
-                <input name="username" type="text" class="form-control" placeholder="Username"
+                <input name="username" type="text" class="form-control input" placeholder="Username"
                        autofocus="true"/>
-                <input name="password" type="password" class="form-control" placeholder="Password"/>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-                <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
+                <br/>
+                <input name="password" type="password" class="form-control input" placeholder="Password"/>
+                <br/>
+                <input type="submit" value="<spring:message code="lang.logIn"/>" class="btn btn-outline-primary btnAuth"/>
+
             </div>
         </form>
+        <a href="${contextPath}/registration"><spring:message code="lang.signIn"/></a>
+
     </div>
 
 </div>

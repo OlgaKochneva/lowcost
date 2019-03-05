@@ -1,10 +1,6 @@
 package com.epam.lowcost.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,12 +8,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TICKETS")
 @Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -28,7 +25,7 @@ public class Ticket {
     @JoinColumn(name="FLIGHT_ID")
     private Flight flight;
 
-    private boolean isBusiness;
+    private boolean business;
 
     private boolean hasLuggage;
 
@@ -38,7 +35,7 @@ public class Ticket {
 
     private LocalDateTime purchaseDate;
 
-    private boolean isPaid;
+    private boolean paid;
 
     private boolean isDeleted;
 }
