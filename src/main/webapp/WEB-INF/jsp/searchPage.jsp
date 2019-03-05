@@ -74,30 +74,7 @@
             <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
             </form:form>
         </div>
-        <div class="col-md-2 numOfUsers">
-            <form></form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="3"/>
 
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
-            </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="5"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
-            </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="10"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
-            </form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">
-                <input type="hidden" name="number" value="20"/>
-                <input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"/>
-                <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
-            </form>
-        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -109,7 +86,13 @@
                     <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col"> <spring:message code="lang.price"/></th>
-                    <th></th>
+                    <th><div >
+                        <form></form>
+                        <spring:message code="lang.showUsersBy"/> <a
+                            href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
+                            href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a><a
+                            href="?size=10&searchTerm=${searchTerm}&searchString=${searchString}">| 10</a>
+                    </div></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -138,21 +121,16 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>/${pageId-1}">
-                <input type="text" hidden name="adminPage" value="true"/>
-                <input type="submit" class="btn btn-link paginationBtn" value="Back"/>
-            </form>
-            <c:forEach var="page" begin="1" end="${pagesNum}">
-                <form action="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>/${page}">
-
-                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
-                    <input type="text" hidden name="adminPage" value="true"/>
-                </form>
-            </c:forEach>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>/${pageId+1}">
-                <input type="text" hidden name="adminPage" value="true"/>
-                <input type="submit" class="btn btn-link paginationBtn" value="Forward">
-            </form>
+            <div>
+                <c:if test="${flights.hasPrevious()}"> <a
+                        href="?page=${flights.number-1}&size=${flights.size}"><spring:message
+                        code="lang.previous"/></a></c:if>
+                <c:forEach var="page" begin="1" end="${flights.totalPages}">
+                    <a href="?page=${page-1}&size=${flights.size}">${page}</a>
+                </c:forEach>
+                <c:if test="${flights.hasNext()}"> <a href="?page=${flights.number+1}&size=${flights.size}"><spring:message
+                        code="lang.next"/></a></c:if>
+            </div>
         </div>
     </div>
 
