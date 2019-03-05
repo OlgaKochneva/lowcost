@@ -4,6 +4,8 @@ import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.repositories.PlaneRepository;
 import com.epam.lowcost.services.interfaces.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class PlaneServiceImpl implements PlaneService {
     }
 
     @Override
-    public List<Plane> getAllPlanes() {
-        return planeRepository.getAllByIsDeletedFalse();
+    public Page<Plane> getAllPlanes(Pageable pageable) {
+        return planeRepository.getAllByIsDeletedFalse(pageable);
     }
 
     @Override

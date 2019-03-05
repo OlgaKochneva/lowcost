@@ -1,11 +1,11 @@
 package com.epam.lowcost.services.interfaces;
 
 import com.epam.lowcost.model.Plane;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PlaneService {
-    List<Plane> getAllPlanes();
+    Page<Plane> getAllPlanes(Pageable pageable);
 
     Plane getById(long planeId);
 
