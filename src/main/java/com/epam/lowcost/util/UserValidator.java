@@ -9,7 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Component
 public class UserValidator implements Validator {
@@ -49,7 +49,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documentInfo", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthday", "NotEmpty");
-        if (user.getBirthday().isAfter(LocalDateTime.now())) {
+        if (user.getBirthday().isAfter(LocalDate.now())) {
             errors.rejectValue("birthday","Date.incorrect.future");
         }
     }
