@@ -432,3 +432,17 @@ body {
 .searchUser{
     float: left;
 }
+.searchField{
+    float: left;
+}
+.selection{
+    float: left;
+}
+.updateUser{
+    width: 80%;
+}
+
+.blockUser{
+    margin-top: 10px;
+    width: 80%;
+}

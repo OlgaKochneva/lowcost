@@ -180,9 +180,9 @@
                         href="?page=${flights.number-1}&size=${flights.size}"><spring:message
                         code="lang.previous"/></a></c:if>
                 <c:forEach var="page" begin="1" end="${flights.totalPages}">
-                    <a href="?page=${page-1}&size=${flights.size}">${page}</a>
+                      <a href="?page=${page-1}&size=${flights.size}">${page}</a>
                 </c:forEach>
-                <c:if test="${flights.hasNext()}"> <a href="?page=${flights.number+1}&size=${flights.size}"><spring:message
+                <c:if test="${flights.hasNext()}"> <a href="?page=${flights.number+1}&size=${flights.size}">  <spring:message
                         code="lang.next"/></a></c:if>
             </div>
         </div>

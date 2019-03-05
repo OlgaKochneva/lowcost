@@ -32,30 +32,28 @@
         </div>
     </div>
     <div class="row">
-
-        <div class="col-md-10">
-        </div>
+        <div class="col-md-4">
         <form action="<%=SEARCH%>" method="post">
-            <div class="select-and-input">
-                Search Users By:
-                <select name="searchTerm">
+                <spring:message code="lang.searchBy"/>
+                <select class="form-control selection" name="searchTerm">
                     <option value="all">show all</option>
                     <option value="username">email</option>
                     <option value="lastName">last name</option>
                     <option value="documentInfo">document info</option>
                 </select>
-                <input type="text" class="form-control input" name="searchString"/>
+                <input type="text" class="form-control input searchField" name="searchString"/><br/>
                 <input type="submit" class="btn btn-outline-primary" value="<spring:message code="lang.search"/> "/>
             </div>
         </form>
-        <div class="row">
-            <div class="col-md-10 searchUser">
-
-            </div>
-            <div class="col-md-2 numOfUsers">
-                <spring:message code="lang.showUsersBy"/>
-                <a href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a>
-                <a href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2 numOfUsers">
+            <div>
+                <spring:message code="lang.showUsersBy"/> <a
+                    href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> | <a
+                    href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
             </div>
         </div>
     </div>
@@ -90,7 +88,7 @@
 
 
                             <c:if test="${sessionUser.id != user.id}">
-                                <a href="<%=Endpoints.USER%>/${user.id}" class="btn btn-outline-primary updateBtn">
+                                <a href="<%=Endpoints.USER%>/${user.id}" class="btn btn-outline-primary updateUser">
                                     <spring:message
                                             code="lang.update"/></a>
 
@@ -99,7 +97,7 @@
                                         <form action="<%=BLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.blockUser"/>"
-                                                   class="btn btn-outline-danger deletePlaneBtn"/>
+                                                   class="btn btn-outline-danger blockUser"/>
                                         </form>
 
                                     </c:if>
@@ -107,7 +105,7 @@
                                         <form action="<%=UNBLOCK_USER%>" method="post">
                                             <input type="hidden" name="id" value="${user.id}"/>
                                             <input type="submit" value="<spring:message code="lang.unblockUser"/>"
-                                                   class="btn btn-outline-success deletePlaneBtn"/>
+                                                   class="btn btn-outline-success blockUser"/>
                                         </form>
                                     </c:if>
                                 </sec:authorize>
