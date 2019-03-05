@@ -43,6 +43,7 @@ public class TicketServiceImpl implements TicketService {
     public String payTicketById(long id) {
         Ticket ticketForPayment = ticketRepository.findById(id);
         ticketForPayment.setPaid(true);
+        ticketRepository.save(ticketForPayment);
         return bundle.getString("lang.ticketSuccessfullyPaid");
     }
 
@@ -63,6 +64,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setPrice(countPrice(ticket));
         ticket.setDeleted(false);
         ticket.setPaid(false);
+        ticketRepository.save(ticket);
         return ticket;
     }
 
