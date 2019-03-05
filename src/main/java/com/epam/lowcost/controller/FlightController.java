@@ -112,6 +112,8 @@ public class FlightController {
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("planes", planeService.getAllPlanes());
+
             return ADDFLIGHT;
         }
         flightService.addNewFlight(flight);

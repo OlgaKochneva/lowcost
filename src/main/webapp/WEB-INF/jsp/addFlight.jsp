@@ -31,6 +31,7 @@
                     <div>
                         <spring:message code="lang.price"/><br/>
                         <form:input type="text" class="form-control input" path="initialPrice"/>
+                        <form:errors path="initialPrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="plane">
@@ -73,18 +74,21 @@
                     <div>
                         <spring:message code="lang.placePriorityPrice"/>.<br/>
                         <form:input type="text" class="form-control input" path="placePriorityPrice"/>
+                        <form:errors path="placePriorityPrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="businessPrice">
                     <div>
                         <spring:message code="lang.businessPrice"/>.<br/>
                         <form:input type="text" class="form-control input" path="businessPrice"/>
+                        <form:errors path="businessPrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="luggagePrice">
                     <div>
                         <spring:message code="lang.luggagePrice"/>.<br/>
                         <form:input type="text" class="form-control input" path="luggagePrice"/>
+                        <form:errors path="luggagePrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <input type="submit" id="submit" class="btn btn-outline-success addFlightBtn" value="OK"/>
