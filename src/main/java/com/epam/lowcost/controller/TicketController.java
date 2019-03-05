@@ -55,7 +55,8 @@ public class TicketController {
 
     @PostMapping(value = ADD)
     public String addTicket(@ModelAttribute ("ticket") Ticket ticket, ModelMap model) {
-        User user = (User) model.get("sessionUser");
+        User user = userService.getSessionUser();
+        model.addAttribute("sessionUser",user);
         ticket.setUser(user);
         Flight flight = (Flight) model.get("flight");
         ticketService.addTicket(ticket);
