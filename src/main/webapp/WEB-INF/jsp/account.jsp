@@ -24,13 +24,13 @@
                 <c:if test="${ticket.paid}">
                 <div class="backgroundTicket">
 
-                    <spring:message code="lang.departureAirport"/>: <c:out
+                    <strong><spring:message code="lang.departureAirport"/>:</strong> <c:out
                         value="${ticket.flight.departureAirport.cityEng}"/><br/>
-                    <spring:message code="lang.arrivalAirport"/>: <c:out
+                    <strong><spring:message code="lang.arrivalAirport"/>:</strong> <c:out
                         value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
-                    <spring:message code="lang.departureAt"/>: <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                    <spring:message code="lang.arriveAt"/>: <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                    <spring:message code="lang.price"/>: <c:out value="${ticket.price}"/> <spring:message code="lang.currency"/> <br/>
+                    <strong><spring:message code="lang.departureAt"/>:</strong> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                    <strong><spring:message code="lang.arriveAt"/>: </strong><c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                    <strong><spring:message code="lang.price"/>: </strong><c:out value="${ticket.price}"/> <spring:message code="lang.currency"/> <br/>
                     <div class="buttonGroupCard">
 
 
@@ -59,11 +59,11 @@
                 <c:if test="${!ticket.paid}">
                     <div class="backgroundTicketUnpaid">
 
-                        <spring:message code="lang.departureAirport"/>: <c:out value="${ticket.flight.departureAirport.cityEng}"/><br/>
-                        <spring:message code="lang.arrivalAirport"/>: <c:out value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
-                        <spring:message code="lang.departureAt"/>: <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                        <spring:message code="lang.arriveAt"/>: <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                        <spring:message code="lang.price"/>: <c:out value="${ticket.price}"/> y.e  <br/>
+                        <strong><spring:message code="lang.departureAirport"/>:</strong> <c:out value="${ticket.flight.departureAirport.cityEng}"/><br/>
+                        <strong><spring:message code="lang.arrivalAirport"/>:</strong> <c:out value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
+                        <strong><spring:message code="lang.departureAt"/>:</strong> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                        <strong> <spring:message code="lang.arriveAt"/>:</strong> <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                        <strong><spring:message code="lang.price"/>:</strong> <c:out value="${ticket.price}"/> y.e  <br/>
                         <div class="buttonGroupCard">
 
 
