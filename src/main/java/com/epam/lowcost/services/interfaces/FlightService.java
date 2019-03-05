@@ -23,6 +23,8 @@ public interface FlightService {
 
     Flight deleteFlight(Long id);
 
+    List<Flight> deleteFlightByPlaneId(Long id);
+
     Page<Flight> getByFromToDate(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate, Pageable pageable);
 
     Page<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo, Pageable pageable);

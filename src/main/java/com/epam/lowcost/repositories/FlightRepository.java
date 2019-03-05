@@ -29,6 +29,8 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
                                                                                   LocalDateTime departureDateTo,
                                                                                   Pageable pageable);
 
+    List<Flight> getAllByPlaneId(long id);
+
 
 
 

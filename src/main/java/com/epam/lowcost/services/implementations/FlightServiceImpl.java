@@ -2,12 +2,9 @@ package com.epam.lowcost.services.implementations;
 
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
-import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.repositories.FlightRepository;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
-import com.epam.lowcost.services.interfaces.PlaneService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -71,6 +67,7 @@ public class FlightServiceImpl implements FlightService {
     public Flight deleteFlight(Long id) {
         Flight flight = flightRepository.getById(id);
         flight.setDeleted(true);
+        ticketService.deleteTicketsByFlightId(id);
         return flightRepository.save(flight);
 
     }
@@ -184,5 +181,10 @@ public class FlightServiceImpl implements FlightService {
         return totalNumber - holdPlaces;
     }
 
-
+    @Override
+    public List<Flight> deleteFlightByPlaneId(Long id) {
+        List<Flight> flightsToDelete = flightRepository.getAllByPlaneId(id);
+        flightsToDelete.forEach(f -> deleteFlight(f.getId()));
+        return flightsToDelete;
+    }
 }
