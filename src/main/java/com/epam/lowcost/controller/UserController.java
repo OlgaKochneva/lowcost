@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -81,6 +78,12 @@ public class UserController {
         return SETTINGS_PAGE;
     }
 
+    @RequestMapping(value = USER + "/{user}", method = RequestMethod.GET)
+    public String updatePlanePage(@PathVariable User user, Model model) {
+        model.addAttribute("user", user);
+        return "userSettings";
+    }
+
     @RequestMapping(value = UPDATE_USER)
     public String updateUser(@RequestParam Map<String, String> params, ModelMap model) {
 
@@ -90,8 +93,16 @@ public class UserController {
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
         userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
-        userService.updateUser(userToUpdate);
-
+        if ("admin".equals(params.get("fromAdmin"))) {
+            if (userToUpdate.getPassword().equals(params.get("password"))) {
+                userToUpdate.setPassword(params.get("password"));
+            } else {
+                userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+            }
+            userService.updateUser(userToUpdate);
+            return "redirect:" + USERS;
+        }
+        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
         return "redirect:" + USER_SETTINGS;
     }
 

@@ -1,3 +1,5 @@
+<%@ page import="static com.epam.lowcost.util.Endpoints.CHANGE_PASSWORD" %>
+<%@ page import="static com.epam.lowcost.util.Endpoints.UPDATE_USER" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
@@ -29,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col-md-3 changeData">
-            <form action="/update-user" method="post">
+            <form action="<%=UPDATE_USER%>" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>
 
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
@@ -64,7 +66,7 @@
 
             <h5>${message}</h5>
 
-            <form action="/change-password" method="post">
+            <form action="<%=CHANGE_PASSWORD%>" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>
 
                 <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input"

@@ -2,12 +2,9 @@ package com.epam.lowcost.services.implementations;
 
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
-import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.repositories.FlightRepository;
 import com.epam.lowcost.services.interfaces.AirportService;
 import com.epam.lowcost.services.interfaces.FlightService;
-import com.epam.lowcost.services.interfaces.PlaneService;
 import com.epam.lowcost.services.interfaces.TicketService;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -71,8 +67,39 @@ public class FlightServiceImpl implements FlightService {
     public Flight deleteFlight(Long id) {
         Flight flight = flightRepository.getById(id);
         flight.setDeleted(true);
+        ticketService.deleteTicketsByFlightId(id);
         return flightRepository.save(flight);
 
+    }
+
+    @Override
+    public Page<Flight> getByFromToDate(Airport departureAirport, Airport arrivalAirport,
+                                        LocalDateTime departureDate, LocalDateTime arrivalDate, Pageable pageable) {
+        return flightRepository.getAllByDepartureAirportAndArrivalAirportAndDepartureDateBetween
+                (departureAirport,arrivalAirport,departureDate,arrivalDate,pageable);
+    }
+
+    @Override
+    public Page<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo, Pageable pageable) {
+        Page<Flight> flights = getByFromToDate(departureAirport, arrivalAirport,
+                departureDateFrom, departureDateTo, pageable);
+        flights.forEach(f ->{
+                    f.setInitialPrice(getUpdatedFlightPrice(f));
+                    f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f));
+                    f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f));
+        });
+        return flights;
+    }
+
+    @Override
+    public Page<Flight> getAllFlightsWithUpdatedPrice(Pageable pageable) {
+        Page<Flight> flights = getAllFlights(pageable);
+        flights.forEach(f ->{
+            f.setInitialPrice(getUpdatedFlightPrice(f));
+            f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f));
+            f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f));
+        });
+        return flights;
     }
 
     @Override
@@ -84,7 +111,7 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
         List<Flight> flights = getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
-        flights.forEach(f -> updateFlightPrice(f));
+        flights.forEach(f -> f.setInitialPrice(getUpdatedFlightPrice(f)));
         flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
         flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
         return flights;
@@ -106,13 +133,14 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlightsWithUpdatedPrice() {
 
         List<Flight> flights = getAllFlights();
-        flights.forEach(this::updateFlightPrice);
+        flights.forEach(f -> f.setInitialPrice(getUpdatedFlightPrice(f)));
         flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
         flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
         return flights;
     }
 
-    private void updateFlightPrice(Flight flight) {
+    @Override
+    public long getUpdatedFlightPrice(Flight flight){
         LocalDateTime dateAfter = flight.getDepartureDate();
         LocalDateTime dateBefore = LocalDateTime.now();
         long daysBetween = DAYS.between(dateBefore, dateAfter);
@@ -132,9 +160,8 @@ public class FlightServiceImpl implements FlightService {
             decreaseEconomyPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForEconomyPlaces);
         }
 
-        flight.setInitialPrice(decreaseBusinessPlacesIncreasePrice +
-                decreaseDaysBetweenIncreasePrice + decreaseEconomyPlacesIncreasePrice);
-
+        return decreaseBusinessPlacesIncreasePrice +
+                decreaseDaysBetweenIncreasePrice + decreaseEconomyPlacesIncreasePrice;
     }
 
     private int getNumberOfFreeBusinessPlaces(Flight flight) {
@@ -146,7 +173,7 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public Flight getFlightByIdWithUpdatedPrice(Long id) {
         Flight flight = getById(id);
-        updateFlightPrice(flight);
+        flight.setInitialPrice(getUpdatedFlightPrice(flight));
         flight.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(flight));
         flight.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(flight));
         return flight;
@@ -158,5 +185,10 @@ public class FlightServiceImpl implements FlightService {
         return totalNumber - holdPlaces;
     }
 
-
+    @Override
+    public List<Flight> deleteFlightByPlaneId(Long id) {
+        List<Flight> flightsToDelete = flightRepository.getAllByPlaneId(id);
+        flightsToDelete.forEach(f -> deleteFlight(f.getId()));
+        return flightsToDelete;
+    }
 }

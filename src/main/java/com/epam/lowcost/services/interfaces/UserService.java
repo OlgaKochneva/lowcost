@@ -17,9 +17,9 @@ public interface UserService {
 
     User updateUser(User user);
 
-    String blockUser(long userId);
+    User blockUser(long userId);
 
-    String unblockUser(long userId);
+    User unblockUser(long userId);
 
     User getSessionUser();
 }

@@ -58,11 +58,18 @@
                     <form:input type="text" id="inpSerc4"  list="airport" path="arrivalAirport" class="form-control searchInput"/> <br/>
 
                 </spring:bind>
+
             </div>
+
+
 
         </div>
         <div class="col-md-4">
+
             <button type="submit" value="" class="btn btn-outline-warning btnSeach"><spring:message code="lang.search"/></button>
+
+            </form:form>
+
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" method="get">
                     <input type="submit" value="<spring:message code="lang.addNewFlight"/>"
@@ -75,14 +82,15 @@
 
     </div>
 </div>
+<p style="color: #D35D47"><form:errors path="departureDate" /></p>
+<p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
+<p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
+<p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
-            <p style="color: #D35D47"><form:errors path="departureDate" /></p>
-            <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
-            <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
-            <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
-            </form:form>
+
+
         </div>
         <div class="col-md-2 numOfUsers">
             <%--<form></form>--%>
@@ -119,6 +127,7 @@
                     <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
                     <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"><spring:message code="lang.arriveAt"/></th>
+                    <th scope="col"><spring:message code="lang.plane"/> </th>
                     <th scope="col"><spring:message code="lang.price"/></th>
                     <th></th>
                     <th><div>
@@ -134,12 +143,11 @@
                 <c:forEach items="${flights.getContent()}" var="flight">
 
                     <tr>
-
-
                         <td><c:out value="${flight.departureAirport.cityEng} (${flight.departureAirport.code})"/></td>
                         <td><c:out value="${flight.arrivalAirport.cityEng} (${flight.arrivalAirport.code})"/></td>
                         <td><c:out value="${flight.departureDate.toString().replaceAll( 'T', ' ')}"/></td>
                         <td><c:out value="${flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/></td>
+                        <td><c:out value="${flight.plane.model}"/></td>
                         <td><c:out value="${flight.initialPrice}"/></td>
                         <td><c:if test="${flight.departureDate gt currentTime}">
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
