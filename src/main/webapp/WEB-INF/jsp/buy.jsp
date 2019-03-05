@@ -25,7 +25,7 @@
     function updatePrice() {
         var price, isBusiness, hasLuggage, placePriority;
         price = parseInt(${flight.initialPrice});
-        isBusiness = document.getElementById("isBusiness");
+        isBusiness = document.getElementById("business");
         hasLuggage = document.getElementById("hasLuggage");
         placePriority = document.getElementById("placePriority");
         if (isBusiness.checked == true) {
@@ -71,7 +71,7 @@
                 <strong><spring:message code="lang.arriveAt"/>:</strong>
                 <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
                 <br/>
-                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="isBusiness" value="true" name="isBusiness"
+                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="business" value="true" name="business"
                                                                  onclick="updatePrice()"/>
                 + <c:out value="${flight.businessPrice}"/> <br/>
                 <strong><spring:message code="lang.hasLuggage"/>:</strong> <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
@@ -81,13 +81,11 @@
                                                                     value="true"
                                                                     onclick="updatePrice()"/> + <c:out
                     value="${flight.luggagePrice}"/><br/>
-                <input type="hidden" name="flight" value="${flight.id}"/>
-                <strong><spring:message code="lang.total"/></strong> <output id="price">${flight.initialPrice}</output>
-                </br> <input type="submit" value="<spring:message code="lang.book"/>" class="buyButtonBuyPage btn btn-outline-success"/>
-            </form:form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.RETURN%>" method="get">
-                <input type="submit" value="<spring:message code="lang.cancel"/>" class="cancellButtonBuyPage2 btn btn-outline-danger"/>
+                <input type="hidden" name="flightId" value="${flight.id}"/>
+                <spring:message code="lang.total"/> <output id="price">${flight.initialPrice}</output>
+                </br> <input type="submit" value="<spring:message code="lang.buy"/>" class="buyButtonBuyPage btn btn-outline-success"/>
             </form>
+            <a href="/" class="btn btn-outline-primary okBtnAirports"><spring:message code="lang.cancel"/></a>
         </div>
     </div>
 </div>

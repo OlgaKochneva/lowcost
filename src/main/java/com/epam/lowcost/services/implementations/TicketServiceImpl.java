@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,7 +44,7 @@ public class TicketServiceImpl implements TicketService {
     public String payTicketById(long id) {
         Ticket ticketForPayment = ticketRepository.findById(id);
         ticketForPayment.setPaid(true);
-        ticketRepository.save(ticketForPayment);
+        ticketForPayment.setPurchaseDate(LocalDateTime.now());
         return bundle.getString("lang.ticketSuccessfullyPaid");
     }
 
@@ -56,11 +57,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     @Transactional
     public Ticket addTicket(Ticket ticket) {
-        Flight flight = flightService.getFlightByIdWithUpdatedPrice(ticket.getFlight().getId());
+        Flight flight = flightService.getById(ticket.getFlight().getId());
         User user = userService.getById(ticket.getUser().getId());
         ticket.setFlight(flight);
         ticket.setUser(user);
-        ticket.setPrice(flight.getInitialPrice());
+        ticket.setPrice(flightService.getUpdatedFlightPrice(flight));
         ticket.setPrice(countPrice(ticket));
         ticket.setDeleted(false);
         ticket.setPaid(false);
@@ -70,7 +71,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> getAllTicketsForCurrentFlight(long flightId) {
-        return ticketRepository.findByFlight_IdAndAndIsDeleted(flightId, false);
+        return ticketRepository.findByFlight_IdAndIsDeleted(flightId, false);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public int getNumberBoughtPlacesForEachClass(long flightId, boolean isBusiness) {
-        return ticketRepository.countAllByFlight_IdAndIsBusinessAndIsDeleted(flightId, isBusiness, false);
+        return ticketRepository.countAllByFlight_IdAndBusinessAndIsDeleted(flightId, isBusiness, false);
     }
 
     @Override

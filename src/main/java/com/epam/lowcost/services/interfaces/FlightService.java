@@ -39,4 +39,6 @@ public interface FlightService {
 
     Flight getFlightByIdWithUpdatedPrice(Long id);
 
+    long getUpdatedFlightPrice(Flight flight);
+
 }
