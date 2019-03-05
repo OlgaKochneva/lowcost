@@ -25,7 +25,7 @@ public class Ticket {
     @JoinColumn(name="FLIGHT_ID")
     private Flight flight;
 
-    private boolean isBusiness;
+    private boolean business;
 
     private boolean hasLuggage;
 

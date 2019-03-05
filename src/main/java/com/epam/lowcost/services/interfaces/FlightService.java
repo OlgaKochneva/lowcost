@@ -22,14 +22,14 @@ public interface FlightService {
 
     Flight deleteFlight(Long id);
 
-
     List<Flight> getByFromToDate(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
-
 
     List<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo);
 
     List<Flight> getAllFlightsWithUpdatedPrice();
 
     Flight getFlightByIdWithUpdatedPrice(Long id);
+
+    long getUpdatedFlightPrice(Flight flight);
 
 }

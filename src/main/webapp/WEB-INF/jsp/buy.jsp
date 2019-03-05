@@ -25,7 +25,7 @@
     function updatePrice() {
         var price, isBusiness, hasLuggage, placePriority;
         price = parseInt(${flight.initialPrice});
-        isBusiness = document.getElementById("isBusiness");
+        isBusiness = document.getElementById("business");
         hasLuggage = document.getElementById("hasLuggage");
         placePriority = document.getElementById("placePriority");
         if (isBusiness.checked == true) {
@@ -71,7 +71,7 @@
                 <strong><spring:message code="lang.arriveAt"/>:</strong>
                 <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
                 <br/>
-                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="isBusiness" value="true" name="isBusiness"
+                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="business" value="true" name="business"
                                                                  onclick="updatePrice()"/>
                 + <c:out value="${flight.businessPrice}"/> <br/>
                 <strong><spring:message code="lang.hasLuggage"/>:</strong> <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
