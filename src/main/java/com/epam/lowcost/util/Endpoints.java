@@ -66,7 +66,7 @@ public final class Endpoints {
 
     //  Airport Controller endpoints
     public static final String AIRPORT = "/airport";
-    public static final String USER_SETTINGS = "/user-settings";
+    public static final String USER_SETTINGS = "userSettings";
     public static final String BLOCK_USER = "/block-user";
     public static final String UNBLOCK_USER = "/unblock-user";
     public static final String UPDATE_USER = "/update-user";

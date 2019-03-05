@@ -83,6 +83,9 @@
 
 
                         <td>
+                            <a href="<%=Endpoints.USER%>/${user.id}" class="btn btn-outline-primary updateBtn">
+                                <spring:message
+                                        code="lang.update"/></a>
 
                             <c:if test="${sessionUser.id != user.id}">
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
