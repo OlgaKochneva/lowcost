@@ -281,7 +281,7 @@ body {
 
 .updateBtn {
     margin-top: 16px;
-    width: 70%;
+    width: 100%;
 }
 
 /*----------------------------add flight page---------------------------------*/
@@ -331,17 +331,17 @@ body {
 
 .addPlaneBtn {
     margin-top: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .updatePlaneBtn {
-    width: 100%;
+    width: 80%;
 }
 
 .deletePlaneBtn {
-    margin-top: 20px;
+    margin-top: 10px;
 
-    width: 100%;
+    width: 80%;
 }
 
 .planeTitle {
@@ -428,4 +428,7 @@ body {
     margin-right: 10px;
     float: left;
 
+}
+.searchUser{
+    float: left;
 }

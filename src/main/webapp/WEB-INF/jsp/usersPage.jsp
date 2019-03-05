@@ -44,15 +44,19 @@
                     <option value="lastName">last name</option>
                     <option value="documentInfo">document info</option>
                 </select>
-                <input type="text" name="searchString" />
-                <input type="submit" value="Search"/>
+                <input type="text" class="form-control input" name="searchString"/>
+                <input type="submit" class="btn btn-outline-primary" value="<spring:message code="lang.search"/> "/>
             </div>
         </form>
-        <div  class="col-md-2 numOfUsers">
-            <form></form>
-            <spring:message code="lang.showUsersBy"/> <a
-                href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
-                href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+        <div class="row">
+            <div class="col-md-10 searchUser">
+
+            </div>
+            <div class="col-md-2 numOfUsers">
+                <spring:message code="lang.showUsersBy"/>
+                <a href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a>
+                <a href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+            </div>
         </div>
     </div>
 

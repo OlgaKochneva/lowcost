@@ -65,7 +65,19 @@
         </div>
     </div>
 </div>
+
 <div class="container mainSerchPage">
+    <div class="row">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2 numOfUsers">
+            <div>
+                <spring:message code="lang.showUsersBy"/> <a
+                    href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> | <a
+                    href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-10">
             <p style="color: #D35D47"><form:errors path="departureDate" /></p>
@@ -86,13 +98,7 @@
                     <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col"> <spring:message code="lang.price"/></th>
-                    <th><div >
-                        <form></form>
-                        <spring:message code="lang.showUsersBy"/> <a
-                            href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
-                            href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a><a
-                            href="?size=10&searchTerm=${searchTerm}&searchString=${searchString}">| 10</a>
-                    </div></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

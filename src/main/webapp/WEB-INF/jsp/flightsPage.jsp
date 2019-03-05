@@ -89,33 +89,13 @@
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
-
-
         </div>
         <div class="col-md-2 numOfUsers">
-            <%--<form></form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="3"/>--%>
-
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="5"/>--%>
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="10"/>--%>
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="20"/>--%>
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>--%>
-            <%--</form>--%>
-            <%--</div>--%>
+            <div>
+                <spring:message code="lang.showUsersBy"/> <a
+                    href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> | <a
+                    href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -130,12 +110,7 @@
                     <th scope="col"><spring:message code="lang.plane"/> </th>
                     <th scope="col"><spring:message code="lang.price"/></th>
                     <th></th>
-                    <th><div>
-                        <form></form>
-                        <spring:message code="lang.showUsersBy"/> <a
-                            href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
-                            href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
-                    </div></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

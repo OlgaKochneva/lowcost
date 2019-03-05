@@ -29,9 +29,20 @@
     </div>
 
     <h5>${message}</h5>
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <div>
 
+                <spring:message code="lang.showUsersBy"/>
+                <a href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> |
+                <a href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
+
         <div class="col-md-12">
             <table class="table table-striped">
                 <thead>
@@ -40,12 +51,7 @@
                     <th scope="col"><spring:message code="lang.numBusiness"/></th>
                     <th scope="col"><spring:message code="lang.numEconom"/></th>
                     <th scope="col">
-                        <div>
 
-                            <spring:message code="lang.showUsersBy"/><a
-                                href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
-                                href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
-                        </div>
                     </th>
                 </tr>
 

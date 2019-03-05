@@ -40,15 +40,14 @@
 
     </div>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-10">
 
         </div>
         <div  class="col-md-2 numOfUsersBtn">
-
             <spring:message code="lang.showUsersBy"/><br/>
-            <a href="?size=20&searchTerm=${searchTerm}&searchString=${searchString}">20|</a>
-            <a href="?size=50&searchTerm=${searchTerm}&searchString=${searchString}">50|</a>
-            <a href="?size=200&searchTerm=${searchTerm}&searchString=${searchString}">200</a>
+            <a href="?size=20&searchTerm=${searchTerm}&searchString=${searchString}">20</a>|
+            <a href="?size=50&searchTerm=${searchTerm}&searchString=${searchString}">50</a>
+            |<a href="?size=200&searchTerm=${searchTerm}&searchString=${searchString}">200</a>
 
         </div>
     <div class="row">
