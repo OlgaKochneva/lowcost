@@ -47,11 +47,11 @@
                         <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
                             <input type="hidden" name="ticketId" value="${ticket.id}">
                             <input type ="hidden" name="userEmail" value="${sessionUser.username}">
-                            <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.toEmail"/>" class="bbtn btn-light btnToEmail"/>
+                            <input type="submit" class="btn btn-link btnToEmail " value="<spring:message code="lang.toEmail"/>"/>
                         </form>
                         <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
                             <input type="hidden" name="ticketId" value="${ticket.id}">
-                            <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.download"/>" class="btn btn-light btnDownLoad"/>
+                            <input type="submit" class="btn btn-link btnDownLoad " value="<spring:message code="lang.download"/>"/>
                         </form>
                     </div>
                 </div>
@@ -86,11 +86,11 @@
                                 <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
                                     <input type="hidden" name="ticketId" value="${ticket.id}">
                                     <input type ="hidden" name="userEmail" value="${sessionUser.username}">
-                                    <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.toEmail"/>" class="btn btn-light btnToEmail"/>
+                                    <input type="submit" class="btn btn-link btnToEmail " value="<spring:message code="lang.toEmail"/>"/>
                                 </form>
                                 <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
                                     <input type="hidden" name="ticketId" value="${ticket.id}">
-                                    <input type="submit" class="btn btn-outline-primary " value="<spring:message code="lang.download"/>" class="btn btn-light btnDownLoad"/>
+                                    <input type="submit" class="btn btn-link btnDownLoad " value="<spring:message code="lang.download"/>"/>
                                 </form>
                         </div>
                     </div>
