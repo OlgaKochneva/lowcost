@@ -35,11 +35,6 @@ public class FlightValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "arrivalAirport", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "departureDate", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "arrivalDate", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "plane", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "initialPrice", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "placePriorityPrice", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "luggagePrice", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "businessPrice", "NotEmpty");
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())){
             errors.rejectValue("departureDate", "Date.incorrect.pastNow");
         }

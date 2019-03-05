@@ -132,8 +132,6 @@ public class FlightController {
                                                  BindingResult bindingResult, Pageable pageable) {
         if (flight.getArrivalDate() == null) {
             flight.setArrivalDate(flight.getDepartureDate().plusYears(1).plusDays(1));
-        } else {
-            flight.setArrivalDate(flight.getDepartureDate().plusDays(1));
         }
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors())
