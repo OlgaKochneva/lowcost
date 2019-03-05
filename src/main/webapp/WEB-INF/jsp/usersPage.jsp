@@ -84,7 +84,12 @@
 
                         <td>
 
+
                             <c:if test="${sessionUser.id != user.id}">
+                                <a href="<%=Endpoints.USER%>/${user.id}" class="btn btn-outline-primary updateBtn">
+                                    <spring:message
+                                            code="lang.update"/></a>
+
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                                     <c:if test="${user.active}">
                                         <form action="<%=BLOCK_USER%>" method="post">
