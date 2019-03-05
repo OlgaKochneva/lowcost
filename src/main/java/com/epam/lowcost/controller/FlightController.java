@@ -57,6 +57,7 @@ public class FlightController {
     public String findFlightById(@PathVariable Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
         model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("planes", planeService.getAllPlanes());
         return FLIGHTSETTINGS;
     }
 
@@ -67,6 +68,7 @@ public class FlightController {
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("planes", planeService.getAllPlanes());
             return FLIGHTSETTINGS;
         }
         flightService.updateFlight(flight);

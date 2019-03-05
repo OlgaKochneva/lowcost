@@ -27,24 +27,41 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3 usersTitle">
+        <div class="col-md-12 UserPageP">
             <spring:message code="lang.users"/>
+
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-        <form action="<%=SEARCH%>" method="post">
-                <spring:message code="lang.searchBy"/>
-                <select class="form-control selection" name="searchTerm">
-                    <option value="all">show all</option>
-                    <option value="username">email</option>
-                    <option value="lastName">last name</option>
-                    <option value="documentInfo">document info</option>
-                </select>
-                <input type="text" class="form-control input searchField" name="searchString"/><br/>
-                <input type="submit" class="btn btn-outline-primary" value="<spring:message code="lang.search"/> "/>
-            </div>
-        </form>
+
+        <div class="col-md-12 blockUserPage">
+            <form action="<%=SEARCH%>" method="post">
+                <div class="block4">
+                    <spring:message code="lang.searchBy"/>
+                </div>
+                <div class="block1">
+                    <select class="form-control " name="searchTerm">
+                        <option value="all">show all</option>
+                        <option value="username">email</option>
+                        <option value="lastName">last name</option>
+                        <option value="documentInfo">document info</option>
+                    </select>
+                </div>
+                <div class="block2">
+                    <input type="text" class="form-control  " name="searchString"/><br/>
+                </div>
+                <div class="block3">
+                    <input type="submit" class="btn btn-outline-primary" value="<spring:message code="lang.search"/> "/>
+                </div>
+
+            </form>
+        </div>
+
+
+
+
+
+
     </div>
     <div class="row">
         <div class="col-md-10">
