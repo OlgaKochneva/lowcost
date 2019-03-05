@@ -74,7 +74,8 @@ public class UserController {
 
         return SETTINGS_PAGE;
     }
-    @RequestMapping(value = USER +"/{user}", method = RequestMethod.GET)
+
+    @RequestMapping(value = USER + "/{user}", method = RequestMethod.GET)
     public String updatePlanePage(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         return "userSettings";
@@ -89,12 +90,16 @@ public class UserController {
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
         userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-        if("admin".equals(model.get("fromAdmin"))){
-
-            userToUpdate.setPassword(params.get("password"));
+        if ("admin".equals(params.get("fromAdmin"))) {
+            if (userToUpdate.getPassword().equals(params.get("password"))) {
+                userToUpdate.setPassword(params.get("password"));
+            } else {
+                userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+            }
+            userService.updateUser(userToUpdate);
             return "redirect:" + USERS;
         }
-        model.addAttribute("sessionUser",userService.updateUser(userToUpdate));
+        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
         return "redirect:" + USER_SETTINGS;
     }
 

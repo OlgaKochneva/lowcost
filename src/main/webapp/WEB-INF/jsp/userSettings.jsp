@@ -1,8 +1,10 @@
+<%@ page import="static com.epam.lowcost.util.Endpoints.UPDATE_USER" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--@elvariable id="user" type="com.epam.lowcost.model.User"--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.update"/></title>
     <spring:url value="/resources/static/css/main.css" var="main_css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -13,7 +15,7 @@
 <body>
 <div class="row">
     <div class="col-md-3 changeData">
-        <form action="/update-user" method="post">
+        <form action="<%=UPDATE_USER%>" method="post">
             <input type="hidden" name="fromAdmin" value="admin"/>
             <input type="hidden" name="id" value="${user.id}"/>
 
