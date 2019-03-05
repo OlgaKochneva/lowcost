@@ -1,6 +1,5 @@
 package com.epam.lowcost.controller;
 
-import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.implementations.EmailServiceImpl;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -34,7 +32,7 @@ public class TicketController {
 
 
     @Autowired
-    public TicketController(TicketService ticketService, PDFService pdfService, EmailServiceImpl emailService,UserService userService) {
+    public TicketController(TicketService ticketService, PDFService pdfService, EmailServiceImpl emailService, UserService userService) {
         this.ticketService = ticketService;
         this.pdfService = pdfService;
         this.emailService = emailService;
@@ -43,12 +41,12 @@ public class TicketController {
 
 
     @GetMapping(value = PDF)
-    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail){
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail) {
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
-                    String.format("Ticket for order №%s",ticketId),
-                    String.format("Ticket for order №%s in attachments.",ticketId),String.format("src/main/webapp/resources/tickets_pdf/Ticket_№%d.pdf",ticketId));
+                    String.format("Ticket for order №%s", ticketId),
+                    String.format("Ticket for order №%s in attachments.", ticketId), String.format("src/main/webapp/resources/tickets_pdf/Ticket_№%d.pdf", ticketId));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,26 +74,13 @@ public class TicketController {
                 MediaType.parseMediaType("application/txt")).body(resource);
     }
 
-    @GetMapping(value = FLIGHT)
-    public String getAllTickets(@RequestParam long id, ModelMap model) {
-        model.addAttribute("tickets", ticketService.getAllTicketsForCurrentFlight(id));
-        return TICKETS_PAGE;
-    }
-
-
     @PostMapping(value = ADD)
-    public String addTicket(@ModelAttribute ("ticket") Ticket ticket, ModelMap model) {
+    public String addTicket(@ModelAttribute("ticket") Ticket ticket, ModelMap model) {
         User user = userService.getSessionUser();
-        model.addAttribute("sessionUser",user);
+        model.addAttribute("sessionUser", user);
         ticket.setUser(user);
         ticketService.addTicket(ticket);
         return "redirect:" + TICKETS + SELF;
-    }
-
-    @PostMapping(value = DELETE)
-    public String deleteTicket(@RequestParam long id, ModelMap model) {
-        model.addAttribute("message", ticketService.deleteTicketById(id));
-        return "redirect:" + TICKETS + FLIGHT;
     }
 
     @PostMapping(value = PAY)
@@ -114,7 +99,7 @@ public class TicketController {
     public String getAllUserTickets(ModelMap model) {
         User user = userService.getSessionUser();
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
-        model.addAttribute("sessionUser",user);
+        model.addAttribute("sessionUser", user);
         return ACCOUNT;
     }
 }
