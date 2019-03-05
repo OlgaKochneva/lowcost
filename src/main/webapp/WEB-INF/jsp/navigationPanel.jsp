@@ -14,7 +14,8 @@
 
 <header class="languageAndAccaunt">
     <div align="right" class="language">
-        <a href="?lang=en">Eng |</a> <a href="?lang=ru">Rus</a>
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
 
     </div>
     <div align="right" class="language">

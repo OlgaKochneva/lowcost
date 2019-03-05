@@ -16,10 +16,11 @@
 <body>
 
 <div class="wrapper">
+    <p align="right" class="language"><a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a></p>
 
-
-    <br/>
     <div class="main_block">
+
         <p class="greeting"><spring:message code="lang.loginIntroduction"/></p>
         <form method="POST" action="${contextPath}/login" class="form-signin">
             <p class="message">${message}</p>
