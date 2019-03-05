@@ -79,5 +79,6 @@ public final class Endpoints {
 
     public static final String PDF = "/pdf" ;
     public static final String DOWNLOAD = "/download";
+    public static final String SETTINGS = "/settings";
 }
 
