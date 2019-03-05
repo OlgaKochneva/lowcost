@@ -1,12 +1,8 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Flight;
-import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.model.Ticket;
-import com.epam.lowcost.services.interfaces.AirportService;
-import com.epam.lowcost.services.interfaces.FlightService;
-import com.epam.lowcost.services.interfaces.PlaneService;
-import com.epam.lowcost.services.interfaces.TicketService;
+import com.epam.lowcost.services.interfaces.*;
 import com.epam.lowcost.util.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -34,16 +27,18 @@ public class FlightController {
     private final TicketService ticketService;
     private final FlightValidator flightValidator;
     private final PlaneService planeService;
+    private final UserService userService;
 
     @Autowired
     public FlightController(FlightService flightService, AirportService airportService,
                             FlightValidator flightValidator, TicketService ticketService,
-                            PlaneService planeService) {
+                            PlaneService planeService, UserService userService) {
         this.flightService = flightService;
         this.airportService = airportService;
         this.flightValidator = flightValidator;
         this.ticketService = ticketService;
         this.planeService = planeService;
+        this.userService = userService;
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -96,6 +91,7 @@ public class FlightController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = NEW_TICKET + "/{id}", method = RequestMethod.GET)
     public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
+        model.addAttribute("sessionUser",userService.getSessionUser());
         model.addAttribute("flight", flightService.getFlightByIdWithUpdatedPrice(id));
         model.addAttribute("ticket", new Ticket());
         return BUY;
