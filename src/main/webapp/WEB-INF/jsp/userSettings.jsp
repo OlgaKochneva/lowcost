@@ -1,5 +1,6 @@
 <%@ page import="static com.epam.lowcost.util.Endpoints.UPDATE_USER" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--@elvariable id="user" type="com.epam.lowcost.model.User"--%>
 <!DOCTYPE html>
 <html lang="en">
