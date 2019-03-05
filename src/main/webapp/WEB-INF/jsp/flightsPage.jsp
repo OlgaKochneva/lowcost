@@ -26,12 +26,18 @@
 </head>
 <body>
 <div class="container">
-    <div class="row BlockBachground">
+    <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH +Endpoints.ADMIN%>" modelAttribute="flight" method="get">
+        <br/>
+        <p style="color: #D35D47"><form:errors path="departureDate" /></p>
+        <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
+        <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
+        <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+        <div class="row BlockBachground">
         <div class="col-md-8">
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH +Endpoints.ADMIN%>" modelAttribute="flight" method="get">
+
             <div class="leftBlockSerch">
 
                 <spring:bind path="departureDate">
@@ -67,8 +73,8 @@
         <div class="col-md-4">
 
             <button type="submit" value="" class="btn btn-outline-warning btnSeach"><spring:message code="lang.search"/></button>
-
             </form:form>
+
 
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" method="get">
@@ -81,11 +87,9 @@
 
 
     </div>
+
 </div>
-<p style="color: #D35D47"><form:errors path="departureDate" /></p>
-<p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
-<p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
-<p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
@@ -98,6 +102,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">

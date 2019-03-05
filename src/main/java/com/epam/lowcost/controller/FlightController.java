@@ -157,6 +157,8 @@ public class FlightController {
         bindingResult = findFlightByFromToDate(flight, model, false, bindingResult, pageable);
         if (bindingResult.hasErrors()) {
             model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
+            model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("currentTime", LocalDateTime.now());
 
         }
         model.addAttribute("airports", airportService.getAllAirports());
@@ -172,6 +174,8 @@ public class FlightController {
         bindingResult = findFlightByFromToDate(flight, model, true, bindingResult, pageable);
         if (bindingResult.hasErrors()) {
             model.addAttribute("flights", flightService.getAllFlights(pageable));
+            model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("currentTime", LocalDateTime.now());
         }
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());

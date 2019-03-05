@@ -25,12 +25,18 @@
 </head>
 <body>
 <div class="container">
+    <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" modelAttribute="flight" method="get">
+    <br/>
+    <p style="color: #D35D47"><form:errors path="departureDate" /></p>
+    <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
+    <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
+    <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
     <div class="row BlockBachground">
         <div class="col-md-8">
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" modelAttribute="flight" method="get">
+
             <div class="leftBlockSerch">
                 <spring:bind path="departureDate">
                     <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
@@ -80,10 +86,7 @@
     </div>
     <div class="row">
         <div class="col-md-10">
-            <p style="color: #D35D47"><form:errors path="departureDate" /></p>
-            <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
-            <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
-            <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+
             </form:form>
         </div>
 
