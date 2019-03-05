@@ -121,8 +121,8 @@ public class FlightController {
 
 
     @RequestMapping(value = FLIGHT, method = RequestMethod.GET)
-    public String searchForFlight(ModelMap model) {
-        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
+    public String searchForFlight(ModelMap model, Pageable pageable) {
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());
         model.addAttribute("flight", new Flight());
