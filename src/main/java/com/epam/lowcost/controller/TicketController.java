@@ -6,12 +6,11 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.implementations.EmailServiceImpl;
 import com.epam.lowcost.services.implementations.PDFService;
 import com.epam.lowcost.services.interfaces.TicketService;
+import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -22,12 +21,15 @@ public class TicketController {
     private final TicketService ticketService;
     private final PDFService pdfService;
     private final EmailServiceImpl emailService;
+    private final UserService userService;
+
 
     @Autowired
-    public TicketController(TicketService ticketService, PDFService pdfService, EmailServiceImpl emailService) {
+    public TicketController(TicketService ticketService, PDFService pdfService, EmailServiceImpl emailService,UserService userService) {
         this.ticketService = ticketService;
         this.pdfService = pdfService;
         this.emailService = emailService;
+        this.userService = userService;
     }
 
 
@@ -81,8 +83,9 @@ public class TicketController {
 
     @GetMapping(value = SELF)
     public String getAllUserTickets(ModelMap model) {
-        User user = (User) model.get("sessionUser");
+        User user = userService.getSessionUser();
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
+        model.addAttribute("sessionUser",user);
         return ACCOUNT;
     }
 }
