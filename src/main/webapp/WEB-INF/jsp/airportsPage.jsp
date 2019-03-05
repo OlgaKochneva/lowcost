@@ -33,8 +33,8 @@
         <div class="col-md-3 findAirportBtn">
         <spring:message code="lang.findAirportByCity"/>
         <form action="<%=Endpoints.AIRPORT%>" method="get">
-            <input class="form-control input codeInputAirports" type="text" name="city"/>
-            <button type="submit" class="btn btn-outline-primary okBtnAirports">OK</button>
+            <input class="form-control input codeInputAirports" list="cities" required type="text" name="city"/>
+            <input type="submit" class="btn btn-outline-primary okBtnAirports" name="OK"/>
         </form>
         </div>
 
@@ -122,7 +122,11 @@
 
     <br/>
     ${airport}<br/> <h4>${message}</h4>
-
+        <datalist id="cities">
+            <c:forEach items="${airports}" var="airport">
+                <option hidden value="${airport.cityEng}"> </option>
+            </c:forEach>
+        </datalist>
 </div>
 </body>
 </html>

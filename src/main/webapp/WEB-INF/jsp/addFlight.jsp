@@ -25,42 +25,67 @@
     <div class="row">
         <div class="col-md-4 mainContentAdd">
             <h4><spring:message code="lang.addNewFlight"/><br/></h4>
-            <form:form method="post" action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" modelAttribute="flight" >
+            <form:form method="post" action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" modelAttribute="flight">
 
-                <spring:message code="lang.price"/><br/><input type="text" class="form-control input" required name="initialPrice"/>
-                <spring:message code="lang.planeId"/><br/><input type="text"  class="form-control input" required name="planeId"/>
+                <spring:bind path="initialPrice">
+                    <div>
+                        <spring:message code="lang.price"/><br/>
+                        <form:input type="text" class="form-control input" path="initialPrice"/>
+                    </div>
+                </spring:bind>
+                <spring:bind path="plane">
+                    <div>
+                        <spring:message code="lang.planeId"/><br/>
+                        <form:input type="text" class="form-control input" path="plane"/>
+                    </div>
+                </spring:bind>
                 <spring:bind path="departureDate">
                     <div>
                         <spring:message code="lang.departureDateFrom"/><br/>
-                        <form:errors path="departureDate" cssStyle="color: #dc3545"/>
                         <form:input type="datetime-local" path="departureDate" class="form-control input"/>
+                        <form:errors path="departureDate" cssStyle="color: #dc3545"/>
 
                     </div>
                 </spring:bind>
                 <spring:bind path="arrivalDate">
                     <div>
                         <spring:message code="lang.arriveAt"/><br/>
-                        <form:errors path="arrivalDate" cssStyle="color: #dc3545"/>
                         <form:input type="datetime-local" path="arrivalDate" class="form-control input"/>
+                        <form:errors path="arrivalDate" cssStyle="color: #dc3545"/>
 
                     </div>
                 </spring:bind>
-                <%--<spring:message code="lang.departureDateFrom"/><br/><input type="datetime-local"  class="form-control input" required name="departureDate"/>--%>
-                <%--<spring:message code="lang.arriveAt"/><br/><input type="datetime-local"  class="form-control input" required name="arrivalDate"/>--%>
-                <spring:message code="lang.departureAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="departureAirport"/>
-                <%--<spring:message code="lang.arrivalAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="arrivalAirport"/>--%>
+                <spring:bind path="departureAirport">
+                    <div>
+                        <spring:message code="lang.departureAirport"/><br/>
+                        <form:input type="text" class="form-control input" list="airport" path="departureAirport"/>
+                    </div>
+                </spring:bind>
                 <spring:bind path="arrivalAirport">
                     <div>
                         <spring:message code="lang.arrivalAirport"/><br/>
+                        <form:input type="text" path="arrivalAirport" list="airport" class="form-control input"/>
                         <form:errors path="arrivalAirport" cssStyle="color: #dc3545"/>
-                        <form:input type="text"  path="arrivalAirport" list="airport" class="form-control input"/>
-
                     </div>
                 </spring:bind>
-                <spring:message code="lang.placePriorityPrice"/>.<br/><input type="text"  class="form-control input" required name="placePriorityPrice"/>
-                <spring:message code="lang.businessPrice"/><br/><input type="text"  class="form-control input" required name="businessPrice"/>
-                <spring:message code="lang.luggagePrice"/><br/><input type="text"  class="form-control input" required name="luggagePrice"/>
-
+                <spring:bind path="placePriorityPrice">
+                    <div>
+                        <spring:message code="lang.placePriorityPrice"/>.<br/>
+                        <form:input type="text" class="form-control input" path="placePriorityPrice"/>
+                    </div>
+                </spring:bind>
+                <spring:bind path="businessPrice">
+                    <div>
+                        <spring:message code="lang.businessPrice"/>.<br/>
+                        <form:input type="text" class="form-control input" path="businessPrice"/>
+                    </div>
+                </spring:bind>
+                <spring:bind path="luggagePrice">
+                    <div>
+                        <spring:message code="lang.luggagePrice"/>.<br/>
+                        <form:input type="text" class="form-control input" path="luggagePrice"/>
+                    </div>
+                </spring:bind>
                 <input type="submit" class="btn btn-outline-success addFlightBtn" value="OK"/>
             </form:form>
         </div>
