@@ -114,7 +114,7 @@
                 </thead>
                 <tbody>
 
-                <c:forEach items="${flights}" var="flight">
+                <c:forEach items="${flights.getContent()}" var="flight">
                     <c:if test="${flight.departureDate gt currentTime}">
 
                         <tr>
