@@ -83,18 +83,22 @@ public class FlightServiceImpl implements FlightService {
     public Page<Flight> getFilteredFlightsWithUpdatedPrice(Airport departureAirport, Airport arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo, Pageable pageable) {
         Page<Flight> flights = getByFromToDate(departureAirport, arrivalAirport,
                 departureDateFrom, departureDateTo, pageable);
-        flights.forEach(f -> updateFlightPrice(f));
-        flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
-        flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
+        flights.forEach(f ->{
+                    f.setInitialPrice(getUpdatedFlightPrice(f));
+                    f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f));
+                    f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f));
+        });
         return flights;
     }
 
     @Override
     public Page<Flight> getAllFlightsWithUpdatedPrice(Pageable pageable) {
         Page<Flight> flights = getAllFlights(pageable);
-        flights.forEach(this::updateFlightPrice);
-        flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
-        flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
+        flights.forEach(f ->{
+            f.setInitialPrice(getUpdatedFlightPrice(f));
+            f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f));
+            f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f));
+        });
         return flights;
     }
 
