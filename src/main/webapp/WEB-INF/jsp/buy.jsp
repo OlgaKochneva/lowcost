@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -42,50 +43,153 @@
 </script>
 
 <body>
+<header class="languageAndAccaunt">
+    <div align="right" class="language">
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+    </div>
+    <div align="right" class="language">
+        <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+        <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+            <spring:message code="lang.logIn"/>
+        </c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+            <spring:message code="lang.logOut"/>
+        </c:if>
+
+    </div>
+    <div class="topnav">
+        <a class=" navbarLink" href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+        <a class=" navbarLink activeNav" href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink "> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+    </div>
+
+</header>
+
 <div class="container">
     <div class="row ">
         <div class="col-md-12 mainContentBuy">
             <form:form action="<%=Endpoints.TICKETS + Endpoints.ADD%>" modelAttribute="ticket" method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.firstName"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="firstName">${sessionUser.firstName}</output>
+                    </div>
+                </div>
 
-                <strong><spring:message code="lang.firstName"/>:</strong>
-                <output name="firstName">${sessionUser.firstName}</output>
-                <br/>
-                <strong> <spring:message code="lang.lastName"/>:</strong>
-                <output name="lastName">${sessionUser.lastName}</output>
-                <br/>
-                <strong><spring:message code="lang.document"/>:</strong>
-                <output name="Passport">${sessionUser.documentInfo}</output>
-                <br/>
-                <strong><spring:message code="lang.birthday"/>:</strong>
-                <output name="Birthdate">${sessionUser.birthday}</output>
-                <br/>
-                <strong><spring:message code="lang.departureAirport"/>:</strong>
-                <output name="from">${flight.departureAirport.cityEng}</output>
-                <br/>
-                <strong><spring:message code="lang.arrivalAirport"/>:</strong>
-                <output name="arrivaAirport">${flight.arrivalAirport.cityEng}</output>
-                <br/>
-                <strong><spring:message code="lang.departureAt"/>:</strong>
-                <output name="departureDate">${flight.departureDate.toString().replaceAll('T',' ')}</output>
-                <br/>
-                <strong><spring:message code="lang.arriveAt"/>:</strong>
-                <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
-                <br/>
-                <strong><spring:message code="lang.isBusiness"/>:</strong> <input type="checkbox" id="business" value="true" name="business"
-                                                                                  onclick="updatePrice()"/>
-                + <c:out value="${flight.businessPrice}"/> <br/>
-                <strong><spring:message code="lang.hasLuggage"/>:</strong> <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
-                                                                                  onclick="updatePrice()"/>+ <c:out
-                    value="${flight.luggagePrice}"/><br/>
-                <strong><spring:message code="lang.placePriority"/>:</strong> <input type="checkbox" id="placePriority" name="placePriority"
-                                                                                     value="true"
-                                                                                     onclick="updatePrice()"/> + <c:out
-                    value="${flight.placePriorityPrice}"/><br/>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong> <spring:message code="lang.lastName"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="lastName">${sessionUser.lastName}</output>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.document"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="Passport">${sessionUser.documentInfo}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.birthday"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="Birthdate">${sessionUser.birthday}</output>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.departureAirport"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="from">${flight.departureAirport.cityEng}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.arrivalAirport"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="arrivalAirport">${flight.arrivalAirport.cityEng}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.departureAt"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output name="departureDate">${flight.departureDate.toString().replaceAll('T',' ')}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.arriveAt"/>:</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <output name="arrivalDate">${flight.arrivalDate.toString().replaceAll('T',' ')}</output>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.isBusiness"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" id="business" value="true" name="business"
+                               onclick="updatePrice()"/>
+                        + <c:out value="${flight.businessPrice}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.hasLuggage"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
+                               onclick="updatePrice()"/>+ <c:out
+                            value="${flight.luggagePrice}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.placePriority"/>:</strong>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" id="placePriority" name="placePriority"
+                               value="true"
+                               onclick="updatePrice()"/> + <c:out
+                            value="${flight.placePriorityPrice}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong><spring:message code="lang.total"/></strong>
+                    </div>
+                    <div class="col-md-2">
+                        <output id="price">${flight.initialPrice}</output>
+                    </div>
+                </div>
+
                 <input type="hidden" name="flight" value="${flight.id}"/>
-                <strong><spring:message code="lang.total"/></strong> <output id="price">${flight.initialPrice}</output>
+
                 </br> <input type="submit" value="<spring:message code="lang.book"/>" class="buyButtonBuyPage btn btn-outline-success"/>
             </form:form>
-            <form action="<%=Endpoints.FLIGHTS + Endpoints.RETURN%>" method="get">
+            <form action="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>" method="get">
                 <input type="submit" value="<spring:message code="lang.cancel"/>" class="cancellButtonBuyPage2 btn btn-outline-danger"/>
             </form>
         </div>

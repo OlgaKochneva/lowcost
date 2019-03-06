@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -24,13 +25,49 @@
 
 </head>
 <body>
+<header class="languageAndAccaunt">
+<div align="right" class="language">
+    <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+    <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+</div>
+<div align="right" class="language">
+    <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+    <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+        <spring:message code="lang.logIn"/>
+    </c:if>
+    <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+        <spring:message code="lang.logOut"/>
+    </c:if>
+
+</div>
+<div class="topnav">
+    <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+    <a class=" navbarLink activeNav" href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+    <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink "> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+    <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+    <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+</div>
+
+</header>
 <div class="container">
+    <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" modelAttribute="flight" method="get">
+    <br/>
+    <p style="color: #D35D47"><form:errors path="departureDate" /></p>
+    <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
+    <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
+    <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
     <div class="row BlockBachground">
         <div class="col-md-8">
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH%>" modelAttribute="flight" method="get">
+
             <div class="leftBlockSerch">
                 <spring:bind path="departureDate">
                     <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
@@ -65,13 +102,22 @@
         </div>
     </div>
 </div>
+
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
-            <p style="color: #D35D47"><form:errors path="departureDate" /></p>
-            <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
-            <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
-            <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+        </div>
+        <div class="col-md-2 numOfUsers">
+            <div>
+                <spring:message code="lang.showUsersBy"/> <a
+                    href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> | <a
+                    href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+
             </form:form>
         </div>
 
@@ -86,13 +132,7 @@
                     <th scope="col"><spring:message code="lang.departureAt"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col"> <spring:message code="lang.price"/></th>
-                    <th><div >
-                        <form></form>
-                        <spring:message code="lang.showUsersBy"/> <a
-                            href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
-                            href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a><a
-                            href="?size=10&searchTerm=${searchTerm}&searchString=${searchString}">| 10</a>
-                    </div></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

@@ -19,76 +19,74 @@
 <body>
 
 <div class="wrapper">
-    <p align="right" class="language"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></p>
+    <p align="right" class="language"><a href="?lang=en"><img
+            src="../../resources/static/img/united_kingdom_round_icon_64.png"/></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a></p>
     <div class="main_block">
-    <form:form action="<%=Endpoints.REGISTRATION%>" method="POST" modelAttribute="userForm" class="form-signin">
+        <form:form action="<%=Endpoints.REGISTRATION%>" method="POST" modelAttribute="userForm" class="form-signin">
         <h5><spring:message code="lang.fillForm"/></h5>
         <spring:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.email"/>
-                <form:input type="text" path="username" class="form-control input"
-                            autofocus="true"></form:input>
-                <form:errors path="username"></form:errors>
-            </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.email"/>
+            <form:input type="text" path="username" class="form-control input"
+                        autofocus="true"></form:input>
+            <p class="errors"><form:errors path="username"/></p>
+        </div>
         </spring:bind>
 
         <spring:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.password"/>
-                <form:input type="password" path="password" class="form-control input"
-                ></form:input>
-                <form:errors path="password"></form:errors>
-            </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.password"/>
+            <form:input type="password" path="password" class="form-control input"/>
+            <p class="errors"><form:errors path="password"/></p>
+        </div>
         </spring:bind>
 
         <spring:bind path="passwordConfirm">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.repeatPassword"/>
-                <form:input type="password" path="passwordConfirm" class="form-control input"
-                            ></form:input>
-                <form:errors path="passwordConfirm"></form:errors>
-            </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.repeatPassword"/>
+            <form:input type="password" path="passwordConfirm" class="form-control input"/>
+            <div class="errors"><form:errors path="passwordConfirm"/></div>
+        </div>
         </spring:bind>
 
         <spring:bind path="firstName">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.firstName"/>
-                <form:input type="text" path="firstName" class="form-control input"
-                            ></form:input>
-                <form:errors path="firstName"></form:errors>
-            </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.firstName"/>
+            <form:input type="text" path="firstName" class="form-control input"/>
+            <div class="errors"><form:errors path="firstName"/></div>
+        </div>
         </spring:bind>
 
         <spring:bind path="lastName">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.lastName"/>
-                <form:input type="text" path="lastName" class="form-control input"
-                            ></form:input>
-                <form:errors path="lastName"></form:errors>
-            </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.lastName"/>
+            <form:input type="text" path="lastName" class="form-control input"/>
+            <p class="errors"><form:errors path="lastName"/></p>
+        </div>
         </spring:bind>
 
         <spring:bind path="documentInfo">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.document"/>
-                <form:input type="text" path="documentInfo" class="form-control input"
-                           ></form:input>
-                <form:errors path="documentInfo"></form:errors>
-            </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.document"/>
+            <form:input type="text" path="documentInfo" class="form-control input"/>
+            <p class="errors"><form:errors path="documentInfo"/></p>
+        </div>
         </spring:bind>
 
         <spring:bind path="birthday">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <spring:message code="lang.birthday"/>
-                <form:input type="date" path="birthday" class="form-control input"
-                           ></form:input>
-                <form:errors path="birthday"></form:errors>
-            </div>
-        </spring:bind>
-        <button class="btn btn-outline-primary btnSignUp" type="submit"><spring:message code="lang.submit"/></button>
-    </form:form>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <spring:message code="lang.birthday"/>
+            <form:input type="date" path="birthday" class="form-control input"/>
+            <p class="errors"><form:errors path="birthday"/></p>
+            </spring:bind>
+            <button class="btn btn-outline-primary btnSignUp" type="submit"><spring:message
+                    code="lang.submit"/></button>
+            </form:form>
+        </div>
+    </div>
 </div>
 
-</div>
+
 </body>
 </html>
