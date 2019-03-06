@@ -70,6 +70,7 @@
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
                                                                    value="${sessionUser.username}"
                                                                    name="username"/>
+               <c:if test="${userMessage == true}"> <div><p class="message"><spring:message code="lang.succesUpdate"/> </p> </div></c:if>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
                                                                        value="${sessionUser.firstName}"/>
@@ -97,7 +98,8 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
-            <h5>${message}</h5>
+            <c:if test="${message.equals('Wrong password!')}"> <div><p class="message"><spring:message code="lang.wrongPassword"/> </p> </div></c:if>
+            <c:if test="${message.equals('Passwords do not match!')}"> <div><p class="message"><spring:message code="lang.passwordsDoNotMatch"/> </p> </div></c:if>
 
             <form action="<%=CHANGE_PASSWORD%>" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>

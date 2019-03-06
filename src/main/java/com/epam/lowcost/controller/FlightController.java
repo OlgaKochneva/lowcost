@@ -90,7 +90,7 @@ public class FlightController {
         return TICKETS_PAGE;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    /*@PreAuthorize("hasAuthority('ROLE_ADMIN')")*/
     @RequestMapping(value = NEW_TICKET + "/{id}", method = RequestMethod.GET)
     public String findFlightSetPriceByDate(@PathVariable Long id, Model model) {
         model.addAttribute("sessionUser",userService.getSessionUser());
