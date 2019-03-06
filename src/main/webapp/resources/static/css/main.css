@@ -447,8 +447,9 @@ body {
     width: 85%;
 }
 .activeNav{
-    -moz-text-shadow:0 0 10px white;
-    -webkit-text-shadow:0 0 10px #c00; text-shadow:0 0 10px white;
+    /*-moz-text-shadow:5px 5px 5px white;*/
+    /*-webkit-text-shadow:0 10px 10px #FF7F50; text-shadow:10px 5px 5px #FF7F50;*/
+    color: #68b1ff;
 
 }
 .block1 {
