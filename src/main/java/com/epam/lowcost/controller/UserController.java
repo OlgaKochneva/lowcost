@@ -137,4 +137,9 @@ public class UserController {
         return SETTINGS_PAGE;
     }
 
+    @GetMapping(value = "/team")
+    public String teamPage(){
+
+        return "teamPage";
+    }
 }
