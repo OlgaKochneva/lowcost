@@ -2,6 +2,8 @@ package com.epam.lowcost.repositories;
 
 import com.epam.lowcost.model.Ticket;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> findByUser_IdAndIsDeleted(long userId, boolean isDeleted);
+    Page<Ticket> findByUser_IdAndIsDeleted(long userId, boolean isDeleted, Pageable pageable);
 
     List<Ticket> findAll();
 
