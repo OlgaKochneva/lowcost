@@ -85,26 +85,28 @@ public class UserController {
     }
 
     @RequestMapping(value = UPDATE_USER)
-    public String updateUser(@RequestParam Map<String, String> params, ModelMap model) {
-
-        User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
-        userToUpdate.setUsername(params.get("username"));
-        userToUpdate.setFirstName(params.get("firstName"));
-        userToUpdate.setLastName(params.get("lastName"));
-        userToUpdate.setDocumentInfo(params.get("documentInfo"));
-        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
-        if ("admin".equals(params.get("fromAdmin"))) {
-            if (userToUpdate.getPassword().equals(params.get("password"))) {
-                userToUpdate.setPassword(params.get("password"));
-            } else {
-                userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+    public String updateUser(@RequestParam(required = false) Map<String, String> params, ModelMap model) {
+        if(params != null) {
+            User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
+            userToUpdate.setUsername(params.get("username"));
+            userToUpdate.setFirstName(params.get("firstName"));
+            userToUpdate.setLastName(params.get("lastName"));
+            userToUpdate.setDocumentInfo(params.get("documentInfo"));
+            userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
+            if ("admin".equals(params.get("fromAdmin"))) {
+                if (userToUpdate.getPassword().equals(params.get("password"))) {
+                    userToUpdate.setPassword(params.get("password"));
+                } else {
+                    userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+                }
+                userService.updateUser(userToUpdate);
+                return "redirect:" + USERS;
             }
-            userService.updateUser(userToUpdate);
-            return "redirect:" + USERS;
+            model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
+            model.addAttribute("userMessage", true);
         }
-        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
-        return "redirect:" + USER_SETTINGS;
-    }
+        return SETTINGS_PAGE;
+}
 
     @RequestMapping(value = CHANGE_PASSWORD)
     public String changePassword(@RequestParam Map<String, String> params, Model model) {
@@ -112,15 +114,15 @@ public class UserController {
 
         if (!bCryptPasswordEncoder.matches(params.get("oldPassword"), userToUpdate.getPassword())) {
             model.addAttribute("message", "Wrong password!");
-            return "redirect:" + USER_SETTINGS;
+            return SETTINGS_PAGE;
         }
         if (!params.get("newPassword").equals(params.get("newPassword2"))) {
             model.addAttribute("message", "Passwords do not match!");
-            return "redirect:" + USER_SETTINGS;
+            return SETTINGS_PAGE;
         }
         userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("newPassword")));
         userService.updateUser(userToUpdate);
-        return "redirect:" + USER_SETTINGS;
+        return SETTINGS_PAGE;
     }
 
 }

@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -21,6 +22,36 @@
 </head>
 <body>
 <jsp:include page="navigationPanel.jsp"/>
+<header class="languageAndAccaunt">
+    <div align="right" class="language">
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+    </div>
+    <div align="right" class="language">
+        <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+        <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+            <spring:message code="lang.logIn"/>
+        </c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+            <spring:message code="lang.logOut"/>
+        </c:if>
+
+    </div>
+    <div class="topnav">
+        <a class=" navbarLink" href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+        <a class=" navbarLink " href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink "> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink activeNav"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+    </div>
+
+</header>
 
 <div class="container">
     <div class="row">
@@ -42,8 +73,9 @@
                 </spring:bind>
                 <spring:bind path="plane">
                     <div>
-                        <spring:message code="lang.planeId"/><br/>
-                        <form:input type="text" class="form-control input" path="plane"/>
+                        <spring:message code="lang.plane"/><br/>
+                        <form:input list="planes" id="planeList" class="form-control input" path="plane"/>
+                        <form:errors path="plane"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="departureDate">
@@ -94,7 +126,7 @@
                     </div>
                 </spring:bind>
                 <input type="submit" value="<spring:message code="lang.update"/> "
-                       class="btn btn-outline-success updateBtn"/>
+                       class="btn btn-outline-success updateBtn" id="submit"/>
 
             </form:form>
 
@@ -110,8 +142,26 @@
     </c:forEach>
 </datalist>
 
-<%--<datalist id="planes">--%>
+<datalist id="planes">
+    <c:forEach items="${planes}" var="plane">
+        <option data-value="${plane.id}" value="${plane.model}"/>
+    </c:forEach>
+</datalist>
 
-<%--</datalist>--%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#submit').click(function()
+        {
+            var value = $('#planeList').val();
+            // alert($('#planes [value="' + value + '"]').data('value'));
+            $('#planeList').val($('#planes [value="' + value + '"]').data('value'));
+
+        });
+    });
+</script>
+
 </body>
 </html>
