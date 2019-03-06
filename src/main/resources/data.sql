@@ -1,15 +1,15 @@
 insert into users(id, username, password, active, first_name, last_name, document_info, birthday)
-values (1, 'Anastasia_Berlina@gmail.com', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'Анастасия', 'Берлина',
+values (1, 'Anastasia_Berlina@gmail.com', '$2a$10$rsnP837/FHTUqS8rRglUJuM5238bOW0CWYMNkDRgz5a6OBzFxjIKy', true, 'Anastasia', 'Berlina',
         '7518 006535', '1997-07-29'),
        (2, 'Olga_Kochneva@gmail.com', '$2a$10$35PhmXqd9dzKQflpZm08K.or4M1IZy.ewD90uUAPoRbOV6a6RfkJy', true, 'Olga',
         'Kochneva', '7436 123456', '1993-06-12'),
-       (3, 'Ilya_Stepanov@gmail.com', '$2a$10$MY/KIaFOchY33x0quQWV/uED7i.tsVa4khUj3JeavKX5WHvk.eLq2', true, 'Илья',
-        'Степанов', '7212 123999', '1997-12-25'),
+       (3, 'Ilya_Stepanov@gmail.com', '$2a$10$MY/KIaFOchY33x0quQWV/uED7i.tsVa4khUj3JeavKX5WHvk.eLq2', true, 'Ilya',
+        'Stepanov', '7212 123999', '1997-12-25'),
        (4, 'Azamat_Khamzin@gmail.com', '$2a$10$aJ69MT4p1dSvV339.bwCs.bT/jC0Ve7kg7E13lGziluSr8wQhgCCK', true, 'Azamat',
         'Khamzin', '6754 342199', '1996-06-05'),
-       (5, 'Igor_Vakhonin@gmail.com', '$2a$10$ksJbWAasgB9YzRtuCd7Zwu4obYLYBdGg6DStVYenby0BsfLG5zlFy', true, 'Игорь',
-        'Вахонин', '8453 090054', '1992-01-28'),
-       (6, 'Eugene_Kornaushenkov@gmail.com', '$2a$10$sGhRYzkkv/R.GLYkRMni1u7AwlOBMobjYiW6IINGMOEmy/GzT23BG', true, 'Евгений', 'Корнаушенков', '1221', '1989-04-15');
+       (5, 'Igor_Vakhonin@gmail.com', '$2a$10$ksJbWAasgB9YzRtuCd7Zwu4obYLYBdGg6DStVYenby0BsfLG5zlFy', true, 'Igor',
+        'Vakhonin', '8453 090054', '1992-01-28'),
+       (6, 'Eugene_Kornaushenkov@gmail.com', '$2a$10$sGhRYzkkv/R.GLYkRMni1u7AwlOBMobjYiW6IINGMOEmy/GzT23BG', true, 'Eugene', 'Kornaushenkov', '1221', '1989-04-15');
 
 insert into user_role (user_id, roles)
 values (1, 'ROLE_ADMIN'),

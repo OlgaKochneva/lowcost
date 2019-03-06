@@ -57,6 +57,7 @@ public class FlightController {
     public String findFlightById(@PathVariable Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
         model.addAttribute("airports", airportService.getAllAirports());
+        model.addAttribute("planes", planeService.getAllPlanes());
         return FLIGHTSETTINGS;
     }
 
@@ -67,6 +68,7 @@ public class FlightController {
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("planes", planeService.getAllPlanes());
             return FLIGHTSETTINGS;
         }
         flightService.updateFlight(flight);
@@ -112,6 +114,8 @@ public class FlightController {
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("planes", planeService.getAllPlanes());
+
             return ADDFLIGHT;
         }
         flightService.addNewFlight(flight);
@@ -132,8 +136,6 @@ public class FlightController {
                                                  BindingResult bindingResult, Pageable pageable) {
         if (flight.getArrivalDate() == null) {
             flight.setArrivalDate(flight.getDepartureDate().plusYears(1).plusDays(1));
-        } else {
-            flight.setArrivalDate(flight.getDepartureDate().plusDays(1));
         }
         flightValidator.validate(flight, bindingResult);
         if (bindingResult.hasErrors())
@@ -157,6 +159,8 @@ public class FlightController {
         bindingResult = findFlightByFromToDate(flight, model, false, bindingResult, pageable);
         if (bindingResult.hasErrors()) {
             model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice(pageable));
+            model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("currentTime", LocalDateTime.now());
 
         }
         model.addAttribute("airports", airportService.getAllAirports());
@@ -172,6 +176,8 @@ public class FlightController {
         bindingResult = findFlightByFromToDate(flight, model, true, bindingResult, pageable);
         if (bindingResult.hasErrors()) {
             model.addAttribute("flights", flightService.getAllFlights(pageable));
+            model.addAttribute("airports", airportService.getAllAirports());
+            model.addAttribute("currentTime", LocalDateTime.now());
         }
         model.addAttribute("airports", airportService.getAllAirports());
         model.addAttribute("currentTime", LocalDateTime.now());
