@@ -11,18 +11,18 @@
     <title>Error page</title>
 </head>
 <body>
-
+<details>
+    <summary>Additional info about error</summary>
+    <p>Cause is: ${errorCause}</p>
+    <p>Trace is: ${trace}</p>
+</details>
 
 <div class="wrapper">
     <h1>Hmm.</h1>
     <p>It seems that you're lost in a perpetual black hole. Let us help guide you out and get you back home.</p>
     <div class="buttons"><a href="/">home</a></div>
 </div>
-<details>
-    <summary>Additional info about error</summary>
-    <p>Cause is: ${errorCause}</p>
-    <p>Trace is: ${trace}</p>
-</details>
+
 
 
 <div class="space">

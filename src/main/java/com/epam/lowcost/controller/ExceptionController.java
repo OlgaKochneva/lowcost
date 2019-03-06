@@ -13,12 +13,12 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, Model model) {
-        logger.error(e.getMessage());
+        logger.error(e.getClass().getName());
         for (StackTraceElement element : e.getStackTrace()) {
             logger.error(element.toString());
         }
-        model.addAttribute("errorCause", e.getCause());
-        model.addAttribute("trace", e.toString());
+        model.addAttribute("errorCause", e.getClass().getName());
+        model.addAttribute("trace", e.getStackTrace()[0]);
         return "/404";
     }
 
