@@ -71,10 +71,10 @@
                 </div>
                 <div class="block1">
                     <select class="form-control " name="searchTerm">
-                        <option value="all">show all</option>
+                        <option value="all"><spring:message code="lang.showAll"/> </option>
                         <option value="username">email</option>
-                        <option value="lastName">last name</option>
-                        <option value="documentInfo">document info</option>
+                        <option value="lastName"><spring:message code="lang.lastName"/> </option>
+                        <option value="documentInfo"><spring:message code="lang.document"/> </option>
                     </select>
                 </div>
                 <div class="block2">

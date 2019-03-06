@@ -22,7 +22,7 @@ body {
     background-color: white;
     border: 1px solid #007bff;
     border-radius: 10px;
-    padding: 2rem 1rem 1rem 1rem;
+    padding: 2rem 1rem 0rem 1rem;
     width: 32%;
     margin-left: 34%;
 }

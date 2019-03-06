@@ -3498,5 +3498,5 @@ VALUES (1, '5000', '1', FALSE, '2019-03-21 11:00:00', '2019-03-21 13:00:00', '10
 INSERT INTO TICKETS(id, user_Id, flight_Id, business, has_Luggage, place_Priority, purchase_Date, price, paid, is_Deleted)
 VALUES (1, 1, 1, TRUE, TRUE, TRUE, '2019-01-01 11:00:00', 8050, true,false),
        (2, 1, 2, TRUE, TRUE, TRUE, '2019-01-12 05:45:00', 15021, true, false),
-       (3, 2, 2, FALSE, TRUE, FALSE, '2019-11-01 05:45:00', 3165, true, false),
-       (4, 2, 1, FALSE, FALSE, FALSE, '2019-02-01 11:00:00', 847, true, false);
+       (3, 2, 2, FALSE, TRUE, FALSE, '2019-11-01 05:45:00', 3165, false, false),
+       (4, 2, 1, FALSE, FALSE, FALSE, '2019-02-01 11:00:00', 847, false, false);
