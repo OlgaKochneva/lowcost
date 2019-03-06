@@ -163,10 +163,10 @@
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
 
                                 <p style="color:#263852" class="inProgress" ><spring:message code="lang.uncomplete"/></p>
-                                <form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">
-                                    <input type="submit" value="<spring:message code="lang.update"/>"
-                                           class="btn btn-outline-primary modifyFlight"/>
-                                </form>
+                                <%--<form action="<%=Endpoints.FLIGHTS%>/${flight.id}" method="get">--%>
+                                    <%--<input type="submit" value="<spring:message code="lang.update"/>"--%>
+                                           <%--class="btn btn-outline-primary modifyFlight"/>--%>
+                                <%--</form>--%>
                             </sec:authorize>
                         </c:if>
                             <c:if test="${flight.departureDate lt currentTime}">
