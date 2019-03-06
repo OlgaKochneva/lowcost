@@ -173,9 +173,9 @@ body {
     margin-top: 10px;
 
 }
-/*.cancelTicket{*/
-    /*float: left;*/
-/*}*/
+.cancelTicket{
+    float: left;
+}
 /*--------------SeatchPage--------------------------*/
 .SeachTicketSearch {
     font-size: 24px;
@@ -281,7 +281,7 @@ body {
 
 .updateBtn {
     margin-top: 16px;
-    width: 70%;
+    width: 100%;
 }
 
 /*----------------------------add flight page---------------------------------*/
@@ -331,17 +331,17 @@ body {
 
 .addPlaneBtn {
     margin-top: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .updatePlaneBtn {
-    width: 100%;
+    width: 80%;
 }
 
 .deletePlaneBtn {
-    margin-top: 20px;
+    margin-top: 10px;
 
-    width: 100%;
+    width: 80%;
 }
 
 .planeTitle {
@@ -420,5 +420,62 @@ body {
     align: right;
 }
 .btPay{
+    margin-right: 10px;
     margin-bottom: -6px;
+    float: left;
+}
+.btnToEmail{
+    margin-right: 10px;
+    float: left;
+
+}
+.searchUser{
+    float: left;
+}
+.searchField{
+    float: left;
+}
+.selection{
+    float: left;
+}
+.updateUser{
+    width: 85%;
+}
+
+.blockUser{
+    margin-top: 10px;
+    width: 85%;
+}
+.activeNav{
+    /*-moz-text-shadow:5px 5px 5px white;*/
+    /*-webkit-text-shadow:0 10px 10px #FF7F50; text-shadow:10px 5px 5px #FF7F50;*/
+    color: #68b1ff;
+
+}
+.block1 {
+
+    padding-right:5%;
+    width: 30%;
+    float: left;
+
+}
+.block2{
+    width: 30%;
+    padding-right: 5%;
+    float: left;
+}
+.block3{
+
+}
+.block4{
+    padding-top: 6px;
+    width: 8%;
+    float: left;
+}
+.blockUserPage{
+    margin-top: 15px;
+}
+.UserPageP{
+    font-size: 20px;
+    margin-top: 10px;
 }

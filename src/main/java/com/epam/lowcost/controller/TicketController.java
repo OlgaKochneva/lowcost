@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class TicketController {
 
 
     @GetMapping(value = PDF)
-    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail) {
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail, Model model){
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
@@ -50,7 +51,12 @@ public class TicketController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:" + TICKETS + SELF;
+        model.addAttribute("message","sent");
+        User user = userService.getSessionUser();
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
+        model.addAttribute("sessionUser",user);
+
+        return ACCOUNT;
     }
 
     @RequestMapping(value = DOWNLOAD, method = RequestMethod.GET)
@@ -90,7 +96,7 @@ public class TicketController {
     }
 
     @PostMapping(value = CANCEL)
-    public String cancelTicket(@RequestParam long id, ModelMap model) {
+    public String cancelTicket(@RequestParam(required = false) long id, ModelMap model) {
         model.addAttribute("message", ticketService.deleteTicketById(id));
         return "redirect:" + TICKETS + SELF;
     }

@@ -1,6 +1,9 @@
 <%@ page import="static com.epam.lowcost.util.Endpoints.CHANGE_PASSWORD" %>
 <%@ page import="static com.epam.lowcost.util.Endpoints.UPDATE_USER" %>
+<%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
@@ -20,6 +23,36 @@
     <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
+<header class="languageAndAccaunt">
+    <div align="right" class="language">
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+    </div>
+    <div align="right" class="language">
+        <a class="activeNav" href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+        <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+            <spring:message code="lang.logIn"/>
+        </c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+            <spring:message code="lang.logOut"/>
+        </c:if>
+
+    </div>
+    <div class="topnav">
+        <a class=" navbarLink" href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+        <a class=" navbarLink " href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+    </div>
+
+</header>
 
 <div class="container">
     <div class="row">
@@ -37,6 +70,7 @@
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
                                                                    value="${sessionUser.username}"
                                                                    name="username"/>
+               <c:if test="${userMessage == true}"> <div><p class="message"><spring:message code="lang.succesUpdate"/> </p> </div></c:if>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
                                                                        value="${sessionUser.firstName}"/>
@@ -64,7 +98,8 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
-            <h5>${message}</h5>
+            <c:if test="${message.equals('Wrong password!')}"> <div><p class="message"><spring:message code="lang.wrongPassword"/> </p> </div></c:if>
+            <c:if test="${message.equals('Passwords do not match!')}"> <div><p class="message"><spring:message code="lang.passwordsDoNotMatch"/> </p> </div></c:if>
 
             <form action="<%=CHANGE_PASSWORD%>" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>

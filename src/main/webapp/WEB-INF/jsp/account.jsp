@@ -1,6 +1,7 @@
 <%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,28 +14,57 @@
 </head>
 
 <body>
+<header class="languageAndAccaunt">
+    <div align="right" class="language">
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+    </div>
+    <div align="right" class="language">
+        <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+        <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+            <spring:message code="lang.logIn"/>
+        </c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+            <spring:message code="lang.logOut"/>
+        </c:if>
+
+    </div>
+    <div class="topnav">
+        <a class=" navbarLink activeNav" href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+        <a class=" navbarLink " href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink "> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+    </div>
+
+</header>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 GroupSearch">
-            <%--<a href="<%=Endpoints.FLIGHTS + Endpoints.FLIGHT%>"><spring:message--%>
-                    <%--code="lang.buyMoreTickets"/></a>--%>
         </div>
     </div>
+    <c:if test="${message.equals('sent')}"><spring:message code="lang.emailSent"/> </c:if><br/>
+
     <div class="row OneRow">
-
-
         <c:forEach items="${currentUserTickets}" var="ticket">
             <div class="col-md-6 OneTicket">
                 <c:if test="${ticket.paid}">
                 <div class="backgroundTicket">
 
-                    <spring:message code="lang.departureAirport"/>: <c:out
+                    <strong><spring:message code="lang.departureAirport"/>:</strong> <c:out
                         value="${ticket.flight.departureAirport.cityEng}"/><br/>
-                    <spring:message code="lang.arrivalAirport"/>: <c:out
+                    <strong><spring:message code="lang.arrivalAirport"/>:</strong> <c:out
                         value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
-                    <spring:message code="lang.departureAt"/>: <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                    <spring:message code="lang.arriveAt"/>: <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                    <spring:message code="lang.price"/>: <c:out value="${ticket.price}"/> <spring:message code="lang.currency"/> <br/>
+                    <strong><spring:message code="lang.departureAt"/>:</strong> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                    <strong><spring:message code="lang.arriveAt"/>: </strong><c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                    <strong><spring:message code="lang.price"/>: </strong><c:out value="${ticket.price}"/> <spring:message code="lang.currency"/> <br/>
                     <div class="buttonGroupCard">
 
 
@@ -48,18 +78,26 @@
                         <input type="submit" value="<spring:message code="lang.cancel" />" class="btn btn-outline-danger buttonFloatLeft" onclick=" ActionButton(event,${ticket.id},'<spring:message code="lang.confirmCancel" />')" id="${ticket.id}" data-click="false"/>
 
                     </form>
-                        <br/> <br/>
+                        <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
+                            <input type="hidden" name="ticketId" value="${ticket.id}">
+                            <input type ="hidden" name="userEmail" value="${sessionUser.username}">
+                            <input type="submit" class="btn btn-link btnToEmail " value="<spring:message code="lang.toEmail"/>"/>
+                        </form>
+                        <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
+                            <input type="hidden" name="ticketId" value="${ticket.id}">
+                            <input type="submit" class="btn btn-link btnDownLoad " value="<spring:message code="lang.download"/>"/>
+                        </form>
                     </div>
                 </div>
                 </c:if>
                 <c:if test="${!ticket.paid}">
                     <div class="backgroundTicketUnpaid">
 
-                        <spring:message code="lang.departureAirport"/>: <c:out value="${ticket.flight.departureAirport.cityEng}"/><br/>
-                        <spring:message code="lang.arrivalAirport"/>: <c:out value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
-                        <spring:message code="lang.departureAt"/>: <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                        <spring:message code="lang.arriveAt"/>: <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                        <spring:message code="lang.price"/>: <c:out value="${ticket.price}"/> y.e  <br/>
+                        <strong><spring:message code="lang.departureAirport"/>:</strong> <c:out value="${ticket.flight.departureAirport.cityEng}"/><br/>
+                        <strong><spring:message code="lang.arrivalAirport"/>:</strong> <c:out value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
+                        <strong><spring:message code="lang.departureAt"/>:</strong> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                        <strong> <spring:message code="lang.arriveAt"/>:</strong> <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
+                        <strong><spring:message code="lang.price"/>:</strong> <c:out value="${ticket.price}"/> y.e  <br/>
                         <div class="buttonGroupCard">
 
 
@@ -79,20 +117,19 @@
                                     <input type="submit" value="<spring:message code="lang.pay"/>" class="btn btn-outline-success btPay "onclick=" ActionButton2(event,${ticket.id},'<spring:message code="lang.confirmPayment" /> ${ticket.price} <spring:message code="lang.currency"/> ?')" id="l${ticket.id}" data-click="false"/>
                                 </form>
                             </c:if>
-
-
+                                <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
+                                    <input type="hidden" name="ticketId" value="${ticket.id}">
+                                    <input type ="hidden" name="userEmail" value="${sessionUser.username}">
+                                    <input type="submit" class="btn btn-link btnToEmail " value="<spring:message code="lang.toEmail"/>"/>
+                                </form>
+                                <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
+                                    <input type="hidden" name="ticketId" value="${ticket.id}">
+                                    <input type="submit" class="btn btn-link btnDownLoad " value="<spring:message code="lang.download"/>"/>
+                                </form>
                         </div>
                     </div>
                 </c:if>
-                <form action="<%=Endpoints.TICKETS + Endpoints.PDF%>" method="get">
-                    <input type="hidden" name="ticketId" value="${ticket.id}">
-                    <input type ="hidden" name="userEmail" value="${sessionUser.username}">
-                    <input type="submit" value="Get Pdf to email" class="btn-outline-secondary"/>
-                </form>
-                <form action="<%=Endpoints.TICKETS + Endpoints.DOWNLOAD%>" method="get">
-                    <input type="hidden" name="ticketId" value="${ticket.id}">
-                    <input type="submit" value="Download Ticket" class="btn-outline-secondary"/>
-                </form>
+
 
             </div>
         </c:forEach>
