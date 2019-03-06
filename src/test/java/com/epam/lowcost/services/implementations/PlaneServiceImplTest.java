@@ -2,11 +2,14 @@ package com.epam.lowcost.services.implementations;
 
 import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.repositories.PlaneRepository;
+import com.epam.lowcost.services.interfaces.FlightService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
@@ -16,6 +19,8 @@ import static org.mockito.Mockito.when;
 public class PlaneServiceImplTest {
     @Mock
     private PlaneRepository planeRepository;
+    @Mock
+    private FlightService flightService;
 
     @InjectMocks
     private PlaneServiceImpl planeService;
@@ -54,6 +59,7 @@ public class PlaneServiceImplTest {
         Plane expectedPlane = new Plane(){{setDeleted(true);}};
         when(planeRepository.getById((long)1)).thenReturn(actualPlane);
         when(planeRepository.save(actualPlane)).thenReturn(actualPlane);
+        when(flightService.deleteFlightByPlaneId((long)1)).thenReturn(new LinkedList<>());
         planeService.deletePlane(1);
         assertEquals(expectedPlane, actualPlane);
     }

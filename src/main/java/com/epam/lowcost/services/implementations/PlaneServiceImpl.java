@@ -4,9 +4,6 @@ import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.repositories.PlaneRepository;
 import com.epam.lowcost.services.interfaces.FlightService;
 import com.epam.lowcost.services.interfaces.PlaneService;
-import com.epam.lowcost.services.interfaces.TicketService;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,14 +14,12 @@ import java.util.List;
 @Service
 public class PlaneServiceImpl implements PlaneService {
     private final PlaneRepository planeRepository;
-    @Autowired
-    @Getter
-    @Setter
-    private FlightService flightService;
+    private final FlightService flightService;
 
     @Autowired
-    public PlaneServiceImpl(PlaneRepository planeRepository) {
+    public PlaneServiceImpl(PlaneRepository planeRepository, FlightService flightService) {
         this.planeRepository = planeRepository;
+        this.flightService = flightService;
     }
 
     @Override
