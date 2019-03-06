@@ -25,13 +25,49 @@
 
 </head>
 <body>
+<header class="languageAndAccaunt">
+    <div align="right" class="language">
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+    </div>
+    <div align="right" class="language">
+        <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+        <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+            <spring:message code="lang.logIn"/>
+        </c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+            <spring:message code="lang.logOut"/>
+        </c:if>
+
+    </div>
+    <div class="topnav">
+        <a class=" navbarLink" href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+        <a class=" navbarLink " href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink "> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink activeNav"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+    </div>
+
+</header>
 <div class="container">
-    <div class="row BlockBachground">
+    <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH +Endpoints.ADMIN%>" modelAttribute="flight" method="get">
+        <br/>
+        <p style="color: #D35D47"><form:errors path="departureDate" /></p>
+        <p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
+        <p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
+        <p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+        <div class="row BlockBachground">
         <div class="col-md-8">
 
             <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
 
-            <form:form action="<%=Endpoints.FLIGHTS + Endpoints.SEARCH +Endpoints.ADMIN%>" modelAttribute="flight" method="get">
+
             <div class="leftBlockSerch">
 
                 <spring:bind path="departureDate">
@@ -67,8 +103,8 @@
         <div class="col-md-4">
 
             <button type="submit" value="" class="btn btn-outline-warning btnSeach"><spring:message code="lang.search"/></button>
-
             </form:form>
+
 
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <form action="<%=Endpoints.FLIGHTS + Endpoints.ADD%>" method="get">
@@ -81,43 +117,22 @@
 
 
     </div>
+
 </div>
-<p style="color: #D35D47"><form:errors path="departureDate" /></p>
-<p style="color: #D35D47"> <form:errors path="arrivalDate" /></p>
-<p style="color: #D35D47"> <form:errors path="departureAirport"/></p>
-<p style="color: #D35D47"><form:errors path="arrivalAirport"/></p>
+
 <div class="container mainSerchPage">
     <div class="row">
         <div class="col-md-10">
-
-
         </div>
         <div class="col-md-2 numOfUsers">
-            <%--<form></form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="3"/>--%>
-
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="5"/>--%>
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="10"/>--%>
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>--%>
-            <%--</form>--%>
-            <%--<form action="<%=Endpoints.FLIGHTS + Endpoints.PAGE%>" method="get">--%>
-            <%--<input type="hidden" name="number" value="20"/>--%>
-            <%--<input type="hidden" name="fromPage" value="<%=Endpoints.FLIGHTS + Endpoints.ALL%>"/>--%>
-            <%--<input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>--%>
-            <%--</form>--%>
-            <%--</div>--%>
+            <div>
+                <spring:message code="lang.showUsersBy"/> <a
+                    href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> | <a
+                    href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+            </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
@@ -130,12 +145,7 @@
                     <th scope="col"><spring:message code="lang.plane"/> </th>
                     <th scope="col"><spring:message code="lang.price"/></th>
                     <th></th>
-                    <th><div>
-                        <form></form>
-                        <spring:message code="lang.showUsersBy"/> <a
-                            href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1 | </a><a
-                            href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
-                    </div></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -205,9 +215,9 @@
                         href="?page=${flights.number-1}&size=${flights.size}"><spring:message
                         code="lang.previous"/></a></c:if>
                 <c:forEach var="page" begin="1" end="${flights.totalPages}">
-                    <a href="?page=${page-1}&size=${flights.size}">${page}</a>
+                      <a href="?page=${page-1}&size=${flights.size}">${page}</a>
                 </c:forEach>
-                <c:if test="${flights.hasNext()}"> <a href="?page=${flights.number+1}&size=${flights.size}"><spring:message
+                <c:if test="${flights.hasNext()}"> <a href="?page=${flights.number+1}&size=${flights.size}">  <spring:message
                         code="lang.next"/></a></c:if>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="com.epam.lowcost.util.Endpoints" %><%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -20,6 +21,37 @@
     <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
+<header class="languageAndAccaunt">
+    <div align="right" class="language">
+        <a href="?lang=en"><img src="../../resources/static/img/united_kingdom_round_icon_64.png" /></a>
+        <a href="?lang=ru"><img src="../../resources/static/img/russia_round_icon_64.png"/> </a>
+
+    </div>
+    <div align="right" class="language">
+        <a href="<%=Endpoints.USER + Endpoints.SETTINGS%>"><spring:message code="lang.userSettings"/> ${sessionUser.firstName} |</a>
+
+        <c:if test="${sessionUser == null}"><a href="<%=Endpoints.LOGIN%>">
+            <spring:message code="lang.logIn"/>
+        </c:if>
+        <c:if test="${sessionUser != null}"><a href="<%=Endpoints.LOGOUT%>">
+            <spring:message code="lang.logOut"/>
+        </c:if>
+
+    </div>
+    <div class="topnav">
+        <a class=" navbarLink " href="<%=Endpoints.TICKETS + Endpoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>|
+        <a class=" navbarLink " href="/"><spring:message code="lang.buyMoreTickets"/></a>|
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.USERS%>" class="navbarLink "> <spring:message code="lang.users"/></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.PLANE%>" class="navbarLink "> <spring:message code="lang.planes" /></a>|</sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.FLIGHTS + Endpoints.ALL%>" class="navbarLink activeNav"> <spring:message code="lang.flights"/></a>|</sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')"> <a href="<%=Endpoints.AIRPORT%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</sec:authorize>
+
+    </div>
+
+</header>
+
 <jsp:include page="navigationPanel.jsp"/>
 <div class="container">
     <div class="row">
@@ -31,6 +63,7 @@
                     <div>
                         <spring:message code="lang.price"/><br/>
                         <form:input type="text" class="form-control input" path="initialPrice"/>
+                        <form:errors path="initialPrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="plane">
@@ -73,18 +106,21 @@
                     <div>
                         <spring:message code="lang.placePriorityPrice"/>.<br/>
                         <form:input type="text" class="form-control input" path="placePriorityPrice"/>
+                        <form:errors path="placePriorityPrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="businessPrice">
                     <div>
                         <spring:message code="lang.businessPrice"/>.<br/>
                         <form:input type="text" class="form-control input" path="businessPrice"/>
+                        <form:errors path="businessPrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <spring:bind path="luggagePrice">
                     <div>
                         <spring:message code="lang.luggagePrice"/>.<br/>
                         <form:input type="text" class="form-control input" path="luggagePrice"/>
+                        <form:errors path="luggagePrice" cssStyle="color: #dc3545"/>
                     </div>
                 </spring:bind>
                 <input type="submit" id="submit" class="btn btn-outline-success addFlightBtn" value="OK"/>
