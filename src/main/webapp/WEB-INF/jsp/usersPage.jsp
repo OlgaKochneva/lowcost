@@ -56,12 +56,12 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 UserPageP">
-            <spring:message code="lang.users"/>
+    <%--<div class="row">--%>
+        <%--<div class="col-md-12 UserPageP">--%>
+            <%--<spring:message code="lang.users"/>--%>
 
-        </div>
-    </div>
+        <%--</div>--%>
+    <%--</div>--%>
     <div class="row">
 
         <div class="col-md-12 blockUserPage">
