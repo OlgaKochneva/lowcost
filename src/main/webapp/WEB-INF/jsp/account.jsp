@@ -45,15 +45,23 @@
 
 </header>
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 GroupSearch">
         </div>
     </div>
+    <div align="right" >
+        <div>
+            <spring:message code="lang.showUsersBy"/> <a
+                href="?size=1&searchTerm=${searchTerm}&searchString=${searchString}">1</a> | <a
+                href="?size=5&searchTerm=${searchTerm}&searchString=${searchString}"> 5</a>
+        </div>
+    </div>
     <c:if test="${message.equals('sent')}"><spring:message code="lang.emailSent"/> </c:if><br/>
 
     <div class="row OneRow">
-        <c:forEach items="${currentUserTickets}" var="ticket">
+        <c:forEach items="${currentUserTickets.getContent()}" var="ticket">
             <div class="col-md-6 OneTicket">
                 <c:if test="${ticket.paid}">
                 <div class="backgroundTicket">
@@ -135,7 +143,17 @@
         </c:forEach>
     </div>
 </div>
-
+<br/>
+<div align="center">
+    <c:if test="${currentUserTickets.hasPrevious()}"> <a
+            href="?page=${currentUserTickets.number-1}&size=${currentUserTickets.size}"><spring:message
+            code="lang.previous"/></a></c:if>
+    <c:forEach var="page" begin="1" end="${currentUserTickets.totalPages}">
+        <a href="?page=${page-1}&size=${currentUserTickets.size}">${page}</a>
+    </c:forEach>
+    <c:if test="${currentUserTickets.hasNext()}"> <a href="?page=${currentUserTickets.number+1}&size=${currentUserTickets.size}"><spring:message
+            code="lang.next"/></a></c:if>
+</div>
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

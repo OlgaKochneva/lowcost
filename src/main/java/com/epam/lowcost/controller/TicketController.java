@@ -8,6 +8,7 @@ import com.epam.lowcost.services.interfaces.TicketService;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class TicketController {
 
 
     @GetMapping(value = PDF)
-    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail, Model model){
+    public String createPDFTicket(@RequestParam long ticketId, @RequestParam String userEmail, Model model, Pageable pageable){
         try {
             pdfService.createPDF_Ticket(ticketService.getTicketById(ticketId));
             emailService.sendMessageWithAttachment(userEmail,
@@ -53,7 +54,7 @@ public class TicketController {
         }
         model.addAttribute("message","sent");
         User user = userService.getSessionUser();
-        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId(), pageable));
         model.addAttribute("sessionUser",user);
 
         return ACCOUNT;
@@ -102,9 +103,10 @@ public class TicketController {
     }
 
     @GetMapping(value = SELF)
-    public String getAllUserTickets(ModelMap model) {
+    public String getAllUserTickets(ModelMap model, Pageable pageable) {
         User user = userService.getSessionUser();
-        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
+        /*Implement paging here*/
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId(),pageable));
         model.addAttribute("sessionUser", user);
         return ACCOUNT;
     }
