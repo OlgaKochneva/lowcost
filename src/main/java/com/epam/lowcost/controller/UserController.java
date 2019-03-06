@@ -1,5 +1,6 @@
 package com.epam.lowcost.controller;
 
+import com.epam.lowcost.model.Role;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static com.epam.lowcost.util.Endpoints.*;
 
@@ -80,6 +83,7 @@ public class UserController {
 
     @RequestMapping(value = USER + "/{user}", method = RequestMethod.GET)
     public String updatePlanePage(@PathVariable User user, Model model) {
+        model.addAttribute("roles", Role.values());
         model.addAttribute("user", user);
         return "userSettings";
     }
@@ -88,6 +92,7 @@ public class UserController {
     public String updateUser(@RequestParam(required = false) Map<String, String> params, ModelMap model) {
         if(params != null) {
             User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
+            System.out.println(userToUpdate);
             userToUpdate.setUsername(params.get("username"));
             userToUpdate.setFirstName(params.get("firstName"));
             userToUpdate.setLastName(params.get("lastName"));
@@ -99,7 +104,14 @@ public class UserController {
                 } else {
                     userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
                 }
+                if("ROLE_ADMIN".equals(params.get("newRole"))){
+                    userToUpdate.setRoles(Role.adminRole);
+                }
+                else{
+                    userToUpdate.setRoles(Role.userRole);
+                }
                 userService.updateUser(userToUpdate);
+                System.out.println(userToUpdate);
                 return "redirect:" + USERS;
             }
             model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
