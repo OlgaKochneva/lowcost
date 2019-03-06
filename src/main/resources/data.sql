@@ -3492,7 +3492,8 @@ VALUES (1, '5000', '1', FALSE, '2019-03-21 11:00:00', '2019-03-21 13:00:00', '10
        (4, '20000', '3', FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00', '450', '8700', '900', 'DME', 'DXB'),
        (5, '1400', '4', FALSE, '2019-03-06 20:45:00','2019-03-06 23:45:00', '1000', '2000', '500', 'CEK', 'LED' ),
        (6, '20000', '5', FALSE, '2019-06-06 12:30:00','2019-06-06 15:45:00','100','2500', '1300','LED', 'PCB'),
-       (7, '34500', '4', FALSE, '2019-07-29 15:00:00','2019-07-29 19:45:00','800','28900', '1800','SVO','BAJ');
+       (7, '34500', '4', FALSE, '2019-03-29 15:00:00','2019-03-29 19:45:00','800','28900', '1800','SVO','BAJ'),
+       (8, '34500', '4', FALSE, '2019-03-08 15:00:00','2019-03-08 19:45:00','800','28900', '1800','SVO','BAJ');;
 -- CREATE TABLE TICKETS(id LONG AUTO_INCREMENT NOT NULL, user_Id LONG NOT NULL, flight_Id LONG NOT NULL, is_Business BOOL, has_Luggage BOOL, place_Priority BOOL, purchase_Date DATETIME, price LONG, is_Deleted BOOL, PRIMARY KEY (id), FOREIGN KEY (user_Id) REFERENCES USERS(id) ON UPDATE CASCADE, FOREIGN KEY (flight_Id) REFERENCES FLIGHTS(id) ON UPDATE CASCADE),
 INSERT INTO TICKETS(id, user_Id, flight_Id, business, has_Luggage, place_Priority, purchase_Date, price, paid, is_Deleted)
 VALUES (1, 1, 1, TRUE, TRUE, TRUE, '2019-01-01 11:00:00', 8050, true,false),
