@@ -109,7 +109,7 @@ public class TicketController {
     }
 
     @PostMapping(value = CANCEL)
-    public String cancelTicket(@RequestParam long id, ModelMap model) {
+    public String cancelTicket(@RequestParam(required = false) long id, ModelMap model) {
         model.addAttribute("message", ticketService.deleteTicketById(id));
         return "redirect:" + TICKETS + SELF;
     }
