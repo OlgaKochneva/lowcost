@@ -86,24 +86,25 @@ public class UserController {
 
     @RequestMapping(value = UPDATE_USER)
     public String updateUser(@RequestParam(required = false) Map<String, String> params, ModelMap model) {
-
-        User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
-        userToUpdate.setUsername(params.get("username"));
-        userToUpdate.setFirstName(params.get("firstName"));
-        userToUpdate.setLastName(params.get("lastName"));
-        userToUpdate.setDocumentInfo(params.get("documentInfo"));
-        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
-        if ("admin".equals(params.get("fromAdmin"))) {
-            if (userToUpdate.getPassword().equals(params.get("password"))) {
-                userToUpdate.setPassword(params.get("password"));
-            } else {
-                userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+        if(params != null) {
+            User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
+            userToUpdate.setUsername(params.get("username"));
+            userToUpdate.setFirstName(params.get("firstName"));
+            userToUpdate.setLastName(params.get("lastName"));
+            userToUpdate.setDocumentInfo(params.get("documentInfo"));
+            userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")));
+            if ("admin".equals(params.get("fromAdmin"))) {
+                if (userToUpdate.getPassword().equals(params.get("password"))) {
+                    userToUpdate.setPassword(params.get("password"));
+                } else {
+                    userToUpdate.setPassword(bCryptPasswordEncoder.encode(params.get("password")));
+                }
+                userService.updateUser(userToUpdate);
+                return "redirect:" + USERS;
             }
-            userService.updateUser(userToUpdate);
-            return "redirect:" + USERS;
+            model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
+            model.addAttribute("userMessage", true);
         }
-        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
-        model.addAttribute("userMessage",true);
         return SETTINGS_PAGE;
 }
 

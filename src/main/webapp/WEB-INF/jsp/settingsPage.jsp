@@ -1,5 +1,6 @@
 <%@ page import="static com.epam.lowcost.util.Endpoints.CHANGE_PASSWORD" %>
 <%@ page import="static com.epam.lowcost.util.Endpoints.UPDATE_USER" %>
+<%@ page import="com.epam.lowcost.util.Endpoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
