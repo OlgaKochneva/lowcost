@@ -133,6 +133,7 @@
         <option value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
     </c:forEach>
 </datalist>
+
 <datalist id="planes">
     <c:forEach items="${planes}" var="plane">
         <option data-value="${plane.id}" value="${plane.model}"/>
