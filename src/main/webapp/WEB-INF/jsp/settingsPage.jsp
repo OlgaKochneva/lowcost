@@ -66,7 +66,8 @@
 
         <div class="col-md-3 changeDataTitle">
             <spring:message code="lang.changePersonalData"/>
-        </div>
+        </div>`
+
     </div>
     <div class="row">
         <div class="col-md-3 changeData">

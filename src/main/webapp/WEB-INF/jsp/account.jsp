@@ -47,10 +47,7 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 GroupSearch">
-        </div>
-    </div>
+
     <div align="right" >
         <div>
             <spring:message code="lang.showUsersBy"/> <a
@@ -105,7 +102,7 @@
                         <strong><spring:message code="lang.arrivalAirport"/>:</strong> <c:out value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
                         <strong><spring:message code="lang.departureAt"/>:</strong> <c:out value="${ticket.flight.departureDate.toString().replaceAll( 'T', ' ')}"/><br/>
                         <strong> <spring:message code="lang.arriveAt"/>:</strong> <c:out value="${ticket.flight.arrivalDate.toString().replaceAll( 'T', ' ')}"/><br/>
-                        <strong><spring:message code="lang.price"/>:</strong> <c:out value="${ticket.price}"/> y.e  <br/>
+                        <strong><spring:message code="lang.price"/>:</strong> <c:out value="${ticket.price}"/> <spring:message code="lang.currency"/>   <br/>
                         <div class="buttonGroupCard">
 
 

@@ -181,7 +181,7 @@
                         <strong><spring:message code="lang.total"/></strong>
                     </div>
                     <div class="col-md-2">
-                        <output id="price">${flight.initialPrice}</output>
+                        <output id="price">${flight.initialPrice} <spring:message code="lang.currency"/> </output>
                     </div>
                 </div>
 
