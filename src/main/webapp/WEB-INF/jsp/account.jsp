@@ -50,6 +50,8 @@
         <div class="col-md-12 GroupSearch">
         </div>
     </div>
+    <c:if test="${message.equals('sent')}"><spring:message code="lang.emailSent"/> </c:if><br/>
+
     <div class="row OneRow">
         <c:forEach items="${currentUserTickets}" var="ticket">
             <div class="col-md-6 OneTicket">
