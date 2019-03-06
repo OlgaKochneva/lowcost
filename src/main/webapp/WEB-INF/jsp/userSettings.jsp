@@ -53,6 +53,7 @@
     </div>
 
 </header>
+
 <div class="container">
     <div class="row">
         <div class="col-md-3 changeData">
@@ -76,12 +77,20 @@
                                                                       name="birthday" value="${user.birthday}"/>
                 <spring:message code="lang.password"/><br/><input type="password" class="form-control input"
                                                                   name="password" value="${user.password}"/>
-
+                Change role<br/>
+                <select id="newRole" name="newRole">
+                    <c:forEach items="${roles}" var="role">
+                        <option value="${role}">${role}</option>
+                    </c:forEach>
+                </select>
+                <br/>
 
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="OK"/>
             </form>
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

@@ -105,7 +105,6 @@ public class TicketController {
     @GetMapping(value = SELF)
     public String getAllUserTickets(ModelMap model, Pageable pageable) {
         User user = userService.getSessionUser();
-        /*Implement paging here*/
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId(),pageable));
         model.addAttribute("sessionUser", user);
         return ACCOUNT;
